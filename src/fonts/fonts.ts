@@ -19,8 +19,8 @@ export const inconsolata = Inconsolata({
   display: 'swap',
 });
 
-
 export const roboto_mono = Roboto_Mono({
+  weight: ['700'],
   subsets: ['latin'],
   display: 'swap',
 });

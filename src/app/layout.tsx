@@ -1,6 +1,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { roboto, inconsolata } from './fonts';
+import { inconsolata } from 'src/fonts/fonts';
+
+import { Header } from 'src/components';
 
 export const metadata: Metadata = {
   title: 'My Portfolio Website',
@@ -17,7 +19,11 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inconsolata.className}>
         <div className='grid grid-cols-[[container-start]_repeat(12,minmax(min-content,12.5rem))] justify-center'>
-          <div className='col-[container-start/container-end]'>{children}</div>
+          <div className='col-[container-start/container-end]'>
+            <Header />
+            {children}
+            <h4>Hello from Footer</h4>
+          </div>
         </div>
       </body>
     </html>
