@@ -32,6 +32,8 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  position: relative;
+  overflow-x: hidden;
 }
 
 .notfoundbtn {
@@ -58,3 +60,4 @@ body {
 .notfoundbtn:focus {
   outline: none;
 }
+

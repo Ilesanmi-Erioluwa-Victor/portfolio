@@ -1,8 +1,21 @@
-import { Inter, Roboto_Mono, Roboto, Inconsolata } from 'next/font/google';
+import {
+  Inter,
+  Roboto_Mono,
+  Roboto,
+  Inconsolata,
+  Overpass,
+} from 'next/font/google';
 
 export const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
+});
+
+export const overpass = Overpass({
+  subsets: ['cyrillic'],
+  weight: ['800'],
+  display: 'swap',
+  fallback: ['system-ui', 'arial'],
 });
 
 export const roboto = Roboto({
