@@ -3,6 +3,8 @@ import { roboto_mono, overpass } from 'src/fonts/fonts';
 import Image from 'next/image';
 import Me from 'src/assets/images/myself.jpg';
 
+import { motion } from 'framer-motion';
+
 const Header = () => {
   return (
     <header className='bg-[linear-gradient(90deg,#4831d4_67%,_#ccf381_33%)] p-[calc(4vw_+_1rem)] flex relative flex-col'>
@@ -33,6 +35,7 @@ const Header = () => {
               Proven experience building successful products for clients across
               several countries.
             </p>
+            
           </div>
         </article>
 
