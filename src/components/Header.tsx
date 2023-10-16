@@ -5,6 +5,7 @@ import Me from "src/assets/images/myself.jpg";
 import Navigation from "./Navigation";
 
 import { motion } from "framer-motion";
+import HamburgerMenu from "./Hamburger";
 
 const Header = () => {
   return (
@@ -13,6 +14,7 @@ const Header = () => {
         <h2 className={roboto_mono.className}>I. E</h2>
         <section className="w-[40%] h-[400px] bg-white">
           <Navigation />
+          <HamburgerMenu />
         </section>
       </nav>
 
