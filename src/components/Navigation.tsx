@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { overpass, inconsolata } from "src/fonts/fonts";
+import LinkItem from "./CustomLinks";
 
 const Navigation = ({ toggled }: any) => {
   const links = [
@@ -43,15 +46,22 @@ const Navigation = ({ toggled }: any) => {
       } top-0 right-1 w-[20rem] h-[450px] rounded-sm z-10 flex bg-white flex-col pt-[5rem] pl-[3rem]`}
     >
       {links.map((link) => (
-        <li key={link.id}>
-          <Link
-            href={link.href}
-            title={link.title}
-            className={` p-2 block w-full text-sm text-[#4831d4]`}
-          >
-            {link.title}
-          </Link>
-        </li>
+        <LinkItem
+          title={link.title}
+          id={link.id}
+          tit={link.title}
+          className="p-2 block w-full text-sm text-[#4831d4]"
+          href={link.href}
+        />
+        // // <li key={link.id}>
+        // //   <Link
+        // //     href={link.href}
+        // //     title={link.title}
+        // //     className={` p-2 block w-full text-sm text-[#4831d4]`}
+        // //   >
+        // //     {link.title}
+        // //   </Link>
+        // </li>
       ))}
 
       <h2 className="py-[2rem] text-[#4831d4] opacity-30">SAY HELLO</h2>
