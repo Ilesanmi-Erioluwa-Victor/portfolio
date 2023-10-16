@@ -11,7 +11,7 @@ const Header = () => {
     <header className='bg-[linear-gradient(90deg,#4831d4_67%,_#ccf381_33%)] p-[calc(4vw_+_1rem)] flex relative flex-col'>
       <nav className='flex items-center justify-between'>
         <h2 className={roboto_mono.className}>I. E</h2>
-        <section>
+        <section className='w-[30%] h-[100px] bg-white'>
           <Navigation />
         </section>
       </nav>
