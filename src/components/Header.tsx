@@ -2,6 +2,7 @@ import { roboto_mono, overpass } from 'src/fonts/fonts';
 
 import Image from 'next/image';
 import Me from 'src/assets/images/myself.jpg';
+import Navigation from './Navigation';
 
 import { motion } from 'framer-motion';
 
@@ -10,7 +11,9 @@ const Header = () => {
     <header className='bg-[linear-gradient(90deg,#4831d4_67%,_#ccf381_33%)] p-[calc(4vw_+_1rem)] flex relative flex-col'>
       <nav className='flex items-center justify-between'>
         <h2 className={roboto_mono.className}>I. E</h2>
-        <section>Hamburger</section>
+        <section>
+          <Navigation />
+        </section>
       </nav>
 
       <section className='mx-[calc(2vw_+_1rem)] mt-[calc(4vw_+_1rem)] flex items-center justify-between gap-[2rem] relative'>
@@ -35,7 +38,6 @@ const Header = () => {
               Proven experience building successful products for clients across
               several countries.
             </p>
-            
           </div>
         </article>
 
@@ -43,7 +45,7 @@ const Header = () => {
           <Image
             src={Me}
             alt='My photo'
-            className='w-auto max-w-auto rounded-md '
+            className='w-auto max-w-auto rounded-[50%] '
           />
         </figure>
       </section>
