@@ -1,39 +1,88 @@
-import Link from 'next/link';
+"use client";
 
-const Navigation = () => {
+import Link from "next/link";
+import { overpass, inconsolata } from "src/fonts/fonts";
+import LinkItem from "./CustomLinks";
+
+const Navigation = ({ toggled }: any) => {
   const links = [
     {
-      href: '/',
-      title: 'Home',
-      id: 'Home',
+      title: "Home",
+      href: "/",
+      id: "home",
     },
 
     {
-      href: '/work',
-      title: 'My Work',
-      id: 'Work',
+      title: "My Work",
+      href: "/work",
+      id: "work",
     },
 
     {
-      href: '/blog',
-      title: 'My Articles',
-      id: 'blog',
+      title: "My Articles",
+      href: "/blog",
+      id: "blog",
     },
 
     {
-      href: '/resume',
-      title: 'My Resume',
-      id: 'resume',
+      title: "My Resume",
+      href: "/resume",
+      id: "resume",
     },
   ];
 
+  const media = [
+    { title: "tw", href: "/", tit: "Twitter", id: "twitter" },
+
+    { title: "dv", href: "/", tit: "Devto", id: "devto" },
+
+    { title: "ln", href: "/", tit: "Linkedin", id: "linkedin" },
+    { title: "gh", href: "/", tit: "Github", id: "github" },
+  ];
   return (
-    <ul>
+    <ul
+      className={`${
+        toggled ? "absolute" : "hidden"
+      } top-0 right-1 w-[20rem] h-[450px] rounded-sm z-10 flex bg-white flex-col pt-[5rem] pl-[3rem]`}
+    >
       {links.map((link) => (
-        <li>
-          <Link href={link.href}>{link.title}</Link>
-        </li>
+        <LinkItem
+          title={link.title}
+          id={link.id}
+          tit={link.title}
+          className="p-2 block w-full text-sm text-[#4831d4]"
+          href={link.href}
+        />
+        // // <li key={link.id}>
+        // //   <Link
+        // //     href={link.href}
+        // //     title={link.title}
+        // //     className={` p-2 block w-full text-sm text-[#4831d4]`}
+        // //   >
+        // //     {link.title}
+        // //   </Link>
+        // </li>
       ))}
+
+      <h2 className="py-[2rem] text-[#4831d4] opacity-30">SAY HELLO</h2>
+
+      <li>
+        <Link href={"mailto:ericjay1452@gmail.com"} className="text-[#4831d4]">
+          hello@ericjay1452
+        </Link>
+      </li>
+
+      <div className="pt-3">
+        <ul className="flex justify-between items-center pr-4 pt-4">
+          {media.map((media) => (
+            <li key={media.id}>
+              <Link href={media.href} title={media.tit} className="text-[#4831d4]">
+                {media.title.toUpperCase()}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </ul>
   );
 };
