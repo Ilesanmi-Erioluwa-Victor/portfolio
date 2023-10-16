@@ -1,3 +1,5 @@
+"use client";
+
 import { roboto_mono, overpass } from "src/fonts/fonts";
 
 import Image from "next/image";
@@ -6,15 +8,25 @@ import Navigation from "./Navigation";
 
 import { motion } from "framer-motion";
 import HamburgerMenu from "./Hamburger";
+import { useState } from "react";
 
 const Header = () => {
+  const [hamburgerOpen, setHamburgerOPen] = useState<boolean | null>(true);
+
+  const toggleHamburger = () => {
+    setHamburgerOPen(!hamburgerOpen);
+    console.log(hamburgerOpen);
+  };
   return (
     <header className="bg-[linear-gradient(90deg,#4831d4_67%,_#ccf381_33%)] p-[calc(4vw_+_1rem)] flex relative flex-col">
-      <nav className="flex items-center justify-between">
+      <nav className="flex items-center justify-between fixed z-[100] w-[90%] p-4">
         <h2 className={roboto_mono.className}>I. E</h2>
-        <section className="w-[40%] h-[400px] bg-white">
-          <Navigation />
-          <HamburgerMenu />
+        <section className="">
+          <div onClick={toggleHamburger} className="cursor-pointer">
+            <HamburgerMenu toggled={hamburgerOpen} />
+          </div>
+
+          <Navigation toggled={hamburgerOpen} />
         </section>
       </nav>
 

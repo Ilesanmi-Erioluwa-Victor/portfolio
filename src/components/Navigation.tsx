@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { overpass } from "src/fonts/fonts";
 
-const Navigation = () => {
+const Navigation = ({ toggled }: any) => {
   const links = [
     {
       title: "Home",
@@ -27,14 +28,24 @@ const Navigation = () => {
     },
   ];
   return (
-    <ul className="flex flex-wrap my-[20px] mx-0 py-0 px-[25px]">
+    <ul
+      className={`${
+        toggled ? "absolute" : "hidden"
+      } top-0 right-1 w-[20rem] h-[400px] rounded-sm z-10 flex bg-white flex-col pt-[4rem]`}
+    >
       {links.map((link) => (
-        <li key={link.id}>
-          <Link href={link.href} title={link.title} className="pr-[10px]">
+        <li key={link.id} className="hover:bg-red-800">
+          <Link
+            href={link.href}
+            title={link.title}
+            className={`${overpass.className} p-2 block w-full text-sm`}
+          >
             {link.title}
           </Link>
         </li>
       ))}
+
+      <h2>Say hello to me</h2>
     </ul>
   );
 };
