@@ -18,7 +18,7 @@ const Navigation = ({ toggled }: any) => {
     <motion.ul
       className={`${
         toggled ? 'absolute' : 'hidden'
-      } right-1 top-0 rounded-sm z-10  bg-white flex flex-col pt-[5rem] pl-[3rem] w-[20rem] h-[450px]`}
+      } right-9 top-[3rem] rounded-sm z-10  bg-white flex flex-col pt-[5rem] pl-[3rem] w-[20rem] h-[450px]`}
       animate={
         toggled
           ? 'howItShouldLookLikeAtTheEnd'
