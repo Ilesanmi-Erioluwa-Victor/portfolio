@@ -4,8 +4,8 @@ import Me from 'src/assets/images/myself.jpg';
 
 const Header = () => {
   return (
-    <header className='bg-[linear-gradient(90deg,#4831d4_67%,_#ccf381_33%)] p-[calc(4vw_+_1rem)] flex relative flex-col'>
-      <section className='mx-[calc(2vw_+_1rem)] mt-[calc(4vw_+_1rem)] flex items-center justify-between gap-[2rem] relative'>
+    <header className='bg-[linear-gradient(90deg,#4831d4_67%,_#ccf381_33%)] py-[calc(4vw_+_3rem)] px-[calc(4vw_+_3rem)] flex relative flex-col'>
+      <section className='mt-[calc(4vw_+_1rem)] flex items-center justify-between gap-[2rem] relative'>
         <article className='w-[50%]'>
           <h2 className={`${overpass.className} text-[3.2rem] text-[#ccf381]`}>
             Full Stack <br /> Typescript <br />
