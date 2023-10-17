@@ -72,7 +72,7 @@ body {
 }
 
 .btn-43 {
- border: 2px solid #4831d4;
+  border: 2px solid #4831d4;
   z-index: 1;
   color: #4831d4;
 }
@@ -117,7 +117,7 @@ body {
 }
 
 .btn-42 {
-   border: 2px solid #4831d4;
+  border: 2px solid #4831d4;
   z-index: 1;
   color: #4831d4;
 }
@@ -135,7 +135,7 @@ body {
 }
 
 .btn-42:hover {
-   color: white;
+  color: white;
 }
 
 .btn-42:hover:after {
