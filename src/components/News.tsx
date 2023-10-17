@@ -23,7 +23,7 @@ const News = () => {
           </Link>
         </article>
 
-        <div className="h-[70vh] w-[2px] bg-[#4831d4] opacity-20"></div>
+        <div className="h-[100vh] w-[2px] bg-[#4831d4] opacity-20"></div>
 
         <article className="py-[calc(4vw_+_2.5rem)] px-[calc(4vw_+_2rem)] w-[50%]">
           <h2 className="text-[3rem] font-semibold leading-none">
