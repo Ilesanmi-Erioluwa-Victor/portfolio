@@ -1,11 +1,11 @@
 'use client';
+
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 
 import { myAnimatedSquareVariants, linkVariants } from 'src/variants';
-import { overpass, inconsolata } from 'src/fonts/fonts';
 import { links, media } from 'src/links';
 import Underline from './Underline';
 import { linksI, mediaI } from 'src/types/types';

@@ -1,9 +1,4 @@
-import Image from "next/image";
-import { Header } from "src/components";
-import Contact from "src/components/Contact";
-import Experience from "src/components/Experience";
-import News from "src/components/News";
-import Roles from "src/components/Roles";
+import { Header, Contact, Experience, News, Roles } from 'src/components';
 
 export default function Home() {
   return (

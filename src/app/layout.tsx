@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import Bar from 'src/components/Bar';
+import { Bar, Footer } from 'src/components';
 import { inconsolata } from 'src/fonts/fonts';
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export default function RootLayout({
           <div className='col-[container-start/container-end]'>
             <Bar />
             {children}
-            <h4>Hello from Footer</h4>
+            <Footer />
           </div>
         </div>
       </body>

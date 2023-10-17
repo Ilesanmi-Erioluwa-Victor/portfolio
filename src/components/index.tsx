@@ -1,1 +1,11 @@
 export { default as Header } from './Header';
+export { default as Bar } from './Bar';
+export { default as Contact } from './Contact';
+export { default as CustomLinks } from './CustomLinks';
+export { default as Experience } from './Experience';
+export { default as Footer } from './Footer';
+export { default as Hamburger } from './Hamburger';
+export { default as Navigation } from './Navigation';
+export { default as News } from './News';
+export { default as Roles } from './Roles';
+export { default as Underline } from './Underline';
