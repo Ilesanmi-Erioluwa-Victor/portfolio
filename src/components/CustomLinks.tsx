@@ -1,27 +1,29 @@
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const LinkItem = ({
   href,
   title,
   tit,
   className,
-  id,
   children,
 }: {
   href: string;
   title?: string;
   tit?: string;
   className: string;
-  id?: string;
   children?: any;
 }) => {
   const router = usePathname();
   const isCurrentRoute = router === href;
 
   return (
-    <li className={isCurrentRoute ? "hidden" : ""} key={id}>
-      <Link href={href} title={tit} className={className}>
+    <li className={isCurrentRoute ? 'hidden' : ''}>
+      <Link
+        href={href}
+        title={tit}
+        className={className}
+      >
         {children || title}
       </Link>
     </li>
