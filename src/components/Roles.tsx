@@ -2,9 +2,10 @@
 
 import { useRef } from 'react';
 import Image from 'next/image';
-// import { overpass } from '../fonts/fonts';
+import { overpass } from '../fonts/fonts';
 import overlap from '../assets/images/overlap.png';
 import { motion, useInView } from 'framer-motion';
+
 
 const Roles = () => {
   const ref = useRef(null);
@@ -15,7 +16,7 @@ const Roles = () => {
       <article className='flex justify-between items-center gap-5 relative z-10'>
         <div className='w-full lg:w-[41%]'>
           <h2
-            className={` text-[3.5rem] lg:text-[4rem] font-semibold`}
+            className={`${overpass.className} text-[3.5rem] lg:text-[4rem] font-semibold`}
           >
             Design
           </h2>
@@ -52,7 +53,7 @@ const Roles = () => {
       <article className='flex justify-between items-center gap-5 flex-row-reverse'>
         <div className='w-full lg:w-[41%] '>
           <h2
-            className={` text-[3.5rem] lg:text-[4rem] font-semibold`}
+            className={`${overpass.className} text-[3.5rem] lg:text-[4rem] font-semibold`}
           >
             Engineering
           </h2>
@@ -86,7 +87,7 @@ const Roles = () => {
       <article className='flex justify-between items-center gap-5'>
         <div className='w-full lg:w-[41%]'>
           <h2
-            className={` text-[3.5rem] lg:text-[4rem] font-semibold`}
+            className={`${overpass.className} text-[3.5rem] lg:text-[4rem] font-semibold`}
           >
             Database Modelling
           </h2>
@@ -121,7 +122,7 @@ const Roles = () => {
       <article className='flex justify-between items-center gap-5 flex-row-reverse'>
         <div className='w-full lg:w-[41%]'>
           <h2
-            className={` text-[3.5rem] lg:text-[4rem] font-semibold`}
+            className={`${overpass.className} text-[3.5rem] lg:text-[4rem] font-semibold`}
           >
             Database Engineering
           </h2>

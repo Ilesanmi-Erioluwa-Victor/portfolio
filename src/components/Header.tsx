@@ -3,37 +3,12 @@
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import { motion,  useInView } from 'framer-motion';
-// import { roboto_mono, overpass } from '../fonts/fonts';
+import { roboto_mono, overpass } from '../fonts/fonts';
 import Me from '../assets/images/myself.jpg';
 
 const Header = () => {
   const ref = useRef(null);
   const isInView = useInView(ref);
-
-  useEffect(() => {
-    console.log('Element is in view: ', isInView);
-  }, [isInView]);
-  console.log(isInView);
-  //   const { scrollYProgress } = useScroll();
-
-  //  const controls = useAnimation();
-
-  //  // Create a custom animation effect
-  //  const animateImage = async (shouldAnimate) => {
-  //    if (shouldAnimate) {
-  //      // Animate the image to the smaller size and move it to the left
-  //      await controls.start({ scale: 0.5, x: -100 });
-  //    } else {
-  //      // Animate the image back to its original size and position
-  //      await controls.start({ scale: 1, x: 0 });
-  //    }
-  //  };
-
-  //  const currentScrollProgress = scrollYProgress.get();
-
-  //   useEffect(() => {
-  //     animateImage(currentScrollProgress < 0.2);
-  //   }, []);
 
   return (
     <header
@@ -43,14 +18,14 @@ const Header = () => {
       <section className='mt-[calc(4vw_+_1rem)] flex items-center justify-between gap-[2rem] relative'>
         <article className='w-full md:w-full lg:w-[50%]'>
           <h2
-            className={`$text-[3.2rem] text-white lg:text-[#ccf381]`}
+            className={`${overpass.className} text-[3.2rem] text-white lg:text-[#ccf381]`}
           >
             Full Stack <br /> Typescript <br />
             Developer<span className='text-white lg:text-[#ccf381]'>.</span>
           </h2>
 
           <p
-            className={` text-white lg:text-[#ccf381]`}
+            className={`${roboto_mono.className} text-white lg:text-[#ccf381]`}
           >
             I like to craft solid and scalable frontend <br /> products with
             great user experiences.
@@ -73,7 +48,7 @@ const Header = () => {
           <motion.div
             style={{
               // scale: isInView ? 1 : 0,
-              transform: isInView ? 'translateX(-300px)' : 'translateX(-200px)',
+              transform: isInView ? 'translateX(-150px)' : 'translateX(-200px)',
               opacity: isInView ? 1 : 0,
               transition: 'all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s',
             }}

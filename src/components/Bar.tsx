@@ -2,14 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-// import { roboto_mono } from '../fonts/fonts';
-import {
-  Inter,
-  Roboto_Mono,
-  Roboto,
-  Inconsolata,
-  Overpass,
-} from 'next/font/google';
+import { roboto_mono } from '../fonts/fonts';
 
 import { motion, useTransform, useScroll, circOut } from 'framer-motion';
 
@@ -35,7 +28,7 @@ const Bar = () => {
     <nav className='flex items-center justify-between fixed z-[100] w-[100%] p-[calc(4vw_+_1rem)] mx-auto'>
       <Link href='/'>
         <motion.span
-          className={` text-[3rem] font-bold`}
+          className={`${roboto_mono.className} text-[3rem] font-bold`}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
           style={{ color: linkColor, opacity: 1 }}

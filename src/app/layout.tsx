@@ -1,7 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Bar, Footer } from '../components';
-// import { inconsolata } from '../fonts/fonts';
+import { inconsolata } from '../fonts/fonts';
 
 export const metadata: Metadata = {
   title: 'My Portfolio Website',
@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={` relative`}>
+      <body className={`${inconsolata.className} relative`}>
         <Bar />
         {children}
         <Footer />
