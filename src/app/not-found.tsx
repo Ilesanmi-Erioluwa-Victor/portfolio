@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import Notfound from 'src/assets/images/not-found.svg';
+import Notfound from '../assets/images/not-found.svg';
 
 export default function NotFound() {
   return (

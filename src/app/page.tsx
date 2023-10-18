@@ -1,4 +1,4 @@
-import { Header, Contact, Experience, News, Roles } from 'src/components';
+import { Header, Contact, Experience, News, Roles } from '../components';
 
 export default function Home() {
   return (
