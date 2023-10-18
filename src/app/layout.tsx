@@ -17,13 +17,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${inconsolata.className} relative`}>
-        <div className='grid grid-cols-[[container-start]_repeat(12,minmax(min-content,12.5rem))] justify-center'>
-          <div className='col-[container-start/container-end]'>
-            <Bar />
-            {children}
-            <Footer />
-          </div>
-        </div>
+        <Bar />
+        {children}
+        <Footer />
       </body>
     </html>
   );

@@ -1,16 +1,29 @@
+// right-9 top-[3rem] rounded-sm z-10  bg-white flex flex-col pt-[5rem] pl-[3rem] w-[20rem] h-[450px]
+
 export const myAnimatedSquareVariants = {
   howItShouldLookLikeAtTheStart: {
     opacity: 0,
-    x: 40,
+    display: 'none',
   },
   howItShouldLookLikeAtTheEnd: {
     opacity: 1,
-    x: 0,
+    x: -50,
+    top: '50px',
+    display: 'flex',
+    borderRadius: '10px',
+    backgroundColor: '#fff',
+    right: '-10px',
+    paddingTop: '5rem',
+    paddingLeft: '3rem',
+    width: '20rem',
+    height: '450px',
     transition: {
-      delay: 0.5,
+       delayChildren: 0.9,
+      staggerDirection: -1
+    }
     },
-  },
-};
+  }
+
 
 export const linkVariants = {
   hidden: {

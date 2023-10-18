@@ -1,13 +1,21 @@
+'use client';
+import { useRef } from 'react';
+
 import { overpass } from 'src/fonts/fonts';
 import svg from 'src/assets/images/svg3.png';
 import Image from 'next/image';
+import { motion, useInView } from 'framer-motion';
 
 const Experience = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref);
   return (
-    <div className='px-[calc(4vw_+_3rem)] py-[calc(4vw_+_3rem)] bg-[#4831d4]'>
-      <article className='flex justify-between items-center gap-5'>
-        <div className='w-[30%] flex flex-col gap-3'>
-          <h2 className={`${overpass.className} text-[4rem] font-black`}>
+    <div className='lg:px-[calc(4vw_+_3rem)] lg:py-[calc(4vw_+_3rem)] bg-[#4831d4]'>
+      <article className='flex justify-between lg:items-center gap-5 lg:flex-row flex-col py-[calc(4vh_+_0.5rem)] px-[calc(4vw_+_0.5rem)] md:py-[calc(4vh_+_2.5rem)] md:px-[calc(4vw_+_2rem)] lg:py-0 lg:px-0 w-[80%] mx-auto lg:w-full'>
+        <div className='w-full lg:w-[30%] flex flex-col gap-3'>
+          <h2
+            className={`${overpass.className} text-[3.5rem] lg:text-[4rem] font-semibold`}
+          >
             Over the years,
           </h2>
           <p>
@@ -37,13 +45,22 @@ const Experience = () => {
             learning platform.
           </p>
         </div>
-        <div className='w-[59%] bg-[#4831d4]'>
+        <motion.div
+          className='hidden w-full md:block lg:w-[59%] bg-[#4831d4]'
+          ref={ref}
+          style={{
+            // scale: isInView ? 1 : 0,
+            transform: isInView ? 'translateX(0px)' : 'translateX(-200px)',
+            opacity: isInView ? 1 : 0,
+            transition: 'all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s',
+          }}
+        >
           <Image
             src={svg}
             alt='svg'
-            className='mx-auto max-w-[auto]'
+            className='mx-auto max-w-full'
           />
-        </div>
+        </motion.div>
       </article>
     </div>
   );

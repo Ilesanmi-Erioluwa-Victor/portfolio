@@ -8,7 +8,7 @@ const Footer = () => {
   const router = usePathname();
   return (
     <footer className='px-[calc(4vw_+_3rem)] py-[calc(4vw_+_3rem)] bg-[#4831d4]'>
-      <div className='py-[5rem] w-[85%] mx-auto lg:w-full flex lg:items-center lg:gap-[15rem] lg:flex-row justify-center flex-col gap-4'>
+      <div className='py-[5rem] w-[85%] mx-auto lg:w-full flex lg:items-center lg:gap-[15rem] lg:flex-row justify-center lg:justify-start flex-col gap-4'>
         <ul className=''>
           <h3 className='text-lg font-semibold mb-4'>SAY HELLO</h3>
           {links.map((link) => (
@@ -44,13 +44,13 @@ const Footer = () => {
       </div>
 
       <span className='block w-full h-1 rounded-sm bg-[#ccf381]'></span>
-      <section className='py-[4rem] flex justify-center lg:items-center flex-col-reverse lg:flex-row gap-4'>
+      <section className='py-[4rem] flex justify-center lg:items-center flex-col-reverse  gap-4 lg:flex-row'>
         <span className='capitalize font-[500] whitespace-nowrap text-sm lg:block w-[85%] mx-auto lg:w-full '>
           <span>&copy; </span>
           {new Date().getFullYear()} Ilesanmi Erioluwa Victor.All Rights
           Reserved.
         </span>
-        <ul className='flex justify-between lg:items-center gap-4 lg:flex-row flex-col w-[85%] mx-auto lg:w-full '>
+        <ul className='flex  lg:items-center gap-4 lg:flex-row flex-col w-[85%] mx-auto lg:w-full '>
           {media.map((media) => (
             <li key={media.id}>
               <Link

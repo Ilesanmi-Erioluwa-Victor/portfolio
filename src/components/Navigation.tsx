@@ -14,18 +14,20 @@ const Navigation = ({ toggled }: any) => {
   const [isBeingHovered, setIsBeingHovered] = useState<string | null>(null);
   const router = usePathname();
 
+  const item = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1 },
+  };
+
   return (
     <motion.ul
-      className={`${
-        toggled ? 'absolute' : 'hidden'
-      } right-9 top-[3rem] rounded-sm z-10  bg-white flex flex-col pt-[5rem] pl-[3rem] w-[20rem] h-[450px]`}
+      className={`${toggled ? 'absolute flex-col' : ''} `}
       animate={
         toggled
           ? 'howItShouldLookLikeAtTheEnd'
-          : ' howItShouldLookLikeAtTheStart'
+          : 'howItShouldLookLikeAtTheStart'
       }
-      initial={' howItShouldLookLikeAtTheStart'}
-      layout
+      initial={'howItShouldLookLikeAtTheStart'}
       variants={myAnimatedSquareVariants}
     >
       {links.map((link: linksI) => (
@@ -37,7 +39,8 @@ const Navigation = ({ toggled }: any) => {
           onHoverStart={() => setIsBeingHovered(link.id)}
           onHoverEnd={() => setIsBeingHovered(null)}
           whileHover={{ scale: 1.1 }}
-          animate={toggled ? 'visible' : 'hidden'}
+          // animate={toggled ? 'visible' : 'hidden'}
+          variants={item}
         >
           <Link
             title={link.title}
@@ -50,11 +53,14 @@ const Navigation = ({ toggled }: any) => {
         </motion.li>
       ))}
 
-      <motion.h2 className='py-[2rem] text-[#4831d4] opacity-30'>
+      <motion.h2
+        className='py-[2rem] text-[#4831d4] opacity-30'
+        variants={item}
+      >
         SAY HELLO
       </motion.h2>
 
-      <motion.li>
+      <motion.li variants={item}>
         <Link
           href={'mailto:ericjay1452@gmail.com'}
           className='text-[#4831d4]'
@@ -63,7 +69,10 @@ const Navigation = ({ toggled }: any) => {
         </Link>
       </motion.li>
 
-      <div className='pt-3'>
+      <motion.div
+        className='pt-3'
+        variants={item}
+      >
         <ul className='flex justify-between items-center pr-4 pt-4'>
           {media.map((media: mediaI) => (
             <li key={media.id}>
@@ -77,7 +86,7 @@ const Navigation = ({ toggled }: any) => {
             </li>
           ))}
         </ul>
-      </div>
+      </motion.div>
     </motion.ul>
   );
 };

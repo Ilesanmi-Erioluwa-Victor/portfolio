@@ -2,17 +2,17 @@ import { BsSendCheck } from 'react-icons/bs';
 
 const Contact = () => {
   return (
-    <section className='bg-[#f8f8f8fb] py-[calc(4vw_+_2.5rem)] px-[calc(4vw_+_2rem)] lg:py-[calc(4vw_+_3rem)] lg:px-[calc(4vw_+_3rem)] text-[#4831d4]'>
+    <section className='bg-[#f8f8f8fb] py-[calc(4vh_+_0.5rem)] px-[calc(4vw_+_0.5rem)] md:py-[calc(4vh_+_2.5rem)] md:px-[calc(4vw_+_2rem)] lg:py-[calc(4vh_+_3rem)] lg:px-[calc(4vw_+_3rem)] text-[#4831d4]'>
       <article className='flex flex-col justify-center items-center'>
-        <h3 className='text-[3.4rem] font-semibold leading-none'>
+        <h3 className='text-[2.5rem] md:text-[3rem] lg:text-[3.4rem] font-semibold leading-none'>
           Send me a message!
         </h3>
-        <p className='text-lg leading-none pt-4 text-black'>
+        <p className='md:text-lg leading-none pt-4 text-black hidden md:block'>
           Got a question or proposal, or just want to say hello? Go ahead.
         </p>
         <span className='block w-[30%] bg-[#4831d4] h-[4px] mx-[auto] mt-4 rounded-sm'></span>
 
-        <form className='mt-6 flex flex-col justify-center items-center w-[80%]  lg:w-[70%]'>
+        <form className='mt-6 flex flex-col justify-center items-center w-[90%] md:w-[80%]  lg:w-[70%]'>
           <fieldset className='flex justify-between items-center gap-[4rem] w-full flex-col lg:flex-row'>
             <div className='flex flex-col justify-center items-center w-full'>
               <label
@@ -67,7 +67,7 @@ const Contact = () => {
 
           <button
             type='submit'
-            className='btn41-44 btn-42 text-center w-[50%!important] items-center gap-[3rem] justify-center'
+            className='btn41-44 btn-42 text-center md:w-[50%!important] items-center gap-[3rem] justify-center'
           >
             <span>SHOOT</span> <BsSendCheck />
           </button>

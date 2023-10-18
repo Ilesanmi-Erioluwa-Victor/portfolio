@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, useAnimation, useScroll, useInView } from 'framer-motion';
 import { useEffect, useRef } from 'react';
+import { motion, useAnimation, useScroll, useInView } from 'framer-motion';
 import { roboto_mono, overpass } from 'src/fonts/fonts';
 import Image from 'next/image';
 import Me from 'src/assets/images/myself.jpg';
@@ -38,21 +38,25 @@ const Header = () => {
   return (
     <header
       ref={ref}
-      className='bg-[linear-gradient(90deg,#4831d4_67%,_#ccf381_33%)] py-[calc(4vw_+_3rem)] px-[calc(4vw_+_3rem)] flex relative flex-col'
+      className='bg-[linear-gradient(90deg,#4831d4_67%,_#4831d4_33%)] lg:bg-[linear-gradient(90deg,#4831d4_67%,_#ccf381_33%)] py-[calc(4vw_+_3rem)] px-[calc(4vw_+_3rem)] flex relative flex-col'
     >
       <section className='mt-[calc(4vw_+_1rem)] flex items-center justify-between gap-[2rem] relative'>
-        <article className='w-[50%]'>
-          <h2 className={`${overpass.className} text-[3.2rem] text-[#ccf381]`}>
+        <article className='w-full md:w-full lg:w-[50%]'>
+          <h2
+            className={`${overpass.className} text-[3.2rem] text-white lg:text-[#ccf381]`}
+          >
             Full Stack <br /> Typescript <br />
-            Developer<span className='text-[#ccf381]'>.</span>
+            Developer<span className='text-white lg:text-[#ccf381]'>.</span>
           </h2>
 
-          <p className={`${roboto_mono.className} text-[#ccf381]`}>
+          <p
+            className={`${roboto_mono.className} text-white lg:text-[#ccf381]`}
+          >
             I like to craft solid and scalable frontend <br /> products with
             great user experiences.
           </p>
 
-          <div className='pt-[calc(4vw_+_3rem)] flex gap-[2rem] items-center justify-between text-[#ccf381]'>
+          <div className='pt-[calc(4vw_+_3rem)] flex gap-[2rem] flex-col md:flex-row md:items-center justify-between text-white lg:text-[#ccf381]'>
             <p>
               Highly skilled at progressive enhancement, design systems & UI
               Engineering
@@ -65,7 +69,7 @@ const Header = () => {
           </div>
         </article>
 
-        <figure className='relative'>
+        <figure className='relative hidden lg:block'>
           <motion.div
             style={{
               // scale: isInView ? 1 : 0,
