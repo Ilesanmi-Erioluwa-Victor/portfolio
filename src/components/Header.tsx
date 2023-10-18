@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import { motion,  useInView } from 'framer-motion';
-import { roboto_mono, overpass } from '../fonts/fonts';
+// import { roboto_mono, overpass } from '../fonts/fonts';
 import Me from '../assets/images/myself.jpg';
 
 const Header = () => {
@@ -43,14 +43,14 @@ const Header = () => {
       <section className='mt-[calc(4vw_+_1rem)] flex items-center justify-between gap-[2rem] relative'>
         <article className='w-full md:w-full lg:w-[50%]'>
           <h2
-            className={`${overpass.className} text-[3.2rem] text-white lg:text-[#ccf381]`}
+            className={`$text-[3.2rem] text-white lg:text-[#ccf381]`}
           >
             Full Stack <br /> Typescript <br />
             Developer<span className='text-white lg:text-[#ccf381]'>.</span>
           </h2>
 
           <p
-            className={`${roboto_mono.className} text-white lg:text-[#ccf381]`}
+            className={` text-white lg:text-[#ccf381]`}
           >
             I like to craft solid and scalable frontend <br /> products with
             great user experiences.

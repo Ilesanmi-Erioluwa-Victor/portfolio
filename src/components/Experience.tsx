@@ -2,7 +2,7 @@
 import { useRef } from 'react';
 
 import Image from 'next/image';
-import { overpass } from '../fonts/fonts';
+// import { overpass } from '../fonts/fonts';
 import svg from '../assets/images/svg3.png';
 import { motion, useInView } from 'framer-motion';
 
@@ -14,7 +14,7 @@ const Experience = () => {
       <article className='flex justify-between lg:items-center gap-5 lg:flex-row flex-col py-[calc(4vh_+_0.5rem)] px-[calc(4vw_+_0.5rem)] md:py-[calc(4vh_+_2.5rem)] md:px-[calc(4vw_+_2rem)] lg:py-0 lg:px-0 w-[80%] mx-auto lg:w-full'>
         <div className='w-full lg:w-[30%] flex flex-col gap-3'>
           <h2
-            className={`${overpass.className} text-[3.5rem] lg:text-[4rem] font-semibold`}
+            className={` text-[3.5rem] lg:text-[4rem] font-semibold`}
           >
             Over the years,
           </h2>
