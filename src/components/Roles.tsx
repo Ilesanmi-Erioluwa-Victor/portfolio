@@ -1,11 +1,10 @@
 'use client';
 
 import { useRef } from 'react';
-import { overpass } from 'src/fonts/fonts';
 import Image from 'next/image';
-import overlap from 'src/assets/images/overlap.png';
+import { overpass } from '../fonts/fonts';
+import overlap from '../assets/images/overlap.png';
 import { motion, useInView } from 'framer-motion';
-
 
 const Roles = () => {
   const ref = useRef(null);

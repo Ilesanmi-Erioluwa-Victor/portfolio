@@ -18,12 +18,11 @@ export const myAnimatedSquareVariants = {
     width: '20rem',
     height: '450px',
     transition: {
-       delayChildren: 0.9,
-      staggerDirection: -1
-    }
+      delayChildren: 0.9,
+      staggerDirection: -1,
     },
-  }
-
+  },
+};
 
 export const linkVariants = {
   hidden: {

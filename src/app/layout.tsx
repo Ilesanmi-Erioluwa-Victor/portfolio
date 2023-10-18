@@ -1,7 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Bar, Footer } from 'src/components';
-import { inconsolata } from 'src/fonts/fonts';
+import { Bar, Footer } from '../components';
+import { inconsolata } from '../fonts/fonts';
 
 export const metadata: Metadata = {
   title: 'My Portfolio Website',

@@ -6,9 +6,9 @@ import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 
 import { myAnimatedSquareVariants, linkVariants } from 'src/variants';
-import { links, media } from 'src/links';
+import { links, media } from '../links';
 import Underline from './Underline';
-import { linksI, mediaI } from 'src/types/types';
+import { linksI, mediaI } from '../types/types';
 
 const Navigation = ({ toggled }: any) => {
   const [isBeingHovered, setIsBeingHovered] = useState<string | null>(null);

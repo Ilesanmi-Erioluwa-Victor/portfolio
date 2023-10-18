@@ -1,9 +1,9 @@
 'use client';
 import { useRef } from 'react';
 
-import { overpass } from 'src/fonts/fonts';
-import svg from 'src/assets/images/svg3.png';
 import Image from 'next/image';
+import { overpass } from '../fonts/fonts';
+import svg from '../assets/images/svg3.png';
 import { motion, useInView } from 'framer-motion';
 
 const Experience = () => {

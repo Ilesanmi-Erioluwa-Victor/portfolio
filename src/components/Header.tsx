@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { motion, useAnimation, useScroll, useInView } from 'framer-motion';
-import { roboto_mono, overpass } from 'src/fonts/fonts';
 import Image from 'next/image';
-import Me from 'src/assets/images/myself.jpg';
+import { useEffect, useRef } from 'react';
+import { motion,  useInView } from 'framer-motion';
+import { roboto_mono, overpass } from '../fonts/fonts';
+import Me from '../assets/images/myself.jpg';
 
 const Header = () => {
   const ref = useRef(null);

@@ -2,11 +2,11 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { roboto_mono } from 'src/fonts/fonts';
+import { roboto_mono } from '../fonts/fonts';
 
 import { motion, useTransform, useScroll, circOut } from 'framer-motion';
 
-import { Hamburger, Navigation } from 'src/components';
+import { Hamburger, Navigation } from '../components';
 const Bar = () => {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
   const toggleHamburger = () => {
@@ -23,7 +23,7 @@ const Bar = () => {
     ['#ccf381', '#1131ad', '#e3f542', '#f0f00a'],
     { ease: circOut }
   );
-  
+
   return (
     <nav className='flex items-center justify-between fixed z-[100] w-[100%] p-[calc(4vw_+_1rem)] mx-auto'>
       <Link href='/'>
