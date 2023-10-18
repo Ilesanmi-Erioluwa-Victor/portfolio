@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 
-import { myAnimatedSquareVariants, linkVariants } from 'src/variants';
+import { myAnimatedSquareVariants, linkVariants } from '../variants';
 import { links, media } from '../links';
 import Underline from './Underline';
 import { linksI, mediaI } from '../types/types';
