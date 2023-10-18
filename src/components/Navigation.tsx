@@ -24,7 +24,7 @@ const Navigation = ({ toggled }: any) => {
           ? 'howItShouldLookLikeAtTheEnd'
           : ' howItShouldLookLikeAtTheStart'
       }
-      initial={false}
+      initial={' howItShouldLookLikeAtTheStart'}
       layout
       variants={myAnimatedSquareVariants}
     >
@@ -36,7 +36,7 @@ const Navigation = ({ toggled }: any) => {
           className={router === link.href ? 'hidden' : ''}
           onHoverStart={() => setIsBeingHovered(link.id)}
           onHoverEnd={() => setIsBeingHovered(null)}
-          variants={linkVariants}
+          whileHover={{ scale: 1.1 }}
           animate={toggled ? 'visible' : 'hidden'}
         >
           <Link
@@ -53,6 +53,7 @@ const Navigation = ({ toggled }: any) => {
       <motion.h2 className='py-[2rem] text-[#4831d4] opacity-30'>
         SAY HELLO
       </motion.h2>
+
       <motion.li>
         <Link
           href={'mailto:ericjay1452@gmail.com'}
@@ -61,6 +62,7 @@ const Navigation = ({ toggled }: any) => {
           hello@ericjay1452
         </Link>
       </motion.li>
+
       <div className='pt-3'>
         <ul className='flex justify-between items-center pr-4 pt-4'>
           {media.map((media: mediaI) => (
