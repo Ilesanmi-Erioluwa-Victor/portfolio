@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "setup-production-app": "npm i && npm run build"
+    "lint": "next lint"
   },
   "dependencies": {
     "framer-motion": "^10.16.4",
