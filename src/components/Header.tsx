@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <header
       ref={ref}
-      className='bg-[linear-gradient(90deg,#4831d4_67%,_#4831d4_33%)] lg:bg-[linear-gradient(90deg,#4831d4_67%,_#ccf381_33%)] py-[calc(4vw_+_3rem)] px-[calc(4vw_+_3rem)] flex relative flex-col'
+      className='px-3 pb-[1rem] pt-[5rem] bg-[linear-gradient(90deg,#4831d4_67%,_#4831d4_33%)] lg:bg-[linear-gradient(90deg,#4831d4_67%,_#ccf381_33%)] md:py-[calc(4vh_+_3rem)] md:px-[calc(4vw_+_3rem)] flex relative flex-col'
     >
       <section className='mt-[calc(4vw_+_1rem)] flex items-center justify-between gap-[2rem] relative'>
         <article className='w-full md:w-full lg:w-[50%]'>

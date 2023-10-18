@@ -8,7 +8,6 @@ export const myAnimatedSquareVariants = {
   howItShouldLookLikeAtTheEnd: {
     opacity: 1,
     x: -50,
-    top: '50px',
     display: 'flex',
     borderRadius: '10px',
     backgroundColor: '#fff',

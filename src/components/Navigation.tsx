@@ -21,7 +21,7 @@ const Navigation = ({ toggled }: any) => {
 
   return (
     <motion.ul
-      className={`${toggled ? 'absolute flex-col' : ''} `}
+      className={toggled ? 'absolute flex-col md:right-[-10px] right-[-15px_!important] top-[20px] md:top-[50px]' : ''}
       animate={
         toggled
           ? 'howItShouldLookLikeAtTheEnd'

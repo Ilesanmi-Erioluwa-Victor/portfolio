@@ -2,7 +2,7 @@ import { BsSendCheck } from 'react-icons/bs';
 
 const Contact = () => {
   return (
-    <section className='bg-[#f8f8f8fb] py-[calc(4vh_+_0.5rem)] px-[calc(4vw_+_0.5rem)] md:py-[calc(4vh_+_2.5rem)] md:px-[calc(4vw_+_2rem)] lg:py-[calc(4vh_+_3rem)] lg:px-[calc(4vw_+_3rem)] text-[#4831d4]'>
+    <section className='px-3 pb-[2rem] pt-[5rem] bg-[#f8f8f8fb] md:py-[calc(4vh_+_2.5rem)] md:px-[calc(4vw_+_2rem)] lg:py-[calc(4vh_+_3rem)] lg:px-[calc(4vw_+_3rem)] text-[#4831d4]'>
       <article className='flex flex-col justify-center items-center'>
         <h3 className='text-[2.5rem] md:text-[3rem] lg:text-[3.4rem] font-semibold leading-none'>
           Send me a message!

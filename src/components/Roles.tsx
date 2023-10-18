@@ -12,7 +12,7 @@ const Roles = () => {
   const isInView = useInView(ref);
 
   return (
-    <div className='bg-[#f8f8f8fb] py-[calc(4vw_+_3rem)] px-[calc(4vw_+_3rem)] text-[#4831d4] flex flex-col gap-[3rem] justify-center items-center'>
+    <div className='px-3 pb-[1rem] pt-[5rem] bg-[#f8f8f8fb] md:py-[calc(4vw_+_3rem)] md:px-[calc(4vw_+_3rem)] text-[#4831d4] flex flex-col gap-[3rem] justify-center items-center'>
       <article className='flex justify-between items-center gap-5 relative z-10'>
         <div className='w-full lg:w-[41%]'>
           <h2

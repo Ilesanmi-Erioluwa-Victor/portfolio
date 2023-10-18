@@ -7,7 +7,7 @@ import { media, links } from '../links';
 const Footer = () => {
   const router = usePathname();
   return (
-    <footer className='px-[calc(4vw_+_3rem)] py-[calc(4vw_+_3rem)] bg-[#4831d4]'>
+    <footer className='px-0 sm:px-[calc(4vw_+_3rem)] py-[calc(4vw_+_3rem)] bg-[#4831d4]'>
       <div className='py-[5rem] w-[85%] mx-auto lg:w-full flex lg:items-center lg:gap-[15rem] lg:flex-row justify-center lg:justify-start flex-col gap-4'>
         <ul className=''>
           <h3 className='text-lg font-semibold mb-4'>SAY HELLO</h3>
