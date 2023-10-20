@@ -4,13 +4,8 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import { overpass } from '../fonts/fonts';
 import overlap from '../assets/images/overlap.png';
-import { motion, useInView } from 'framer-motion';
-
 
 const Roles = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref);
-
   return (
     <div className='px-3 pb-[1rem] pt-[5rem] bg-[#f8f8f8fb] md:py-[calc(4vw_+_3rem)] md:px-[calc(4vw_+_3rem)] text-[#4831d4] flex flex-col gap-[3rem] justify-center items-center'>
       <article className='flex justify-between items-center gap-5 relative z-10'>
@@ -28,25 +23,14 @@ const Roles = () => {
             experiences while staying fashionable.
           </p>
         </div>
-        <div
-          className='w-[59%] hidden lg:block'
-          ref={ref}
-        >
-          <motion.figure
-            className='w-[20rem] h-[20rem] relative '
-            style={{
-              // scale: isInView ? 1 : 0,
-              transform: isInView ? 'translateX(0px)' : 'translateX(-200px)',
-              opacity: isInView ? 1 : 0,
-              transition: 'all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s',
-            }}
-          >
+        <div className='w-[59%] hidden lg:block'>
+          <figure className='w-[20rem] h-[20rem] relative '>
             <Image
               src={overlap}
               alt='background overlap image'
               className='absolute rounded-[50%_50%_30%_70%_/_50%_50%_70%_30%] max-w-full z-[-1] right-[-100%] opacity-30'
             />
-          </motion.figure>
+          </figure>
         </div>
       </article>
 
@@ -65,22 +49,13 @@ const Roles = () => {
           </p>
         </div>
         <div className='w-[59%] hidden lg:block'>
-          <motion.figure
-            ref={ref}
-            className='w-[20rem] h-[20rem] relative'
-            style={{
-              // scale: isInView ? 1 : 0,
-              transform: isInView ? 'translateX(0px)' : 'translateX(-200px)',
-              opacity: isInView ? 1 : 0,
-              transition: 'all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s',
-            }}
-          >
+          <figure className='w-[20rem] h-[20rem] relative'>
             <Image
               src={overlap}
               alt='background overlap image'
               className='absolute rounded-[20%_30%_40%_50%_/_10%_20%_30%_40%] max-w-full opacity-40'
             />
-          </motion.figure>
+          </figure>
         </div>
       </article>
 
@@ -100,16 +75,7 @@ const Roles = () => {
           </p>
         </div>
         <div className='hidden lg:block w-[59%]'>
-          <figure
-            className='w-[20rem] h-[20rem] relative'
-            ref={ref}
-            style={{
-              // scale: isInView ? 1 : 0,
-              transform: isInView ? 'translateX(0px)' : 'translateX(-200px)',
-              opacity: isInView ? 1 : 0,
-              transition: 'all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s',
-            }}
-          >
+          <figure className='w-[20rem] h-[20rem] relative'>
             <Image
               src={overlap}
               alt='background overlap image'
@@ -134,16 +100,7 @@ const Roles = () => {
           </p>
         </div>
         <div className='hidden lg:block w-[59%]'>
-          <figure
-            className='w-[20rem] h-[20rem] relative'
-            ref={ref}
-            style={{
-              // scale: isInView ? 1 : 0,
-              transform: isInView ? 'translateX(0px)' : 'translateX(-200px)',
-              opacity: isInView ? 1 : 0,
-              transition: 'all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s',
-            }}
-          >
+          <figure className='w-[20rem] h-[20rem] relative'>
             <Image
               src={overlap}
               alt='background overlap image'
