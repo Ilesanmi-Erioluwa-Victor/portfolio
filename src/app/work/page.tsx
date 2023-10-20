@@ -1,7 +1,7 @@
 const Work = () => {
     return (
         <div>
-            Work
+            / WORK
         </div>
     );
 }
