@@ -57,6 +57,7 @@ const HamburgerMenu = ({ toggled }: any) => {
         transition={{ duration: 1 }}
         style={{ backgroundColor: linkColor, opacity: 1 }}
       ></motion.div>
+
       <motion.div
         className={`w-[2rem] h-[0.25rem] rounded-[10px] transition-all bg-[#4831d4] origin-[1px] ${
           toggled ? 'translate-x-[100%] opacity-0' : 'translate-x-0 opacity-100'
@@ -65,6 +66,7 @@ const HamburgerMenu = ({ toggled }: any) => {
         transition={{ duration: 1 }}
         style={{ backgroundColor: linkColor, opacity: 0 }}
       ></motion.div>
+
       <motion.div
         className={`w-[3rem] h-[0.25rem] rounded-[10px] transition-all bg-[#4831d4] origin-[1px] ${
           toggled ? 'rotate-[-90deg]' : 'rotate-0'
