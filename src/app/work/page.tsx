@@ -1,9 +1,10 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
+
 const Work = () => {
-    return (
-        <div>
-            / WORK
-        </div>
-    );
-}
+  const pathname = usePathname();
+  return <div>{pathname}</div>;
+};
 
 export default Work;
