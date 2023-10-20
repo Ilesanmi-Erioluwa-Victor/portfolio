@@ -1,114 +1,49 @@
-'use client';
-
-import { useRef } from 'react';
 import Image from 'next/image';
 import { overpass } from '../fonts/fonts';
-import overlap from '../assets/images/overlap.png';
+import { RoleData } from '../Data/RoleData';
 
 const Roles = () => {
   return (
     <div className='px-3 pb-[1rem] pt-[5rem] bg-[#f8f8f8fb] md:py-[calc(4vw_+_3rem)] md:px-[calc(4vw_+_3rem)] text-[#4831d4] flex flex-col gap-[3rem] justify-center items-center'>
-      <article className='flex justify-between items-center gap-5 relative z-10'>
-        <div className='w-full lg:w-[41%]'>
-          <h2
-            className={`${overpass.className} text-[3.5rem] lg:text-[4rem] font-semibold`}
-          >
-            Design
-          </h2>
-          <p>
-            I'm probably not the typical designer positioned behind an
-            Illustrator artboard adjusting pixels, but I design. Immersed in
-            stylesheets tweaking font sizes and contemplating layouts is where
-            you'll find me (~_^). I'm committed to creating fluent user
-            experiences while staying fashionable.
-          </p>
-        </div>
-        <div className='w-[59%] hidden lg:block'>
-          <figure className='w-[20rem] h-[20rem] relative '>
-            <Image
-              src={overlap}
-              alt='background overlap image'
-              className='absolute rounded-[50%_50%_30%_70%_/_50%_50%_70%_30%] max-w-full z-[-1] right-[-100%] opacity-30'
-            />
-          </figure>
-        </div>
-      </article>
+      {RoleData.map((data) => (
+        <article
+          className={`flex justify-between items-center gap-5 relative ${
+            data?.id % 2 === 0 && 'flex-row-reverse'
+          }`}
+          key={data.id}
+        >
+          <div className='w-full lg:w-[41%]'>
+            <h2
+              className={`${overpass.className} text-[3.5rem] lg:text-[4rem] font-semibold`}
+            >
+              {data.title}
+            </h2>
+            <p>{data.para}</p>
+          </div>
 
-      <article className='flex justify-between items-center gap-5 flex-row-reverse'>
-        <div className='w-full lg:w-[41%] '>
-          <h2
-            className={`${overpass.className} text-[3.5rem] lg:text-[4rem] font-semibold`}
-          >
-            Engineering
-          </h2>
-          <p>
-            In building JavaScript applications, I'm equipped with just the
-            right tools, and can absolutely function independently of them to
-            deliver fast, resilient solutions optimized for scale — performance
-            and scalabilty are priorities on my radar.
-          </p>
-        </div>
-        <div className='w-[59%] hidden lg:block'>
-          <figure className='w-[20rem] h-[20rem] relative'>
-            <Image
-              src={overlap}
-              alt='background overlap image'
-              className='absolute rounded-[20%_30%_40%_50%_/_10%_20%_30%_40%] max-w-full opacity-40'
-            />
-          </figure>
-        </div>
-      </article>
-
-      <article className='flex justify-between items-center gap-5'>
-        <div className='w-full lg:w-[41%]'>
-          <h2
-            className={`${overpass.className} text-[3.5rem] lg:text-[4rem] font-semibold`}
-          >
-            Database Modelling
-          </h2>
-          <p>
-            I'm probably not the typical designer positioned behind an
-            Illustrator artboard adjusting pixels, but I design. Immersed in
-            stylesheets tweaking font sizes and contemplating layouts is where
-            you'll find me (~_^). I'm committed to creating fluent user
-            experiences while staying fashionable.
-          </p>
-        </div>
-        <div className='hidden lg:block w-[59%]'>
-          <figure className='w-[20rem] h-[20rem] relative'>
-            <Image
-              src={overlap}
-              alt='background overlap image'
-              className='absolute rounded-[50%_45%_55%_50%_/_40%_60%_40%_60%] max-w-full right-[-100%] opacity-40'
-            />
-          </figure>
-        </div>
-      </article>
-
-      <article className='flex justify-between items-center gap-5 flex-row-reverse'>
-        <div className='w-full lg:w-[41%]'>
-          <h2
-            className={`${overpass.className} text-[3.5rem] lg:text-[4rem] font-semibold`}
-          >
-            Database Engineering
-          </h2>
-          <p>
-            In building JavaScript applications, I'm equipped with just the
-            right tools, and can absolutely function independently of them to
-            deliver fast, resilient solutions optimized for scale — performance
-            and scalability are priorities on my radar.
-          </p>
-        </div>
-        <div className='hidden lg:block w-[59%]'>
-          <figure className='w-[20rem] h-[20rem] relative'>
-            <Image
-              src={overlap}
-              alt='background overlap image'
-              className='absolute rounded-[50%_60%_70%_40%_/_70%_60%_50%_40%] max-w-full opacity-40'
-            />
-          </figure>
-        </div>
-      </article>
+          <div className='w-[59%] hidden lg:block'>
+            <figure className='w-[20rem] h-[20rem] relative '>
+              <Image
+                src={data.image}
+                alt={data.title}
+                className={`absolute max-w-full  opacity-30
+                ${data.id % 2 === 1 && 'right-[-100%]'}
+                ${
+                  data.id === 1
+                    ? 'rounded-[50%_50%_30%_70%_/_50%_50%_70%_30%]'
+                    : data.id === 2
+                    ? ' rounded-[20%_30%_40%_50%_/_10%_20%_30%_40%]'
+                    : data.id === 3
+                    ? 'rounded-[50%_45%_55%_50%_/_40%_60%_40%_60%]'
+                    : data.id === 4 &&
+                      'rounded-[50%_60%_70%_40%_/_70%_60%_50%_40%]'
+                } 
+                 `}
+              />
+            </figure>
+          </div>
+        </article>
+      ))}
     </div>
   );
 };
