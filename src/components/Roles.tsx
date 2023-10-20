@@ -14,7 +14,7 @@ const Roles = () => {
         >
           <div className='w-full lg:w-[41%]'>
             <h2
-              className={`${overpass.className} text-[3.5rem] lg:text-[4rem] font-semibold`}
+              className={`${overpass.className} text-[2rem] lg:text-[3rem] font-semibold`}
             >
               {data.title}
             </h2>

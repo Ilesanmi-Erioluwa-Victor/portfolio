@@ -26,12 +26,12 @@ const Header = () => {
 
           <div className='pt-[calc(4vw_+_3rem)] flex gap-[2rem] flex-col md:flex-row md:items-center justify-between text-white lg:text-[#ccf381]'>
             {headerData.map((data) => (
-            <p key={data.id}>{data.para}</p>
-          ))}
+              <p key={data.id}>{data.para}</p>
+            ))}
           </div>
         </article>
 
-        <figure className='relative hidden lg:block'>
+        <figure className='absolute lg:right-[10%] hidden lg:block'>
           <Image
             src={Me}
             alt='My photo'

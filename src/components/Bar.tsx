@@ -25,7 +25,7 @@ const Bar = () => {
   );
 
   return (
-    <nav className='flex items-center justify-between fixed z-[100] w-[100%] p-[calc(4vw_+_1rem)] mx-auto'>
+    <nav className='flex items-center justify-between fixed z-[100] w-[100%] px-[calc(4vw_+_1rem)] py-6'>
       <Link href='/'>
         <motion.span
           className={`${roboto_mono.className} text-[3rem] font-bold`}
