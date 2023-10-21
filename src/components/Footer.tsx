@@ -45,7 +45,7 @@ const Footer = () => {
 
       <span className='block w-full h-1 rounded-sm bg-[#ccf381]'></span>
       <section className='py-[4rem] flex justify-center lg:items-center flex-col-reverse  gap-4 lg:flex-row'>
-        <span className='capitalize font-[500] whitespace-nowrap text-sm lg:block w-[85%] mx-auto lg:w-full '>
+        <span className='capitalize font-[500] text-sm lg:block w-[85%] mx-auto lg:w-full '>
           <span>&copy; </span>
           {new Date().getFullYear()} Ilesanmi Erioluwa Victor.All Rights
           Reserved.
