@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={`${inconsolata.className} relative`}>
+      <body className={`${inconsolata.className} relative bg-[#f5f4fc]`}>
         <Bar />
         {children}
         <Footer />

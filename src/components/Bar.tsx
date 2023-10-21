@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { roboto_mono } from '../fonts/fonts';
 
@@ -8,6 +9,7 @@ import { motion, useTransform, useScroll, circOut } from 'framer-motion';
 
 import { Hamburger, Navigation } from '../components';
 const Bar = () => {
+  const path = usePathname()
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
   const toggleHamburger = () => {
     setHamburgerOpen(!hamburgerOpen);
@@ -25,7 +27,7 @@ const Bar = () => {
   );
 
   return (
-    <nav className='flex items-center justify-between fixed z-[100] w-[100%] px-[calc(4vw_+_1rem)] py-6'>
+    <nav className={`flex items-center justify-between fixed z-[100] w-[100%] px-[calc(4vw_+_1rem)] py-6 ${path ==="/work" ? "bg-white" : ""}`}>
       <Link href='/'>
         <motion.span
           className={`${roboto_mono.className} text-[3rem] font-bold`}
