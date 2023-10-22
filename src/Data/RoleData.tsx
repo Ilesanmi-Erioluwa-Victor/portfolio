@@ -10,6 +10,7 @@ export const RoleData = [
             you'll find me (~_^). I'm committed to creating fluent user
             experiences while staying fashionable.`,
     image: overlap,
+    class:""
   },
 
   {
@@ -20,6 +21,7 @@ export const RoleData = [
             deliver fast, resilient solutions optimized for scale — performance
             and scalabilty are priorities on my radar.`,
     image: overlap,
+    class:""
   },
 
   {
@@ -31,6 +33,7 @@ export const RoleData = [
             you'll find me (~_^). I'm committed to creating fluent user
             experiences while staying fashionable.`,
     image: overlap,
+    class:""
   },
 
   {
@@ -41,5 +44,6 @@ export const RoleData = [
             deliver fast, resilient solutions optimized for scale — performance
             and scalability are priorities on my radar.`,
     image: overlap,
+    class:""
   },
 ];
