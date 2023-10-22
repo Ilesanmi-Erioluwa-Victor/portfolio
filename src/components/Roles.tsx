@@ -27,17 +27,8 @@ const Roles = () => {
                 src={data.image}
                 alt={data.title}
                 className={`absolute max-w-full  opacity-30
-                ${data.id % 2 === 1 && 'right-[-100%]'}
-                ${
-                  data.id === 1
-                    ? 'rounded-[50%_50%_30%_70%_/_50%_50%_70%_30%]'
-                    : data.id === 2
-                    ? ' rounded-[20%_30%_40%_50%_/_10%_20%_30%_40%]'
-                    : data.id === 3
-                    ? 'rounded-[50%_45%_55%_50%_/_40%_60%_40%_60%]'
-                    : data.id === 4 &&
-                      'rounded-[50%_60%_70%_40%_/_70%_60%_50%_40%]'
-                } 
+                ${data.id % 2 === 1 && 'right-[-100%]'} 
+                ${data.class} 
                  `}
               />
             </figure>
