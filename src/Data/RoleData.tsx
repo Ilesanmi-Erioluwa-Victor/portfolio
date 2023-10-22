@@ -10,7 +10,7 @@ export const RoleData = [
             you'll find me (~_^). I'm committed to creating fluent user
             experiences while staying fashionable.`,
     image: overlap,
-    class:""
+    class: 'rounded-[50%_50%_30%_70%_/_50%_50%_70%_30%]',
   },
 
   {
@@ -21,7 +21,7 @@ export const RoleData = [
             deliver fast, resilient solutions optimized for scale — performance
             and scalabilty are priorities on my radar.`,
     image: overlap,
-    class:""
+    class: 'rounded-[20%_30%_40%_50%_/_10%_20%_30%_40%]',
   },
 
   {
@@ -33,7 +33,7 @@ export const RoleData = [
             you'll find me (~_^). I'm committed to creating fluent user
             experiences while staying fashionable.`,
     image: overlap,
-    class:""
+    class: 'rounded-[50%_45%_55%_50%_/_40%_60%_40%_60%]',
   },
 
   {
@@ -44,6 +44,6 @@ export const RoleData = [
             deliver fast, resilient solutions optimized for scale — performance
             and scalability are priorities on my radar.`,
     image: overlap,
-    class:""
+    class: 'rounded-[50%_60%_70%_40%_/_70%_60%_50%_40%]',
   },
 ];
