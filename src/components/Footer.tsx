@@ -18,7 +18,7 @@ const Footer = () => {
             >
               <Link
                 href={link.href}
-                className='py-2 block'
+                className='py-2 block text-white'
               >
                 {link.title}
               </Link>
@@ -34,7 +34,7 @@ const Footer = () => {
             >
               <Link
                 href={link.href}
-                className='block py-2'
+                className='block py-2 text-white'
               >
                 {link.title}
               </Link>
@@ -45,7 +45,7 @@ const Footer = () => {
 
       <span className='block w-full h-1 rounded-sm bg-[#ccf381]'></span>
       <section className='py-[4rem] flex justify-center lg:items-center flex-col-reverse  gap-4 lg:flex-row'>
-        <span className='capitalize font-[500] text-sm lg:block w-[85%] mx-auto lg:w-full '>
+        <span className='capitalize font-[500] text-sm lg:block w-[85%] mx-auto lg:w-full text-white'>
           <span>&copy; </span>
           {new Date().getFullYear()} Ilesanmi Erioluwa Victor.All Rights
           Reserved.
@@ -55,7 +55,7 @@ const Footer = () => {
             <li key={media.id}>
               <Link
                 href={media.href}
-                className='block'
+                className='block text-white'
               >
                 {media.title.toUpperCase()}
               </Link>
