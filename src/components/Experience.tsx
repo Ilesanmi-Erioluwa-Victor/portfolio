@@ -11,7 +11,7 @@ const Experience = () => {
   const ref = useRef(null);
   const isInView = useInView(ref);
   return (
-    <div className='lg:px-[calc(4vw_+_3rem)] lg:py-[calc(4vh_+_3rem)] bg-[#4831d4] '>
+    <div className='lg:px-[calc(4vw_+_3rem)] lg:py-[calc(4vh_+_3rem)] bg-[#4831d4] text-white'>
       <article className='px-3 pb-[1rem] pt-[5rem] flex justify-between lg:items-center gap-5 lg:flex-row flex-col lg:py-0 lg:px-0 md:w-[80%] mx-auto lg:w-full'>
         <div className='w-full lg:w-[30%] flex flex-col gap-3'>
           <h2
