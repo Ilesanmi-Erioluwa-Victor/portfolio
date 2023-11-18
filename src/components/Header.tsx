@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { roboto_mono, overpass } from '../fonts/fonts';
+import { poppins } from '../fonts/fonts';
 import Me from '../assets/images/myself.jpg';
 import { headerData } from '../Data/HeaderData';
 
@@ -11,14 +11,14 @@ const Header = () => {
       <section className='mt-[calc(4vw_+_1rem)] flex items-center justify-between gap-[2rem] relative'>
         <article className='w-full md:w-full lg:w-[50%]'>
           <h2
-            className={`${overpass.className} text-[3.2rem] text-white lg:text-[#ccf381]`}
+            className={`${poppins.className} text-[3.2rem] text-white lg:text-white font-bold`}
           >
             Full Stack <br /> Typescript <br />
             Developer<span className='text-white lg:text-[#ccf381]'>.</span>
           </h2>
 
           <p
-            className={`${roboto_mono.className} text-white lg:text-[#ccf381]`}
+            className={`${poppins.className} text-white lg:text-white text-[1rem]`}
           >
             I like to craft solid and scalable frontend <br /> products with
             great user experiences.
@@ -26,7 +26,12 @@ const Header = () => {
 
           <div className='pt-[calc(4vw_+_3rem)] flex gap-[2rem] flex-col md:flex-row md:items-center justify-between text-white lg:text-[#ccf381]'>
             {headerData.map((data) => (
-              <p key={data.id}>{data.para}</p>
+              <p
+                key={data.id}
+                className={`text-white ${poppins.className} text-[1rem]`}
+              >
+                {data.para}
+              </p>
             ))}
           </div>
         </article>

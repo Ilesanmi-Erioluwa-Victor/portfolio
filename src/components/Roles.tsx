@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { overpass } from '../fonts/fonts';
 import { RoleData } from '../Data/RoleData';
+import bgI from '../assets/images/blob-scene-haikei.svg';
 
 const Roles = () => {
   return (
@@ -22,14 +23,29 @@ const Roles = () => {
           </div>
 
           <div className='w-[59%] hidden lg:block'>
-            <figure className='w-[20rem] h-[20rem] relative '>
-              <Image
-                src={data.image}
+            <figure
+              className={`w-full h-[20rem] relative `}
+              style={{
+                backgroundImage: `url(${data.img.src})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                marginLeft: `${
+                  data.id === 1
+                    ? '7rem'
+                    : data.id === 2
+                    ? '-12rem'
+                    : data.id === 3 ? "7rem" : data.id === 4 ? "-12rem" : ""
+                }`,
+              }}
+            >
+              {/* <Image
+                src={data.img}
                 alt={data.title}
                 className={`absolute max-w-full  opacity-30
-                ${data.id % 2 === 1 && 'right-[-100%]'} ${data.class} 
+                ${data.id % 2 === 1 && 'right-[-100%]'}  
                  `}
-              />
+              /> */}
             </figure>
           </div>
         </article>
