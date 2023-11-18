@@ -4,7 +4,7 @@ import { RoleData } from '../Data/RoleData';
 
 const Roles = () => {
   return (
-    <div className='px-3 pb-[1rem] pt-[5rem] bg-[#f8f8f8fb] md:py-[calc(4vw_+_3rem)] md:px-[calc(4vw_+_3rem)] text-[#4831d4] flex flex-col gap-[3rem] justify-center items-center'>
+    <div className='relative px-3 pb-[1rem] pt-[5rem] bg-[#f8f8f8fb] md:py-[calc(4vw_+_3rem)] md:px-[calc(4vw_+_3rem)] text-[#4831d4] flex flex-col gap-[3rem] justify-center items-center'>
       {RoleData.map((data) => (
         <article
           className={`flex justify-between items-center gap-5 relative ${
@@ -27,8 +27,7 @@ const Roles = () => {
                 src={data.image}
                 alt={data.title}
                 className={`absolute max-w-full  opacity-30
-                ${data.id % 2 === 1 && 'right-[-100%]'} 
-                ${data.class} 
+                ${data.id % 2 === 1 && 'right-[-100%]'} ${data.class} 
                  `}
               />
             </figure>
