@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { overpass } from '../fonts/fonts';
+import { overpass, poppins } from '../fonts/fonts';
 import { RoleData } from '../Data/RoleData';
 import bgI from '../assets/images/blob-scene-haikei.svg';
 
@@ -19,7 +19,9 @@ const Roles = () => {
             >
               {data.title}
             </h2>
-            <p>{data.para}</p>
+            <p className={`${poppins.className} leading-[1.5rem]`}>
+              {data.para}
+            </p>
           </div>
 
           <div className='w-[59%] hidden lg:block'>
@@ -31,11 +33,7 @@ const Roles = () => {
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
                 marginLeft: `${
-                  data.id === 1
-                    ? '7rem'
-                    : data.id === 2
-                    ? '-12rem'
-                    : data.id === 3 ? "7rem" : data.id === 4 ? "-12rem" : ""
+                  data.id === 1 ? '7rem' : data.id === 2 ? '-12rem' : ''
                 }`,
               }}
             >

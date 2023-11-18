@@ -2,7 +2,7 @@
 import { useRef } from 'react';
 
 import Image from 'next/image';
-import { overpass } from '../fonts/fonts';
+import { overpass, poppins } from '../fonts/fonts';
 import svg from '../assets/images/svg3.png';
 import { motion, useInView } from 'framer-motion';
 import { experience_Data } from '../Data/ExperienceData';
@@ -15,12 +15,17 @@ const Experience = () => {
       <article className='px-3 pb-[1rem] pt-[5rem] flex justify-between lg:items-center gap-5 lg:flex-row flex-col lg:py-0 lg:px-0 md:w-[80%] mx-auto lg:w-full'>
         <div className='w-full lg:w-[30%] flex flex-col gap-3'>
           <h2
-            className={`${overpass.className} text-[3.5rem] lg:text-[4rem] font-semibold`}
+            className={`${poppins.className} text-[3.5rem] lg:text-[4rem] font-semibold`}
           >
             Over the years,
           </h2>
           {experience_Data.map((data) => (
-            <p key={data.id}>{data.para}</p>
+            <p
+              key={data.id}
+              className={`${poppins.className} font-semibold`}
+            >
+              {data.para}
+            </p>
           ))}
         </div>
         <motion.div

@@ -9,3 +9,4 @@ export { default as Navigation } from './Navigation';
 export { default as News } from './News';
 export { default as Roles } from './Roles';
 export { default as Underline } from './Underline';
+export { default as Skills } from './Skills';
