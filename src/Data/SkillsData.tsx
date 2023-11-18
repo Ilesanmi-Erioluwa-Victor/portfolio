@@ -6,6 +6,10 @@ import typescript from '../assets/images/typescript.png';
 import mysql from '../assets/images/mysql.png';
 import reactImg from '../assets/images/react.png';
 import nextjs from '../assets/images/nextjs.png';
+import bootstrap from "../assets/images/bootstrap.png";
+import github from "../assets/images/github.png";
+import sass from "../assets/images/sass.png";
+import express from "../assets/images/express.png";
 
 import { GoVerified } from 'react-icons/go';
 export const skills_data = [
@@ -77,7 +81,7 @@ export const skills_data = [
     id: 9,
     name: 'BootStrap',
     level: 'Proficient',
-    img: reactImg,
+    img: bootstrap,
     verify: <GoVerified />,
   },
 
@@ -85,7 +89,7 @@ export const skills_data = [
     id: 10,
     name: 'Sass',
     level: 'Intermediate',
-    img: reactImg,
+    img: sass,
     verify: <GoVerified />,
   },
 
@@ -93,7 +97,7 @@ export const skills_data = [
     id: 11,
     name: 'Github',
     level: 'Intermediate',
-    img: reactImg,
+    img: github,
     verify: <GoVerified />,
   },
 
@@ -109,7 +113,7 @@ export const skills_data = [
     id: 13,
     name: 'Expressjs',
     level: 'Intermediate',
-    img: reactImg,
+    img: express,
     verify: <GoVerified />,
   },
 

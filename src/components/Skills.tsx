@@ -8,7 +8,7 @@ import Image from 'next/image';
 const Skills = () => {
   return (
     <section className='relative px-3 pb-[1rem] pt-[5rem] bg-[#f8f8f8fb] md:py-[calc(4vw_+_3rem)] text-[#4831d4]'>
-      <Marquee>
+      <Marquee pauseOnHover={true} >
         {skills_data.map((data) => {
           return (
             <div className='effect relative mx-2 my-0 py-[4.5rem  h-[21.25rem] w-[17.0625rem] rounded-[1rem] cursor-pointer'>
