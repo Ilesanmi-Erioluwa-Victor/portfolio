@@ -93,8 +93,11 @@ export default function NotFound() {
     //   </div>
     // </div>
 
-    <div className="w-full h-[100vh]">
-      <div className="copy-container center-xy" ref={copyContainerRef}>
+    <div className="w-full h-[100vh] relative">
+      <div
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center"
+        ref={copyContainerRef}
+      >
         <p>404, page not found. please</p>
         <span className="handle" ref={handleRef}></span>
       </div>
