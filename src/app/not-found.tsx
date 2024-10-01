@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
-import { gsap, SteppedEase, Back } from "gsap";
+import { gsap, Back } from "gsap";
+import { roboto_mono } from "../fonts/fonts";
 
 export default function NotFound() {
   const copyContainerRef = useRef<HTMLDivElement | null>(null);
@@ -69,7 +70,9 @@ export default function NotFound() {
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center"
         ref={copyContainerRef}
       >
-        <p className="text-black text-[24px] tracking-[0.2px] m-0">
+        <p
+          className={`${roboto_mono.className} text-black text-[24px] tracking-[0.2px] m-0`}
+        >
           404, page not found. please go back Home 🛑🛑
         </p>
         <span
