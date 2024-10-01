@@ -1,12 +1,7 @@
 "use client";
-
 import Link from "next/link";
-import Image from "next/image";
 import React, { useEffect, useRef } from "react";
 import { gsap, SteppedEase, Back } from "gsap";
-import "../styles/Notfound.css";
-
-import Notfound from "../assets/images/not-found.svg";
 
 export default function NotFound() {
   const copyContainerRef = useRef<HTMLDivElement | null>(null);
@@ -16,15 +11,13 @@ export default function NotFound() {
     const copyContainer = copyContainerRef.current;
     const handle = handleRef.current;
 
-    if (!copyContainer || !handle) return; // Ensure refs are not null
+    if (!copyContainer || !handle) return;
 
-    // Manually splitting text into characters (alternative to SplitText)
     const text = copyContainer.querySelector("p")?.innerText || "";
     const characters = text
       .split("")
       .map(
-        (char, index) =>
-          `<span class="char">${char === " " ? "&nbsp;" : char}</span>`
+        (char) => `<span class="char">${char === " " ? "&nbsp;" : char}</span>`
       )
       .join("");
 
@@ -58,7 +51,11 @@ export default function NotFound() {
     };
 
     const animateHandle = () => {
-      handleTL.to(handle, 0.7, { x: copyWidth, ease: SteppedEase.config(12) });
+      handleTL.to(handle, {
+        x: copyWidth,
+        duration: 0.7,
+        ease: SteppedEase.config(12),
+      });
     };
 
     gsap.delayedCall(0.2, () => {
@@ -75,11 +72,7 @@ export default function NotFound() {
   return (
     // <div className="min-h-[100vh] text-center flex items-center justify-center">
     //   <div>
-    //     <Image
-    //       src={Notfound}
-    //       alt="404 image"
-    //       className="w-[90vw] max-w-[600px] block mb-[2rem] mt-[-3rem]"
-    //     />
+    //
     //     <h3 className="text-[2rem]">Ohh page not found</h3>
     //     <p className="mb-[2rem] text-lg">
     //       We cant seem to find the page you are looking for
@@ -96,28 +89,18 @@ export default function NotFound() {
         ref={copyContainerRef}
       >
         <p className="text-black text-[24px] tracking-[0.2px] m-0">
-          404, page not found. please
+          404, page not found. please go back Home
         </p>
         <span
           className="bg-[#ffe500] w-[14px] h-[30px] absolute top-0 left-0 mt-[1px]"
           ref={handleRef}
         ></span>
+        <div className="relative mt-[30px]">
+          <Link href="/" className="not_found_btn">
+            Back Home
+          </Link>
+        </div>
       </div>
-      <svg
-        className="fill-[#666] w-[20px] m-[15px] right-0 bottom-0 cursor-pointer absolute hover:fill-[#888]"
-        viewBox="0 0 20 20"
-        onClick={() => window.location.reload()}
-      >
-        <circle
-          cx="10"
-          cy="10"
-          r="9"
-          stroke="gray"
-          strokeWidth="1"
-          fill="none"
-        />
-        <polygon points="7,5 15,10 7,15" fill="gray" />
-      </svg>
     </div>
   );
 }
