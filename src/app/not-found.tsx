@@ -6,7 +6,6 @@ import React, { useEffect, useRef } from "react";
 import { gsap, SteppedEase, Back } from "gsap";
 import "../styles/Notfound.css";
 
-
 import Notfound from "../assets/images/not-found.svg";
 
 export default function NotFound() {
@@ -14,13 +13,13 @@ export default function NotFound() {
   const handleRef = useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
-    const $copyContainer = copyContainerRef.current;
-    const $handle = handleRef.current;
+    const copyContainer = copyContainerRef.current;
+    const handle = handleRef.current;
 
-    if (!$copyContainer || !$handle) return; // Ensure refs are not null
+    if (!copyContainer || !handle) return; // Ensure refs are not null
 
     // Manually splitting text into characters (alternative to SplitText)
-    const text = $copyContainer.querySelector("p")?.innerText || "";
+    const text = copyContainer.querySelector("p")?.innerText || "";
     const characters = text
       .split("")
       .map(
@@ -29,13 +28,13 @@ export default function NotFound() {
       )
       .join("");
 
-    if ($copyContainer.querySelector("p")) {
-      $copyContainer.querySelector("p")!.innerHTML = characters;
+    if (copyContainer.querySelector("p")) {
+      copyContainer.querySelector("p")!.innerHTML = characters;
     }
 
     const splitTextTimeline = gsap.timeline();
     const handleTL = gsap.timeline();
-    const copyWidth = $copyContainer.querySelector("p")?.offsetWidth || 0;
+    const copyWidth = copyContainer.querySelector("p")?.offsetWidth || 0;
 
     const animateCopy = () => {
       gsap.fromTo(
@@ -52,16 +51,14 @@ export default function NotFound() {
 
     const blinkHandle = () => {
       handleTL.fromTo(
-        $handle,
-        0.4,
+        handle,
         { autoAlpha: 0 },
-        { autoAlpha: 1, repeat: -1, yoyo: true }
+        { autoAlpha: 1, duration: 0.4, repeat: -1, yoyo: true }
       );
     };
 
-
     const animateHandle = () => {
-      handleTL.to($handle, 0.7, { x: copyWidth, ease: SteppedEase.config(12) });
+      handleTL.to(handle, 0.7, { x: copyWidth, ease: SteppedEase.config(12) });
     };
 
     gsap.delayedCall(0.2, () => {
@@ -98,11 +95,16 @@ export default function NotFound() {
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center"
         ref={copyContainerRef}
       >
-        <p>404, page not found. please</p>
-        <span className="handle" ref={handleRef}></span>
+        <p className="text-black text-[24px] tracking-[0.2px] m-0">
+          404, page not found. please
+        </p>
+        <span
+          className="bg-[#ffe500] w-[14px] h-[30px] absolute top-0 left-0 mt-[1px]"
+          ref={handleRef}
+        ></span>
       </div>
       <svg
-        id="cb-replay"
+        className="fill-[#666] w-[20px] m-[15px] right-0 bottom-0 cursor-pointer absolute hover:fill-[#888]"
         viewBox="0 0 20 20"
         onClick={() => window.location.reload()}
       >
