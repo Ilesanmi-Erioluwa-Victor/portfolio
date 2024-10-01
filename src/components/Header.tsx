@@ -79,26 +79,7 @@ const Header = () => {
 
       <div className="bg-[#130d0a]">
         <div className="container">
-          <section className="first-section">
-            <div className="row">
-              <div className="col-sm-6">
-                <h1>You cannot hide the soul...</h1>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-sm-6">
-                <p>
-                  And besides all this, there was a certain lofty bearing about
-                  the Pagan...
-                </p>
-                {/* Add the rest of your paragraphs here */}
-              </div>
-              <div className="col-sm-6">
-                <p>At first they are overawing...</p>
-                {/* Add the rest of your paragraphs here */}
-              </div>
-            </div>
-          </section>
+          <section className="  p-[50px_0_20px_0]"></section>
         </div>
       </div>
     </>
