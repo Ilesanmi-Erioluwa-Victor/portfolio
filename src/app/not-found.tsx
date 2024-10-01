@@ -73,7 +73,7 @@ export default function NotFound() {
           404, page not found. please go back Home 🛑🛑
         </p>
         <span
-          className="bg-[#ffe500] w-[14px] h-[30px] absolute top-0 left-0 mt-[1px]"
+          className="bg-[#188ab8] w-[14px] h-[30px] absolute top-0 left-0 mt-[1px]"
           ref={handleRef}
         ></span>
         <div className="relative mt-[30px]">
