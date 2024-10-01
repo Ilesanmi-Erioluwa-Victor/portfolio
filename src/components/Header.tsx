@@ -29,44 +29,79 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="px-3 pb-[1rem] pt-[5rem] bg-[linear-gradient(90deg,#4831d4_67%,_#4831d4_33%)] lg:bg-[linear-gradient(90deg,#4831d4_67%,_#ccf381_33%)] md:py-[calc(4vh_+_3rem)] md:px-[calc(4vw_+_3rem)] flex relative flex-col">
-      <section className="mt-[calc(4vw_+_1rem)] flex items-center justify-between gap-[2rem] relative">
-        <article className="w-full md:w-full lg:w-[50%]">
-          <h2
-            className={`${poppins.className} text-[3.2rem] text-white lg:text-white font-bold`}
-          >
-            Full Stack <br /> Typescript <br />
-            Developer<span className="text-white lg:text-[#ccf381]">.</span>
-          </h2>
+    // <header className="px-3 pb-[1rem] pt-[5rem] bg-[linear-gradient(90deg,#4831d4_67%,_#4831d4_33%)] lg:bg-[linear-gradient(90deg,#4831d4_67%,_#ccf381_33%)] md:py-[calc(4vh_+_3rem)] md:px-[calc(4vw_+_3rem)] flex relative flex-col">
+    //   <section className="mt-[calc(4vw_+_1rem)] flex items-center justify-between gap-[2rem] relative">
+    //     <article className="w-full md:w-full lg:w-[50%]">
+    //       <h2
+    //         className={`${poppins.className} text-[3.2rem] text-white lg:text-white font-bold`}
+    //       >
+    //         Full Stack <br /> Typescript <br />
+    //         Developer<span className="text-white lg:text-[#ccf381]">.</span>
+    //       </h2>
 
-          <p
-            className={`${poppins.className} text-white lg:text-white text-[1rem]`}
-          >
-            I like to craft solid and scalable frontend <br /> products with
-            great user experiences.
-          </p>
+    //       <p
+    //         className={`${poppins.className} text-white lg:text-white text-[1rem]`}
+    //       >
+    //         I like to craft solid and scalable frontend <br /> products with
+    //         great user experiences.
+    //       </p>
 
-          <div className="pt-[calc(4vw_+_3rem)] flex gap-[2rem] flex-col md:flex-row md:items-center justify-between text-white lg:text-[#ccf381]">
-            {headerData.map((data) => (
-              <p
-                key={data.id}
-                className={`text-white ${poppins.className} text-[1rem]`}
-              >
-                {data.para}
-              </p>
-            ))}
-          </div>
-        </article>
+    //       <div className="pt-[calc(4vw_+_3rem)] flex gap-[2rem] flex-col md:flex-row md:items-center justify-between text-white lg:text-[#ccf381]">
+    //         {headerData.map((data) => (
+    //           <p
+    //             key={data.id}
+    //             className={`text-white ${poppins.className} text-[1rem]`}
+    //           >
+    //             {data.para}
+    //           </p>
+    //         ))}
+    //       </div>
+    //     </article>
 
-        <figure className="absolute lg:right-[10%] hidden lg:block">
-          <Image
-            src={Me}
-            alt="My photo"
-            className="max-w-auto rounded-[50%] "
-          />
-        </figure>
-      </section>
-    </header>
+    //     <figure className="absolute lg:right-[10%] hidden lg:block">
+    //       <Image
+    //         src={Me}
+    //         alt="My photo"
+    //         className="max-w-auto rounded-[50%] "
+    //       />
+    //     </figure>
+    //   </section>
+    // </header>
+    <>
+      <div className="h-[800px] overflow-hidden relative max-w-[1920px] my-0 mx-auto">
+        <div className="layer-bg layer parallax" data-depth="0.10"></div>
+        <div className="layer-1 layer parallax" data-depth="0.20"></div>
+        <div className="layer-2 layer parallax" data-depth="0.50"></div>
+        <div className="layer-3 layer parallax" data-depth="0.80"></div>
+        <div className="layer-overlay layer parallax" data-depth="0.85"></div>
+        <div className="layer-4 layer parallax" data-depth="1.00"></div>
+      </div>
+
+      <div className="bg-[#130d0a]">
+        <div className="container">
+          <section className="first-section">
+            <div className="row">
+              <div className="col-sm-6">
+                <h1>You cannot hide the soul...</h1>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-sm-6">
+                <p>
+                  And besides all this, there was a certain lofty bearing about
+                  the Pagan...
+                </p>
+                {/* Add the rest of your paragraphs here */}
+              </div>
+              <div className="col-sm-6">
+                <p>At first they are overawing...</p>
+                {/* Add the rest of your paragraphs here */}
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </>
   );
 };
 
