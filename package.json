@@ -1,7 +1,27 @@
 {
   "name": "portfolio",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.1",
+  "author": {
+    "name": "Ilesanmi Erioluwa Victor",
+    "email": "ilesanmierioluwavictor@gmail.com",
+    "url": "https://github.com/Ilesanmi-Erioluwa-Victor"
+  },
+  "description": "I breath life into website using Framer motion",
+  "keywords": [
+    "react",
+    "next",
+    "nextjs",
+    "html",
+    "css",
+    "javascript",
+    "js",
+    "modern-ui",
+    "modern-ux",
+    "portfolio",
+    "framer-motion",
+    "3d-website",
+    "particle-effect"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,25 +29,23 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "framer-motion": "^10.16.4",
-    "gsap": "^3.12.5",
-    "next": "13.5.4",
-    "react": "^18",
-    "react-dom": "^18",
-    "react-fast-marquee": "^1.6.2",
-    "react-icons": "^4.11.0",
-    "react-slick": "^0.29.0",
-    "sharp": "^0.32.6",
-    "slick-carousel": "^1.8.1"
+    "@next/font": "^13.4.4",
+    "framer-motion": "^10.12.16",
+    "next": "14.1.1",
+    "react": "18.2.0",
+    "react-countup": "^6.4.2",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.8.0",
+    "react-tsparticles": "^2.9.3",
+    "swiper": "^9.4.0",
+    "tailwind-scrollbar": "^3.0.4",
+    "tsparticles": "^2.9.3"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "@types/react-slick": "^0.23.11",
-    "autoprefixer": "^10",
-    "postcss": "^8",
-    "tailwindcss": "^3",
-    "typescript": "^5"
+    "autoprefixer": "^10.4.14",
+    "eslint": "8.41.0",
+    "eslint-config-next": "13.4.3",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.2"
   }
 }
