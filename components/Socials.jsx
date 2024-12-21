@@ -2,24 +2,36 @@ import Link from "next/link";
 import { motion, useAnimation } from "framer-motion";
 import { useState } from "react";
 import {
-  RiYoutubeLine,
+  RiTwitterFill,
   RiInstagramLine,
   RiFacebookLine,
   RiDribbbleLine,
   RiGithubLine,
-  RiPinterestLine,
+  RiLinkedinFill,
 } from "react-icons/ri";
 
 export const socialData = [
-  { name: "YouTube", link: "https://youtube.com", Icon: RiYoutubeLine },
   { name: "Instagram", link: "https://instagram.com", Icon: RiInstagramLine },
-  { name: "Facebook", link: "https://facebook.com", Icon: RiFacebookLine },
-  { name: "Dribbble", link: "https://dribbble.com", Icon: RiDribbbleLine },
-  { name: "Pinterest", link: "https://pinterest.com", Icon: RiPinterestLine },
+  {
+    name: "Facebook",
+    link: "https://web.facebook.com/eric.jayii",
+    Icon: RiFacebookLine,
+  },
+  {
+    name: "Twitter",
+    link: "https://x.com/Erioluwa217229",
+    Icon: RiTwitterFill,
+  },
   {
     name: "Github",
-    link: "https://github.com/sanidhyy/modern-portfolio",
+    link: "https://github.com/Ilesanmi-Erioluwa-Victor",
     Icon: RiGithubLine,
+  },
+
+  {
+    name: "Linkedin",
+    link: "https://www.linkedin.com/in/erioluwa-ilesanmi/",
+    Icon: RiLinkedinFill,
   },
 ];
 
@@ -46,7 +58,7 @@ const Socials = () => {
     },
   };
 
-  const iconRadius = 60; // Set radius for even spacing around the button
+  const iconRadius = 60;
   const iconVariants = {
     hidden: {
       opacity: 0,

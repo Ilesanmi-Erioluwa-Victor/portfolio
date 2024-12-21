@@ -3,17 +3,18 @@ import { useState } from "react";
 import CountUp from "react-countup";
 import {
   FaCss3,
-  FaFigma,
+  FaNodeJs,
   FaHtml5,
   FaJs,
   FaReact,
-  FaWordpress,
+  FaAws,
 } from "react-icons/fa";
 import {
-  SiAdobephotoshop,
-  SiAdobexd,
+  SiExpress,
   SiFramer,
   SiNextdotjs,
+  SiPostgresql,
+  SiMongodb,
 } from "react-icons/si";
 
 import Avatar from "../../components/Avatar";
@@ -34,25 +35,12 @@ export const aboutData = [
           FaReact,
           SiNextdotjs,
           SiFramer,
-          FaWordpress,
+          SiExpress,
+          FaNodeJs,
+          SiPostgresql,
+          SiMongodb,
+          FaAws,
         ],
-      },
-      {
-        title: "UI/UX Design",
-        icons: [FaFigma, SiAdobexd, SiAdobephotoshop],
-      },
-    ],
-  },
-  {
-    title: "awards",
-    info: [
-      {
-        title: "Webby Awards - Honoree",
-        stage: "2011 - 2012",
-      },
-      {
-        title: "Adobe Design Achievement Awards - Finalist",
-        stage: "2009 - 2010",
       },
     ],
   },
@@ -60,33 +48,46 @@ export const aboutData = [
     title: "experience",
     info: [
       {
-        title: "UX/UI Designer - XYZ Company",
-        stage: "2012 - 2023",
+        title: "Full Stack Developer - ABS Technology",
+        stage: "Feb 2024 –Present ",
       },
       {
-        title: "Web Developer - ABC Agency",
-        stage: "2010 - 2012",
+        title: "Backend Developer - Cancer AI",
+        stage: "Sept 2024 - December 2024",
       },
       {
-        title: "Intern - DEF Corporation",
-        stage: "2008 - 2010",
+        title: "Frontend Developer - 4TK",
+        stage: "Oct 2024 - December 2024",
+      },
+      {
+        title: "Full stack Developer - Hollyway Global",
+        stage: "Apr 2023 – Jan 2024",
       },
     ],
   },
+  // {
+  //   title: "resume",
+  //   info: [
+  //     {
+  //       title: "Webby Awards - Honoree",
+  //       stage: "2011 - 2012",
+  //     },
+  //   ],
+  // },
   {
     title: "credentials",
     info: [
       {
-        title: "Web Development - ABC University, LA, CA",
-        stage: "2011",
+        title: "JavaScript Algorithms and Data Structures FreecodeCamp",
+        stage: "2022",
       },
       {
-        title: "Computer Science Diploma - AV Technical Institute",
-        stage: "2009",
+        title: "Responsive Web Design FreeCodeCamp",
+        stage: "2021",
       },
       {
-        title: "Certified Graphic Designer - ABC Institute, Los Angeles, CA",
-        stage: "2006",
+        title: "Software Development Associate Certification PI",
+        stage: "2019",
       },
     ],
   },
@@ -215,6 +216,13 @@ const About = () => {
                 className="flex-1 flex flex-col md:flex-row max-w-max gap-x-2 items-center text-center text-white/60"
               >
                 {/* title */}
+                {/* {item.title === "Resume" && (
+                  <>
+                    <div className="font-light mb-2 md:mb-0">{item.title}</div>
+                    <div className="hidden md:flex">-</div>
+                    <d>{item.stage}</d>
+                  </>
+                )} */}
                 <div className="font-light mb-2 md:mb-0">{item.title}</div>
                 <div className="hidden md:flex">-</div>
                 <div>{item.stage}</div>

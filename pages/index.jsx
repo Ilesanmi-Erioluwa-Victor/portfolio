@@ -30,12 +30,17 @@ const Home = () => {
             initial="hidden"
             animate="show"
             exit="hidden"
-            className="max-w-sm xl:max-w-xl mx-auto xl:mx-0 mb-10 xl:mb-16"
+            className="max-w-sm xl:max-w-xl mx-auto xl:mx-0 mb-10 xl:mb-16 text-white"
           >
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate,
-            exercitationem harum, quia nulla temporibus deleniti libero veniam
-            vero beatae numquam ducimus illum ab similique ipsam tempore fugit
-            quod laudantium debitis.
+            Detail-oriented Full Stack Developer with 3+ years of experience in
+            building and maintaining web applications using modern JavaScript
+            frameworks. Proven expertise in creating custom components,
+            enhancing user experiences, and collaborating with cross-functional
+            teams to deliver impactful features. Passionate about cutting-edge
+            technology, adhering to industry best practices, and building
+            intuitive, scalable, and maintainable applications. Skilled in
+            front-end development, back-end development, responsive design, and
+            creating seamless web applications.
           </motion.p>
 
           {/* btn */}
@@ -47,7 +52,7 @@ const Home = () => {
             initial="hidden"
             animate="show"
             exit="hidden"
-            className="hidden xl:flex"
+            className="hidden xl:flex mt-[-40px]"
           >
             <ProjectsBtn />
           </motion.div>
