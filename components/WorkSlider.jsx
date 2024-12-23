@@ -13,19 +13,19 @@ const workSlides = {
     {
       images: [
         {
-          title: "title",
+          title: "ABS TECHNOLOGY",
           path: "/thumb1.jpg",
-          link: "http://example.com",
+          link: "https://www.abstechconnect.com/",
         },
         {
-          title: "title",
+          title: "4TK",
           path: "/thumb2.jpg",
-          link: "http://example.com",
+          link: "https://www.4tk.shop/",
         },
         {
-          title: "title",
+          title: "ABS TECHNOLOGY ADMIN",
           path: "/thumb3.jpg",
-          link: "http://example.com",
+          link: "https://admin.abstechconnect.com/",
         },
         {
           title: "title",
