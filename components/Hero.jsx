@@ -27,10 +27,10 @@ export default function Hero({ avatarSrc, signatureSvg }) {
       </div>
 
       <p className="lede txt">
-        Frontend Engineer and product builder focused on creating scalable,
-        user-centered digital products. I specialize in React, Next.js, and
-        TypeScript, combining engineering, product thinking, and human-centered
-        design to turn ideas into useful experiences.
+        Full Stack Software Engineer and product builder focused on creating
+        scalable, user-centered digital products. I specialize in React, Next.js,
+        Node.js, and TypeScript, combining engineering, product thinking, and
+        human-centered design to turn ideas into useful experiences.
       </p>
 
       <p className="sub txt">
