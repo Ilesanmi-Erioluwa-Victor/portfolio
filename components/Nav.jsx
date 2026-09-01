@@ -1,10 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import {
-  XMarkIcon,
-  Bars3Icon,
-} from "@heroicons/react/24/outline";
+import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
 
 const socialSvgs = {
   github: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" fill="#5D5D5D"/></svg>`,
@@ -57,21 +54,58 @@ export default function Nav() {
           onClick={() => setOpen((o) => !o)}
         >
           {open ? (
-            <svg className="close" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M13.5 4.5L4.50061 13.4994M13.4994 13.5L4.5 4.50064" stroke="#0A0A0A" strokeWidth="1.125" strokeLinecap="round" strokeLinejoin="round" />
+            <svg
+              className="close"
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M13.5 4.5L4.50061 13.4994M13.4994 13.5L4.5 4.50064"
+                stroke="#0A0A0A"
+                strokeWidth="1.125"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           ) : (
-            <svg className="menu" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M3 6.375H15" stroke="#0A0A0A" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M3 11.625H15" stroke="#0A0A0A" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+            <svg
+              className="menu"
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M3 6.375H15"
+                stroke="#0A0A0A"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M3 11.625H15"
+                stroke="#0A0A0A"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           )}
         </button>
         <div className="nav-links" onClick={handleNavClick}>
-          <Link className="txt current" href="/">Home</Link>
-          <Link className="txt" href="/#top">About</Link>
-          <Link className="txt" href="/#works">Works</Link>
-          <Link className="txt" href="/blog">Blog</Link>
+          <Link className="txt current" href="/">
+            Home
+          </Link>
+          <Link className="txt" href="/resume">
+            Resume
+          </Link>
+          <Link className="txt" href="/blog">
+            Blog
+          </Link>
           <a
             className="book"
             role="button"
@@ -84,16 +118,36 @@ export default function Nav() {
           </a>
         </div>
         <div className="socials">
-          <a data-social="github" aria-label="Ilesanmi on GitHub" target="_blank" rel="noopener noreferrer">
+          <a
+            data-social="github"
+            aria-label="Ilesanmi on GitHub"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <span dangerouslySetInnerHTML={{ __html: socialSvgs.github }} />
           </a>
-          <a data-social="x" aria-label="Ilesanmi on X" target="_blank" rel="noopener noreferrer">
+          <a
+            data-social="x"
+            aria-label="Ilesanmi on X"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <span dangerouslySetInnerHTML={{ __html: socialSvgs.x }} />
           </a>
-          <a data-social="linkedin" aria-label="Ilesanmi on LinkedIn" target="_blank" rel="noopener noreferrer">
+          <a
+            data-social="linkedin"
+            aria-label="Ilesanmi on LinkedIn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <span dangerouslySetInnerHTML={{ __html: socialSvgs.linkedin }} />
           </a>
-          <a data-social="instagram" aria-label="Ilesanmi on Instagram" target="_blank" rel="noopener noreferrer">
+          <a
+            data-social="instagram"
+            aria-label="Ilesanmi on Instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <span dangerouslySetInnerHTML={{ __html: socialSvgs.instagram }} />
           </a>
         </div>

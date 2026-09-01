@@ -538,9 +538,11 @@ nav.floating.hide {
 }
 .clients-logos {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
   vertical-align: middle;
   gap: 0;
+  row-gap: 4px;
 }
 .client-item {
   display: inline-flex;
@@ -585,6 +587,55 @@ nav.floating.hide {
 .cta svg {
   display: block;
   flex-shrink: 0;
+}
+
+/* ------------------------------------------------------- core tech stack */
+.tech-stack {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.tech-stack-label {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.tech-stack-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tech-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 14px;
+  border-radius: 100px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+  background: rgba(10, 10, 10, 0.05);
+  border: 1px solid rgba(10, 10, 10, 0.08);
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+@media (max-width: 640px) {
+  .tech-stack {
+    gap: 12px;
+  }
+  .tech-stack-label {
+    font-size: 14px;
+  }
+  .tech-tag {
+    font-size: 12px;
+    padding: 3px 12px;
+  }
 }
 
 /* ----------------------------------------------------------- recent blog
@@ -669,7 +720,11 @@ nav.floating.hide {
   overflow: hidden;
 }
 .blog-page .outro {
-  margin-top: auto;
+  margin-top: 120px;
+  gap: 100px;
+}
+.blog-page .contact {
+  gap: 100px;
 }
 .blog-header {
   padding-top: 40px;
@@ -1191,7 +1246,7 @@ nav.floating.hide {
   color: rgba(237, 237, 237, 0.6);
 }
 .tile.on-dark .tile-desc {
-  color: rgba(237, 237, 237, 0.6);
+  color: #ffffff;
 }
 .tile.on-dark .tile-link {
   color: #ededed;
@@ -1210,8 +1265,8 @@ nav.floating.hide {
   gap: calc(23px * var(--k, 1));
   padding: calc(20px * var(--k, 1));
   border-radius: calc(20px * var(--k, 1));
-  background: transparent;
-  backdrop-filter: blur(0px);
+  background: rgba(10, 10, 10, 0.65);
+  backdrop-filter: blur(10px);
   transition:
     background 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     backdrop-filter 0.4s cubic-bezier(0.22, 1, 0.36, 1),
@@ -1219,31 +1274,32 @@ nav.floating.hide {
   transform: translateY(0);
 }
 .tile:hover .tile-block {
-  background: rgba(10, 10, 10, 0.75);
-  backdrop-filter: blur(12px);
+  background: rgba(10, 10, 10, 0.80);
+  backdrop-filter: blur(16px);
   transform: translateY(-4px);
 }
+.tile-block .tile-num {
+  color: #ffffff;
+}
+.tile-block .tile-name {
+  color: #ffffff;
+}
+.tile-block .tile-label {
+  color: #ffffff;
+}
+.tile-block .tile-desc {
+  color: #ffffff;
+}
+.tile-block .tile-link {
+  color: #ffffff;
+}
+
 .tile-block .tile-num,
 .tile-block .tile-name,
 .tile-block .tile-label,
 .tile-block .tile-desc,
 .tile-block .tile-link {
   transition: color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.tile:hover .tile-block .tile-num {
-  color: rgba(237, 237, 237, 0.5);
-}
-.tile:hover .tile-block .tile-name {
-  color: #ededed;
-}
-.tile:hover .tile-block .tile-label {
-  color: rgba(237, 237, 237, 0.6);
-}
-.tile:hover .tile-block .tile-desc {
-  color: rgba(237, 237, 237, 0.7);
-}
-.tile:hover .tile-block .tile-link {
-  color: #ededed;
 }
 .tile:hover .tile-block .tile-link svg {
   transform: translateX(3px);
@@ -1525,6 +1581,19 @@ nav.floating.hide {
     gap: 20px;
   }
 
+  .tile-id {
+    font-size: 16px;
+  }
+  .tile-label {
+    font-size: 14px;
+  }
+  .tile-desc {
+    font-size: 15px;
+  }
+  .tile-link {
+    font-size: 15px;
+  }
+
   .outro {
     width: var(--col);
     margin-top: 120px;
@@ -1728,5 +1797,161 @@ nav.floating.hide {
 @media (prefers-reduced-motion: reduce) {
   .works-grid.settled .tile {
     transition: none;
+  }
+}
+
+/* ----------------------------------------------------------------- resume */
+.resume-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.resume-dl {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.resume-dl:hover {
+  color: var(--ink);
+}
+.resume-dl svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+.resume-paper {
+  width: 100%;
+  max-width: 794px;
+  margin: 40px auto 0;
+  padding: clamp(30px, 5vw, 60px);
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  color: #1f2937;
+  font-size: 14px;
+  line-height: 1.7;
+  box-sizing: border-box;
+}
+
+.resume-section {
+  margin-bottom: 40px;
+}
+.resume-intro {
+  margin-bottom: 40px;
+}
+.resume-name {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: #111827;
+}
+.resume-subtitle {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+}
+.resume-contact {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #6b7280;
+}
+.resume-links {
+  margin-top: 4px;
+  font-size: 13px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.resume-links a {
+  color: #6b7280;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.resume-links a:hover {
+  color: #374151;
+}
+.resume-link-sep {
+  color: #d1d5db;
+}
+.resume-text-link {
+  color: #374151;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.resume-accent {
+  height: 3px;
+  width: 60px;
+  background: #2ecc71;
+  margin-top: 20px;
+  border-radius: 2px;
+}
+
+.resume-heading {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #111827;
+  letter-spacing: 0.3px;
+}
+
+.resume-text {
+  color: #374151;
+  margin: 0;
+}
+
+.resume-skill-line {
+  margin-bottom: 8px;
+  color: #374151;
+}
+.resume-skill-line strong {
+  color: #111827;
+}
+.resume-skill-line span {
+  color: #374151;
+}
+
+.resume-exp {
+  margin-bottom: 28px;
+}
+.resume-exp-title {
+  font-weight: 600;
+  font-size: 15px;
+  color: #111827;
+}
+.resume-exp-date {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+.resume-list {
+  padding-left: 20px;
+  margin: 0;
+  color: #374151;
+}
+.resume-list li {
+  margin-bottom: 6px;
+}
+
+@media (max-width: 640px) {
+  .resume-paper {
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .resume-name {
+    font-size: 22px;
+  }
+  .blog-page .outro {
+    width: 100%;
+    margin-top: 60px;
+    gap: 80px;
+  }
+  .blog-page .contact {
+    gap: 80px;
   }
 }

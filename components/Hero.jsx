@@ -51,6 +51,40 @@ export default function Hero({ avatarSrc, signatureSvg }) {
         </span>
       </p>
 
+      <div className="tech-stack">
+        <span className="tech-stack-label txt">Core stack:</span>
+        <div className="tech-stack-items">
+          <span className="tech-tag">React</span>
+          <span className="tech-tag">Next.js</span>
+          <span className="tech-tag">TypeScript</span>
+          <span className="tech-tag">Node.js</span>
+          <span className="tech-tag">Express</span>
+          <span className="tech-tag">PostgreSQL</span>
+          <span className="tech-tag">MongoDB</span>
+          <span className="tech-tag">MySQL</span>
+          <span className="tech-tag">Tailwind CSS</span>
+          <span className="tech-tag">Redux</span>
+          <span className="tech-tag">REST APIs</span>
+          <span className="tech-tag">GraphQL</span>
+          <span className="tech-tag">WebSocket</span>
+          <span className="tech-tag">AWS</span>
+          <span className="tech-tag">Docker</span>
+          <span className="tech-tag">CI/CD</span>
+          <span className="tech-tag">Prisma</span>
+          <span className="tech-tag">Socket.IO</span>
+          <span className="tech-tag">Zustand</span>
+          <span className="tech-tag">TanStack Query</span>
+          <span className="tech-tag">OpenAI API</span>
+          <span className="tech-tag">Claude API</span>
+          <span className="tech-tag">LangChain</span>
+          <span className="tech-tag">LLMs</span>
+          <span className="tech-tag">AI Agents</span>
+          <span className="tech-tag">Prompt Engineering</span>
+          <span className="tech-tag">RAG</span>
+          <span className="tech-tag">Automation</span>
+        </div>
+      </div>
+
       <a
         className="cta"
         role="button"

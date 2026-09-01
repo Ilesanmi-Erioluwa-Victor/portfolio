@@ -49,7 +49,7 @@ export default function Process() {
               <span className="step-t txt">Ship</span>
             </span>
             <span className="step-d txt">
-              I build Landing pages, prototypes, front-end handoff.
+              I build Landing pages, front-end handoff.
             </span>
           </div>
         </div>
