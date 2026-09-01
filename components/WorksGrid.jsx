@@ -98,7 +98,6 @@ export default function WorksGrid() {
                         key={i}
                         className={"tile" + (w.dark ? " on-dark" : "")}
                         style={{
-                            background: w.bg,
                             border: w.stroke === false ? "none" : "0.6px solid #e4e4e4",
                         }}
                     >
