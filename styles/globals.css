@@ -520,6 +520,33 @@ nav.floating.hide {
   color: var(--ink);
   width: 100%;
 }
+.hero-metrics {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.metric {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 100px;
+  font-size: 13px;
+  line-height: 1.5;
+  background: rgba(10, 10, 10, 0.05);
+  border: 1px solid rgba(10, 10, 10, 0.08);
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0;
+}
+.metric-num {
+  font-weight: 500;
+  color: var(--ink);
+}
+.metric-label {
+  color: var(--muted);
+}
 .sub {
   font-size: 18px;
   line-height: 1.6;
@@ -1543,6 +1570,9 @@ nav.floating.hide {
   .lede {
     font-size: 20px;
     letter-spacing: -0.1px;
+  }
+  .hero-metrics {
+    gap: 6px;
   }
   .sub {
     font-size: 15px;

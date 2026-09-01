@@ -33,12 +33,27 @@ export default function Hero({ avatarSrc, signatureSvg }) {
         human-centered design to turn ideas into useful experiences.
       </p>
 
+      <div className="hero-metrics">
+        <div className="metric">
+          <span className="metric-num">4+</span>
+          <span className="metric-label txt">years experience</span>
+        </div>
+        <div className="metric">
+          <span className="metric-num">3</span>
+          <span className="metric-label txt">production platforms</span>
+        </div>
+        <div className="metric">
+          <span className="metric-num">12K+</span>
+          <span className="metric-label txt">users served</span>
+        </div>
+      </div>
+
       <p className="sub txt">
         I build modular, documented components end-to-end, integrate RESTful
         APIs and real-time WebSocket events, and work with PostgreSQL, MySQL,
-        and MongoDB-backed services. Comfortable with authentication flows, code
-        reviews, and deploying to AWS (EC2/RDS) with CI/CD pipelines (GitHub
-        Actions).
+        and MongoDB-backed services. I deploy to AWS (EC2/RDS) with CI/CD
+        pipelines and build AI-powered automation systems that generate and
+        schedule content autonomously.
       </p>
 
       <p className="clients txt">
