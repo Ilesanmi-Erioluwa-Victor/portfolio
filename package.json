@@ -1,27 +1,11 @@
 {
   "name": "portfolio",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "author": {
     "name": "Ilesanmi Erioluwa Victor",
-    "email": "ilesanmierioluwavictor@gmail.com",
-    "url": "https://github.com/Ilesanmi-Erioluwa-Victor"
+    "email": "ilesanmierioluwavictor@gmail.com"
   },
-  "description": "I breath life into website using Framer motion",
-  "keywords": [
-    "react",
-    "next",
-    "nextjs",
-    "html",
-    "css",
-    "javascript",
-    "js",
-    "modern-ui",
-    "modern-ux",
-    "portfolio",
-    "framer-motion",
-    "3d-website",
-    "particle-effect"
-  ],
+  "description": "Full Stack Developer portfolio — React, Node.js, fintech platforms",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -29,17 +13,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/font": "^13.4.4",
-    "framer-motion": "^10.12.16",
+    "@heroicons/react": "^2.2.0",
     "next": "14.1.1",
     "react": "18.2.0",
-    "react-countup": "^6.4.2",
-    "react-dom": "18.2.0",
-    "react-icons": "^4.8.0",
-    "react-tsparticles": "^2.9.3",
-    "swiper": "^9.4.0",
-    "tailwind-scrollbar": "^3.0.4",
-    "tsparticles": "^2.9.3"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
