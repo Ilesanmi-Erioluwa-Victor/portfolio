@@ -288,9 +288,14 @@ function Footer() {
   return (
     <div className="contact">
       <div className="contact-card">
+        <h2 className="contact-title txt">
+          Let&rsquo;s build something people
+          <br />
+          actually want.
+        </h2>
         <p className="contact-sub txt">
-          Open to freelance, contracts, and full-time opportunities — let&rsquo;s
-          build something together.
+          Whether you&rsquo;re starting from scratch or refining what exists,
+          I&rsquo;m ready to help.
         </p>
         <a
           className="cta"
