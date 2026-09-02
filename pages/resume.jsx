@@ -326,10 +326,12 @@ function Footer() {
         </a>
       </div>
       <footer className="foot">
-        <p className="credit txt">
-          &copy; {new Date().getFullYear()} Ilesanmi Erioluwa Victor
-        </p>
-        <p className="clock txt">Lagos, Nigeria</p>
+        <div className="foot-row">
+          <p className="credit txt">
+            &copy; {new Date().getFullYear()} Ilesanmi Erioluwa Victor
+          </p>
+          <p className="clock txt">Lagos, Nigeria</p>
+        </div>
       </footer>
     </div>
   );

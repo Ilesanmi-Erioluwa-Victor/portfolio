@@ -551,7 +551,7 @@ nav.floating.hide {
   margin-top: 100px; /* nav bottom (56) → hero top (156) */
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 28px;
   align-items: flex-start;
 }
 
@@ -645,6 +645,9 @@ nav.floating.hide {
   line-height: 1.45;
   color: var(--ink);
   width: 100%;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 .hero-metrics {
   display: flex;
@@ -678,6 +681,9 @@ nav.floating.hide {
   line-height: 1.6;
   color: var(--muted); /* was --soft; the file reads #5d5d5d now */
   max-width: 760px;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 /* Clients line: the label is ink, the names are muted, one line box. */
 .clients {
@@ -685,6 +691,11 @@ nav.floating.hide {
   line-height: 1.6;
   color: var(--ink);
   width: 100%;
+}
+.clients .clients-logos {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 .clients span {
   color: var(--muted);
@@ -694,8 +705,7 @@ nav.floating.hide {
   flex-wrap: wrap;
   align-items: center;
   vertical-align: middle;
-  gap: 0;
-  row-gap: 4px;
+  gap: 4px 14px;
 }
 .client-item {
   display: inline-flex;
@@ -749,12 +759,14 @@ nav.floating.hide {
   gap: 16px;
   width: 100%;
   flex-wrap: wrap;
+  margin-top: 10px;
 }
 .tech-stack-label {
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 20px;
+  line-height: 1.55;
   color: var(--ink);
   font-weight: 500;
+  letter-spacing: -0.1px;
   white-space: nowrap;
 }
 .tech-stack-items {
@@ -781,9 +793,11 @@ nav.floating.hide {
 @media (max-width: 640px) {
   .tech-stack {
     gap: 12px;
+    margin-top: 20px;
   }
   .tech-stack-label {
-    font-size: 14px;
+    font-size: 17px;
+    letter-spacing: -0.085px;
   }
   .tech-tag {
     font-size: 12px;
@@ -1076,23 +1090,28 @@ nav.floating.hide {
 .outro {
   width: var(--col);
   max-width: calc(100vw - 48px);
-  margin: 160px auto 0; /* works grid bottom → section top */
+  margin: 90px auto 0; /* works grid bottom → section top */
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 200px;
+  gap: 60px;
 }
 
 .process {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 55px;
+  gap: 28px;
 }
 .process-head {
   display: flex;
   flex-direction: column;
-  gap: 35px;
+  gap: 18px;
+}
+.process-head .lede {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 .process-label {
   font-size: 18px;
@@ -1155,7 +1174,7 @@ nav.floating.hide {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 200px;
+  gap: 90px;
 }
 .contact-card {
   display: flex;
@@ -1203,6 +1222,11 @@ nav.floating.hide {
   justify-content: space-between;
   padding-bottom: 90px;
 }
+.foot-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
 .foot p {
   margin: 0;
   font-size: 15px;
@@ -1223,7 +1247,7 @@ nav.floating.hide {
 .works {
   width: calc(100% - 120px);
   max-width: 1390px;
-  margin: 100px auto 0; /* wheel bottom → header top */
+  margin: 60px auto 0; /* wheel bottom → header top */
 
   scroll-margin-top: 50px;
 }
@@ -1427,7 +1451,7 @@ nav.floating.hide {
   transform: translateY(0);
 }
 .tile:hover .tile-block {
-  background: rgba(10, 10, 10, 0.80);
+  background: rgba(10, 10, 10, 0.8);
   backdrop-filter: blur(16px);
   transform: translateY(-4px);
 }
@@ -1543,7 +1567,7 @@ nav.floating.hide {
 
   .hero {
     margin-top: 81px;
-    gap: 35px;
+    gap: 24px;
   }
   .avatar-full {
     width: 35px;
@@ -1586,12 +1610,12 @@ nav.floating.hide {
 
   .works {
     width: calc(100% - 120px);
-    margin-top: 120px;
   }
 
   .outro {
     width: var(--col);
-    margin-top: 160px;
+    margin-top: 90px;
+    gap: 50px;
   }
   .process-label {
     font-size: 16px;
@@ -1599,6 +1623,12 @@ nav.floating.hide {
   }
   .process .lede {
     font-size: 24px;
+  }
+  .process {
+    gap: 28px;
+  }
+  .process-head {
+    gap: 18px;
   }
   .step {
     font-size: 16px;
@@ -1608,7 +1638,7 @@ nav.floating.hide {
     gap: 20px;
   }
   .contact {
-    gap: 200px;
+    gap: 70px;
   }
   .contact-title {
     font-size: 30px;
@@ -1667,7 +1697,7 @@ nav.floating.hide {
 
   .hero {
     margin-top: 44px;
-    gap: 32px;
+    gap: 22px;
   }
   .avatar-full {
     width: 28px;
@@ -1707,6 +1737,13 @@ nav.floating.hide {
   .clients {
     font-size: 15px;
     letter-spacing: -0.075px;
+    text-align: left;
+  }
+  .clients .clients-logos {
+    text-align: left;
+  }
+  .clients-logos {
+    gap: 6px 10px;
   }
   .cta {
     width: 150px;
@@ -1728,7 +1765,6 @@ nav.floating.hide {
 
   .works {
     width: calc(100% - 50px);
-    margin-top: 80px;
   }
   .works-head {
     font-size: 14px;
@@ -1752,14 +1788,14 @@ nav.floating.hide {
 
   .outro {
     width: var(--col);
-    margin-top: 120px;
-    gap: 120px;
+    margin-top: 60px;
+    gap: 40px;
   }
   .process {
-    gap: 55px;
+    gap: 28px;
   }
   .process-head {
-    gap: 40px;
+    gap: 18px;
   }
   .process-label {
     font-size: 14px;
@@ -1801,7 +1837,7 @@ nav.floating.hide {
   }
 
   .contact {
-    gap: 120px;
+    gap: 60px;
   }
   .contact-card {
     gap: 28px;
@@ -1822,9 +1858,18 @@ nav.floating.hide {
   .foot {
     width: 100%;
     padding-bottom: 60px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
   }
   .foot p {
     font-size: 13px;
+  }
+  .foot-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
   }
 }
 

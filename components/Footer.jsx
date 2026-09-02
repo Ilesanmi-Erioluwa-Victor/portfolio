@@ -106,10 +106,12 @@ export default function Footer({ signatureSvg, dedupe }) {
       </div>
 
       <div className="foot">
-        <p className="credit txt">
-          &copy; {new Date().getFullYear()} Ilesanmi Erioluwa Victor
-        </p>
-        <Clock />
+        <div className="foot-row">
+          <p className="credit txt">
+            &copy; {new Date().getFullYear()} Ilesanmi Erioluwa Victor
+          </p>
+          <Clock />
+        </div>
         <div className="socials">
           <a
             href={SOCIALS.github}
