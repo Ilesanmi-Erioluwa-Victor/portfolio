@@ -123,7 +123,12 @@ function ContactModal({ dialogRef, onClose, token, url }) {
         {status === "sent" ? (
           <div className="contact-success">
             <p className="contact-success-title txt">Thanks — message sent.</p>
-            <p className="contact-success-sub txt">I&rsquo;ll reply from ilesanmierioluwavictor@gmail.com shortly.</p>
+            <p className="contact-success-sub txt">
+              Thanks for reaching out — your message is on its way. I read
+              every note personally and usually respond within a day or
+              two. If it&rsquo;s urgent, mention it in the subject and
+              I&rsquo;ll prioritize it.
+            </p>
             <button type="button" className="contact-submit" onClick={onClose}>
               <span className="txt">Close</span>
             </button>
