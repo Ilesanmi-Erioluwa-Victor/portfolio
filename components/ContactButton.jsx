@@ -34,7 +34,10 @@ export default function ContactButton({
       <button
         type="button"
         className={`contact-btn contact-btn--${variant} ${className}`.trim()}
-        onClick={() => setOpen(true)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen(true);
+        }}
         {...rest}
       >
         <span className="txt">{children}</span>
