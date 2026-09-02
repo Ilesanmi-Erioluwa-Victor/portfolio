@@ -6,6 +6,7 @@ export default function FloatingNav() {
   const lastYRef = useRef(0);
   const gateRef = useRef(0);
   const floatingRef = useRef(false);
+  const armedRef = useRef(false);
 
   useEffect(() => {
     const nav = document.querySelector(".col nav");
@@ -38,11 +39,26 @@ export default function FloatingNav() {
 
       if (y <= gateRef.current) {
         if (floatingRef.current) apply(false, false);
+        armedRef.current = false;
         return;
       }
 
-      if (Math.abs(delta) < 4) return;
-      apply(true, delta < 0);
+      if (Math.abs(delta) < 4) {
+        if (!floatingRef.current && armedRef.current) apply(true, false);
+        return;
+      }
+
+      if (delta < 0) {
+        apply(true, true);
+        armedRef.current = false;
+      } else {
+        if (!floatingRef.current) {
+          armedRef.current = true;
+          apply(true, false);
+        } else {
+          apply(true, false);
+        }
+      }
     };
 
     let ticking = false;
