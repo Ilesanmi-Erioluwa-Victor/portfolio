@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Head from "next/head";
-import ContactButton from "../components/ContactButton";
+import Footer from "../components/Footer";
 
 export default function Resume() {
   return (
@@ -282,34 +282,5 @@ export default function Resume() {
         </section>
       </div>
     </>
-  );
-}
-
-function Footer() {
-  return (
-    <div className="contact">
-      <div className="contact-card">
-        <h2 className="contact-title txt">
-          Let&rsquo;s build something people
-          <br />
-          actually want.
-        </h2>
-        <p className="contact-sub txt">
-          Whether you&rsquo;re starting from scratch or refining what exists,
-          I&rsquo;m ready to help.
-        </p>
-        <ContactButton variant="pill" className="cta">
-          <span className="txt">Contact Me</span>
-        </ContactButton>
-      </div>
-      <footer className="foot">
-        <div className="foot-row">
-          <p className="credit txt">
-            &copy; {new Date().getFullYear()} Ilesanmi Erioluwa Victor
-          </p>
-          <p className="clock txt">Lagos, Nigeria</p>
-        </div>
-      </footer>
-    </div>
   );
 }
