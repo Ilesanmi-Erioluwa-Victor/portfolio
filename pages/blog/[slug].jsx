@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
+import { SIGNATURE_SVG } from "../../data/signature";
 
 const POSTS = {
   "building-scalable-react-apps": {
@@ -148,7 +149,9 @@ export default function BlogPost() {
           <article className="blog-post-content" dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
 
-        <Footer />
+        <section className="outro">
+          <Footer signatureSvg={SIGNATURE_SVG} dedupe />
+        </section>
       </div>
     </>
   );

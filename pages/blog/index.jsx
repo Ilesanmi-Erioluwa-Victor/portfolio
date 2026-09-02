@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
+import { SIGNATURE_SVG } from "../../data/signature";
 
 const ALL_POSTS = [
   {
@@ -64,7 +65,9 @@ export default function BlogListing() {
           </div>
         </div>
 
-        <Footer />
+        <section className="outro">
+          <Footer signatureSvg={SIGNATURE_SVG} dedupe />
+        </section>
       </div>
     </>
   );

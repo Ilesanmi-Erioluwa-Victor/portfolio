@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Head from "next/head";
 import Footer from "../components/Footer";
+import { SIGNATURE_SVG } from "../data/signature";
 
 export default function Resume() {
   return (
@@ -278,7 +279,7 @@ export default function Resume() {
         </div>
 
         <section className="outro">
-          <Footer />
+          <Footer signatureSvg={SIGNATURE_SVG} dedupe />
         </section>
       </div>
     </>
