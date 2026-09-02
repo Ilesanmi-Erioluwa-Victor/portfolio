@@ -30,9 +30,10 @@ export default function Hero({ avatarSrc, signatureSvg }) {
 
       <p className="lede txt">
         Full Stack Software Engineer and product builder focused on creating
-        scalable, user-centered digital products. I specialize in React, Next.js,
-        Node.js, and TypeScript, combining engineering, product thinking, and
-        human-centered design to turn ideas into useful experiences.
+        scalable, user-centered digital products. I specialize in React,
+        Next.js, Node.js, and TypeScript, combining engineering, product
+        thinking, and human-centered design to turn ideas into useful
+        experiences.
       </p>
 
       <div className="hero-metrics">
@@ -41,12 +42,12 @@ export default function Hero({ avatarSrc, signatureSvg }) {
           <span className="metric-label txt">years experience</span>
         </div>
         <div className="metric">
-          <span className="metric-num">3</span>
-          <span className="metric-label txt">production platforms</span>
-        </div>
-        <div className="metric">
           <span className="metric-num">12K+</span>
           <span className="metric-label txt">users served</span>
+        </div>
+        <div className="metric">
+          <span className="metric-num">3</span>
+          <span className="metric-label txt">production platforms</span>
         </div>
       </div>
 
@@ -61,9 +62,30 @@ export default function Hero({ avatarSrc, signatureSvg }) {
       <p className="clients txt">
         I&rsquo;ve worked with:{" "}
         <span className="clients-logos">
-          <span className="client-item"><img src="/images/AbS.png" alt="AbS Technologies" className="client-logo" />AbS Technologies</span>
-          <span className="client-item"><img src="/images/Digiyo.png" alt="DigiYo" className="client-logo" />DigiYo</span>
-          <span className="client-item"><img src="/images/HelloBob.png" alt="HelloBob" className="client-logo" />HelloBob</span>
+          <span className="client-item">
+            <img
+              src="/images/AbS.png"
+              alt="AbS Technologies"
+              className="client-logo"
+            />
+            AbS Technologies
+          </span>
+          <span className="client-item">
+            <img
+              src="/images/Digiyo.png"
+              alt="DigiYo"
+              className="client-logo"
+            />
+            DigiYo
+          </span>
+          <span className="client-item">
+            <img
+              src="/images/HelloBob.png"
+              alt="HelloBob"
+              className="client-logo"
+            />
+            HelloBob
+          </span>
           and more.
         </span>
       </p>
