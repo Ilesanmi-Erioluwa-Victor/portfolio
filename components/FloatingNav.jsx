@@ -5,8 +5,7 @@ export default function FloatingNav() {
   const rafRef = useRef(null);
   const lastYRef = useRef(0);
   const gateRef = useRef(0);
-  const floatingRef = useRef(false);
-  const armedRef = useRef(false);
+  const stateRef = useRef("docked");
 
   useEffect(() => {
     const nav = document.querySelector(".col nav");
@@ -23,12 +22,22 @@ export default function FloatingNav() {
     measureGate();
     lastYRef.current = window.scrollY;
 
-    const apply = (floating, visible) => {
+    const setState = (next) => {
       if (!nav.isConnected) return;
-      nav.classList.toggle("floating", floating);
-      col.classList.toggle("reserve", floating);
-      nav.classList.toggle("hide", floating && !visible);
-      floatingRef.current = floating;
+      if (stateRef.current === next) return;
+      const prev = stateRef.current;
+      stateRef.current = next;
+      nav.classList.toggle("floating", next !== "docked");
+      col.classList.toggle("reserve", next !== "docked");
+      nav.classList.toggle(
+        "hide",
+        next === "floating-hidden" || next === "armed-hidden"
+      );
+      if (next === "docked" && prev !== "docked") {
+        nav.classList.add("no-transition");
+        void nav.offsetWidth;
+        nav.classList.remove("no-transition");
+      }
     };
 
     const update = () => {
@@ -38,27 +47,27 @@ export default function FloatingNav() {
       lastYRef.current = y;
 
       if (y <= gateRef.current) {
-        if (floatingRef.current) apply(false, false);
-        armedRef.current = false;
-        return;
-      }
-
-      if (Math.abs(delta) < 4) {
-        if (!floatingRef.current && armedRef.current) apply(true, false);
+        setState("docked");
         return;
       }
 
       if (delta < 0) {
-        apply(true, true);
-        armedRef.current = false;
-      } else {
-        if (!floatingRef.current) {
-          armedRef.current = true;
-          apply(true, false);
-        } else {
-          apply(true, false);
-        }
+        setState("floating-shown");
+        return;
       }
+
+      if (stateRef.current === "floating-shown" && Math.abs(delta) < 4) return;
+
+      if (stateRef.current === "floating-shown") {
+        setState("armed-hidden");
+        return;
+      }
+
+      if (stateRef.current === "armed-hidden") {
+        return;
+      }
+
+      setState("floating-hidden");
     };
 
     let ticking = false;
