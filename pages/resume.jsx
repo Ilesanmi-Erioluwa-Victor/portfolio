@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Head from "next/head";
+import ContactButton from "../components/ContactButton";
 
 export default function Resume() {
   return (
@@ -297,33 +298,9 @@ function Footer() {
           Whether you&rsquo;re starting from scratch or refining what exists,
           I&rsquo;m ready to help.
         </p>
-        <a
-          className="cta"
-          role="button"
-          tabIndex={0}
-          data-cal-link="ilesanmi-erioluwa-victor"
-          data-cal-namespace="ilesanmi-erioluwa-victor"
-          data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
-        >
-          <span className="txt">Book a Call</span>
-          <svg
-            width="11"
-            height="7"
-            viewBox="0 0 11 7"
-            fill="none"
-            aria-hidden="true"
-          >
-            <line
-              x1="3.5"
-              y1="3.5"
-              x2="7.5"
-              y2="3.5"
-              stroke="#2ECC71"
-              strokeWidth="7"
-              strokeLinecap="round"
-            />
-          </svg>
-        </a>
+        <ContactButton variant="pill" className="cta">
+          <span className="txt">Contact Me</span>
+        </ContactButton>
       </div>
       <footer className="foot">
         <div className="foot-row">

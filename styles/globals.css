@@ -408,6 +408,20 @@ nav.floating.hide {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* ------------------------------------------------ contact button
+     Wraps every <ContactButton /> instance. Resets <button> defaults so
+     the existing .cta / .book class hooks still paint correctly, and
+     exposes two looks: "pill" (the dark CTA pill) and "book" (the
+     text-style link in the nav). */
+.contact-btn {
+  font: inherit;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
 /* Lab is closed while it's a work in progress: it reads as a nav item but
      isn't a link, and carries the lock from the frame. */
 .nav-lab {
@@ -804,7 +818,6 @@ nav.floating.hide {
   gap: 16px;
   width: 100%;
   flex-wrap: wrap;
-  margin-top: 10px;
 }
 .tech-stack-label {
   font-size: 20px;
@@ -844,7 +857,6 @@ nav.floating.hide {
   }
   .tech-stack {
     gap: 12px;
-    margin-top: 20px;
   }
   .tech-stack-label {
     font-size: 17px;
@@ -1298,7 +1310,7 @@ nav.floating.hide {
 .works {
   width: calc(100% - 120px);
   max-width: 1390px;
-  margin-top: 0px;
+  margin-top: 40px;
   margin-right: auto;
   margin-bottom: 0px;
   margin-left: auto;
@@ -1819,6 +1831,8 @@ nav.floating.hide {
 
   .works {
     width: calc(100% - 50px);
+    margin-top: 30px;
+    margin-bottom: 0px !important;
   }
   .works-head {
     font-size: 14px;

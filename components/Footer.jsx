@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Clock from "./Clock";
+import ContactButton from "./ContactButton";
 import { SOCIALS } from "../data/socials";
 
 const socialIcons = {
@@ -76,33 +77,9 @@ export default function Footer({ signatureSvg, dedupe }) {
           Whether you&rsquo;re starting from scratch or refining what exists,
           I&rsquo;m ready to help.
         </p>
-        <a
-          className="cta"
-          role="button"
-          tabIndex={0}
-          data-cal-link="ilesanmi-erioluwa-victor"
-          data-cal-namespace="ilesanmi-erioluwa-victor"
-          data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
-        >
-          <span className="txt">Book a Call</span>
-          <svg
-            width="11"
-            height="7"
-            viewBox="0 0 11 7"
-            fill="none"
-            aria-hidden="true"
-          >
-            <line
-              x1="3.5"
-              y1="3.5"
-              x2="7.5"
-              y2="3.5"
-              stroke="#2ECC71"
-              strokeWidth="7"
-              strokeLinecap="round"
-            />
-          </svg>
-        </a>
+        <ContactButton variant="pill" className="cta">
+          <span className="txt">Contact Me</span>
+        </ContactButton>
       </div>
 
       <div className="foot">
