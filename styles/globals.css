@@ -2297,8 +2297,8 @@ nav.snap * {
 .resume-paper {
   width: 100%;
   max-width: 794px;
-  margin: 40px auto 0;
-  padding: clamp(30px, 5vw, 60px);
+  margin: 24px auto 0;
+  padding: clamp(24px, 4vw, 48px);
   background: var(--paper-bg);
   border-radius: 16px;
   box-shadow: 0 20px 40px var(--paper-shadow);
@@ -2309,10 +2309,10 @@ nav.snap * {
 }
 
 .resume-section {
-  margin-bottom: 40px;
+  margin-bottom: 22px;
 }
 .resume-intro {
-  margin-bottom: 40px;
+  margin-bottom: 22px;
 }
 .resume-name {
   margin: 0;
@@ -2325,11 +2325,17 @@ nav.snap * {
   font-size: 14px;
   color: var(--paper-body);
   font-weight: 500;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 .resume-contact {
   margin-top: 8px;
   font-size: 14px;
   color: var(--paper-muted);
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 .resume-links {
   margin-top: 4px;
@@ -2338,6 +2344,7 @@ nav.snap * {
   flex-wrap: wrap;
   align-items: center;
   gap: 6px;
+  word-break: break-word;
 }
 .resume-links a {
   color: var(--paper-link);
@@ -2359,14 +2366,14 @@ nav.snap * {
   height: 3px;
   width: 60px;
   background: #2ecc71;
-  margin-top: 20px;
+  margin-top: 16px;
   border-radius: 2px;
 }
 
 .resume-heading {
   font-size: 16px;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin: 0 0 12px;
   color: var(--paper-heading);
   letter-spacing: 0.3px;
 }
@@ -2374,11 +2381,17 @@ nav.snap * {
 .resume-text {
   color: var(--paper-body);
   margin: 0;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 
 .resume-skill-line {
   margin-bottom: 8px;
   color: var(--paper-body);
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 .resume-skill-line strong {
   color: var(--paper-strong);
@@ -2388,7 +2401,10 @@ nav.snap * {
 }
 
 .resume-exp {
-  margin-bottom: 28px;
+  margin-bottom: 18px;
+}
+.resume-exp:last-child {
+  margin-bottom: 0;
 }
 .resume-exp-title {
   font-weight: 600;
@@ -2398,31 +2414,56 @@ nav.snap * {
 .resume-exp-date {
   font-size: 13px;
   color: var(--paper-muted);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .resume-list {
   padding-left: 20px;
   margin: 0;
   color: var(--paper-body);
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 .resume-list li {
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 @media (max-width: 640px) {
   .resume-paper {
     border-radius: 12px;
-    padding: 24px;
+    padding: 20px;
+    margin: 16px auto 0;
+  }
+  .resume-section {
+    margin-bottom: 18px;
+  }
+  .resume-intro {
+    margin-bottom: 18px;
   }
   .resume-name {
     font-size: 22px;
   }
+  .resume-heading {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  .resume-skill-line,
+  .resume-list li {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .resume-exp {
+    margin-bottom: 14px;
+  }
+  .resume-list {
+    padding-left: 18px;
+  }
   .blog-page .outro {
     width: 100%;
-    margin-top: 60px;
-    gap: 80px;
+    margin-top: 40px;
+    gap: 60px;
   }
   .blog-page .contact {
-    gap: 80px;
+    gap: 60px;
   }
 }
