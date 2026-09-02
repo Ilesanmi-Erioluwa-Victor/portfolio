@@ -406,8 +406,8 @@ nav.floating.hide {
   pointer-events: none;
   transform: translate(-50%, -18px);
 }
-nav.no-transition,
-nav.no-transition * {
+nav.snap,
+nav.snap * {
   transition: none !important;
 }
 .col.reserve {

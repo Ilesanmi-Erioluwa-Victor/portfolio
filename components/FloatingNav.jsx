@@ -27,16 +27,28 @@ export default function FloatingNav() {
       if (stateRef.current === next) return;
       const prev = stateRef.current;
       stateRef.current = next;
-      nav.classList.toggle("floating", next !== "docked");
-      col.classList.toggle("reserve", next !== "docked");
-      nav.classList.toggle(
-        "hide",
-        next === "floating-hidden" || next === "armed-hidden"
-      );
-      if (next === "docked" && prev !== "docked") {
-        nav.classList.add("no-transition");
+      const wantFloating = next !== "docked";
+      const wantHidden =
+        next === "floating-hidden" || next === "armed-hidden";
+      const wasFloating = prev !== "docked";
+
+      if (wantHidden && !wasFloating) {
+        nav.classList.add("snap");
+        nav.classList.toggle("floating", true);
+        col.classList.toggle("reserve", true);
+        nav.classList.toggle("hide", true);
         void nav.offsetWidth;
-        nav.classList.remove("no-transition");
+        nav.classList.remove("snap");
+      } else {
+        nav.classList.toggle("floating", wantFloating);
+        col.classList.toggle("reserve", wantFloating);
+        nav.classList.toggle("hide", wantHidden);
+      }
+
+      if (next === "docked") {
+        nav.classList.add("snap");
+        void nav.offsetWidth;
+        nav.classList.remove("snap");
       }
     };
 
