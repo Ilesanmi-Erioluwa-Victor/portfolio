@@ -2,6 +2,8 @@ import Clock from "./Clock";
 
 const emailArrow = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M9 4.50098H5.5C3.61438 4.50098 2.67157 4.50098 2.08578 5.08675C1.5 5.67255 1.5 6.61535 1.5 8.501V10.001" stroke="#5D5D5D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 2.00098L9.5 4.501L7 7.001" stroke="#5D5D5D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
+const downloadArrow = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 6V8.67C10 9.41 9.41 10 8.67 10H3.33C2.59 10 2 9.41 2 8.67V6" stroke="#5D5D5D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 2V7M6 7L3.5 4.5M6 7L8.5 4.5" stroke="#5D5D5D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
 export default function Hero({ avatarSrc, signatureSvg }) {
   return (
     <header className="hero">
@@ -66,6 +68,11 @@ export default function Hero({ avatarSrc, signatureSvg }) {
         </span>
       </p>
 
+      <a className="hero-resume" href="/Resume.pdf" download>
+        <span className="txt">Download resume</span>
+        <span dangerouslySetInnerHTML={{ __html: downloadArrow }} />
+      </a>
+
       <div className="tech-stack">
         <span className="tech-stack-label txt">Core stack:</span>
         <div className="tech-stack-items">
@@ -99,34 +106,6 @@ export default function Hero({ avatarSrc, signatureSvg }) {
           <span className="tech-tag">Automation</span>
         </div>
       </div>
-
-      <a
-        className="cta"
-        role="button"
-        tabIndex={0}
-        data-cal-link="ilesanmi-erioluwa-victor"
-        data-cal-namespace="ilesanmi-erioluwa-victor"
-        data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
-      >
-        <span className="txt">Book a Call</span>
-        <svg
-          width="11"
-          height="7"
-          viewBox="0 0 11 7"
-          fill="none"
-          aria-hidden="true"
-        >
-          <line
-            x1="3.5"
-            y1="3.5"
-            x2="7.5"
-            y2="3.5"
-            stroke="#2ECC71"
-            strokeWidth="7"
-            strokeLinecap="round"
-          />
-        </svg>
-      </a>
     </header>
   );
 }

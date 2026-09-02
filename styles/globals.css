@@ -752,6 +752,39 @@ nav.floating.hide {
   flex-shrink: 0;
 }
 
+/* ------------------------------------------------ hero download resume
+     Quiet text-link CTA that sits between the clients line and the tech
+     stack. Replaces the heavier pill that used to anchor the hero. */
+.hero-resume {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 10%;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    color 0.25s ease,
+    opacity 0.25s ease;
+}
+.hero-resume:hover {
+  color: var(--muted);
+}
+.hero-resume:hover span:last-child {
+  opacity: 0.7;
+}
+.hero-resume svg {
+  display: block;
+  flex-shrink: 0;
+}
+
 /* ------------------------------------------------------- core tech stack */
 .tech-stack {
   display: flex;
@@ -791,6 +824,9 @@ nav.floating.hide {
 }
 
 @media (max-width: 640px) {
+  .hero-resume {
+    font-size: 14px;
+  }
   .tech-stack {
     gap: 12px;
     margin-top: 20px;
@@ -1247,7 +1283,10 @@ nav.floating.hide {
 .works {
   width: calc(100% - 120px);
   max-width: 1390px;
-  margin: 60px auto 0; /* wheel bottom → header top */
+  margin-top: 0px;
+  margin-right: auto;
+  margin-bottom: 0px;
+  margin-left: auto;
 
   scroll-margin-top: 50px;
 }
