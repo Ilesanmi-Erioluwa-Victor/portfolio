@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-const AR_TOKEN = process.env.NEXT_PUBLIC_AUDIENCERELAY_TOKEN || "";
-const AR_SUBMIT_URL = `https://audiencerelay.com/api/v1/forms/${encodeURIComponent(AR_TOKEN)}/submissions`;
+const SUBMIT_URL = "/api/contact";
 
 export default function ContactButton({
   children = "Contact Me",
@@ -45,15 +44,14 @@ export default function ContactButton({
         <ContactModal
           dialogRef={dialogRef}
           onClose={() => setOpen(false)}
-          token={AR_TOKEN}
-          url={AR_SUBMIT_URL}
+          url={SUBMIT_URL}
         />
       )}
     </>
   );
 }
 
-function ContactModal({ dialogRef, onClose, token, url }) {
+function ContactModal({ dialogRef, onClose, url }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -62,29 +60,17 @@ function ContactModal({ dialogRef, onClose, token, url }) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!token) {
-      setStatus("error");
-      setError(
-        "Contact form is not configured. Set NEXT_PUBLIC_AUDIENCERELAY_TOKEN in .env.local."
-      );
-      return;
-    }
     setStatus("sending");
     setError("");
     try {
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          message,
-          marketing_consent: false,
-        }),
+        body: JSON.stringify({ name, email, message }),
       });
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body.error || `Request failed (${res.status})`);
+        throw new Error(data.error || `Request failed (${res.status})`);
       }
       setStatus("sent");
     } catch (err) {
