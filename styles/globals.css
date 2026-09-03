@@ -453,8 +453,12 @@ nav.snap * {
   animation: contact-fade 0.18s ease-out;
 }
 @keyframes contact-fade {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 .contact-modal {
   position: relative;
@@ -471,8 +475,14 @@ nav.snap * {
   animation: contact-rise 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
 @keyframes contact-rise {
-  from { transform: translateY(8px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 .contact-close {
   position: absolute;
@@ -1152,7 +1162,7 @@ nav.snap * {
   overflow: hidden;
 }
 .blog-page .outro {
-  margin-top: 120px;
+  margin-top: 40px;
   gap: 100px;
 }
 .blog-page .contact {
@@ -1194,7 +1204,6 @@ nav.snap * {
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding-bottom: 60px;
 }
 .blog-list-item {
   display: flex;
@@ -2058,7 +2067,7 @@ nav.snap * {
 
   .outro {
     width: var(--col);
-    margin-top: 60px;
+    margin-top: 30px;
     gap: 40px;
   }
   .process {
@@ -2460,7 +2469,7 @@ nav.snap * {
   }
   .blog-page .outro {
     width: 100%;
-    margin-top: 40px;
+    margin-top: 20px;
     gap: 60px;
   }
   .blog-page .contact {

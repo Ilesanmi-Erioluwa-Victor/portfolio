@@ -4,14 +4,11 @@ const emailArrow = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none">
 
 const downloadArrow = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 6V8.67C10 9.41 9.41 10 8.67 10H3.33C2.59 10 2 9.41 2 8.67V6" stroke="#fcfbfb" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 2V7M6 7L3.5 4.5M6 7L8.5 4.5" stroke="#fcfbfb" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-export default function Hero({ avatarSrc, signatureSvg }) {
+export default function Hero({ signatureSvg }) {
   return (
     <header className="hero">
       <div className="hero-head">
         <div className="identity">
-          <div className="avatar-wrap">
-            <img className="avatar-full" src={avatarSrc} alt="" />
-          </div>
           <div
             className="signature"
             id="sigHero"
