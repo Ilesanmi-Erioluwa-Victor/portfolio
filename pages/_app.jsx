@@ -26,6 +26,7 @@ export default function App({ Component, pageProps }) {
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://ilesanmi.vercel.app/" />
+        <link rel="sitemap" type="application/xml" href="https://ilesanmi.vercel.app/sitemap.xml" />
         <link rel="icon" href="/favicon.jpeg" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Ilesanmi Erioluwa Victor" />
