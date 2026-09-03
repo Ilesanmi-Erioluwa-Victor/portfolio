@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 const SUBMIT_URL = "/api/contact";
 
@@ -10,7 +11,12 @@ export default function ContactButton({
   ...rest
 }) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const dialogRef = useRef(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -43,13 +49,15 @@ export default function ContactButton({
         <span className="txt">{children}</span>
       </button>
 
-      {open && (
-        <ContactModal
-          dialogRef={dialogRef}
-          onClose={() => setOpen(false)}
-          url={SUBMIT_URL}
-        />
-      )}
+      {open && mounted &&
+        createPortal(
+          <ContactModal
+            dialogRef={dialogRef}
+            onClose={() => setOpen(false)}
+            url={SUBMIT_URL}
+          />,
+          document.body
+        )}
     </>
   );
 }
