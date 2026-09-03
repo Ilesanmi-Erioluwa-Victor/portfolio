@@ -65,6 +65,8 @@ export default function Resume() {
                 <a href="https://x.com/ilesanmiEri" target="_blank" rel="noopener noreferrer">x.com/ilesanmiEri</a>
                 <span className="resume-link-sep">&bull;</span>
                 <a href="https://instagram.com/ilesanmierioluwa" target="_blank" rel="noopener noreferrer">instagram.com/ilesanmierioluwa</a>
+                <span className="resume-link-sep">&bull;</span>
+                <a href="https://ilesanmi.vercel.app/" target="_blank" rel="noopener noreferrer">ilesanmi.vercel.app</a>
               </div>
               <div className="resume-accent" />
             </div>
