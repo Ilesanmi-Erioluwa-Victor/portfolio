@@ -52,7 +52,7 @@ export default function Resume() {
             <div className="resume-section resume-intro">
               <h1 className="resume-name">Ilesanmi Erioluwa Victor</h1>
               <div className="resume-subtitle">
-                Full Stack Developer | React | Node.js/Express | Fintech Platforms | AWS
+              Product Engineer | React | TypeScript | Node.js | Education & Fintech Products
               </div>
               <div className="resume-contact">
                 Lagos, Nigeria &bull; ilesanmierioluwavictor@gmail.com &bull; +2348081495166

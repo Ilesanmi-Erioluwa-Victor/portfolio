@@ -26,10 +26,10 @@ export default function Hero({ signatureSvg }) {
       </div>
 
       <p className="lede txt">
-        Full Stack Software Engineer and product builder focused on creating
-        scalable, user-centered digital products. I specialize in React,
-        Next.js, Node.js, and TypeScript, combining engineering, product
-        thinking, and human-centered design to turn ideas into useful
+        Product Engineer and full-stack developer building customer-facing
+        products across education, fintech, and e-commerce. I work across React,
+        Next.js, TypeScript, Node.js, and PostgreSQL, combining engineering with
+        product thinking to turn real user needs into reliable, useful
         experiences.
       </p>
 
@@ -38,13 +38,12 @@ export default function Hero({ signatureSvg }) {
           <span className="metric-num">4+</span>
           <span className="metric-label txt">years experience</span>
         </div>
-        <div className="metric">
-          <span className="metric-num">12K+</span>
-          <span className="metric-label txt">users served</span>
-        </div>
+
         <div className="metric">
           <span className="metric-num">3</span>
-          <span className="metric-label txt">production platforms</span>
+          <span className="metric-label txt">
+            production platforms | Education + Fintech
+          </span>
         </div>
       </div>
 
@@ -115,13 +114,10 @@ export default function Hero({ signatureSvg }) {
           <span className="tech-tag">Socket.IO</span>
           <span className="tech-tag">Zustand</span>
           <span className="tech-tag">TanStack Query</span>
-          <span className="tech-tag">OpenAI API</span>
-          <span className="tech-tag">Claude API</span>
-          <span className="tech-tag">LangChain</span>
-          <span className="tech-tag">LLMs</span>
+
           <span className="tech-tag">AI Agents</span>
           <span className="tech-tag">Prompt Engineering</span>
-          <span className="tech-tag">RAG</span>
+
           <span className="tech-tag">Automation</span>
         </div>
       </div>
