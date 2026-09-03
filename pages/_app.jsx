@@ -25,17 +25,17 @@ export default function App({ Component, pageProps }) {
           content="Ilesanmi Erioluwa Victor is a Full Stack Developer in Lagos, specializing in React, Node.js, and fintech platforms."
         />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://portfolio-black-omega-96.vercel.app/" />
+        <link rel="canonical" href="https://ilesanmi.vercel.app/" />
         <link rel="icon" href="/favicon.jpeg" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Ilesanmi Erioluwa Victor" />
-        <meta property="og:url" content="https://portfolio-black-omega-96.vercel.app/" />
+        <meta property="og:url" content="https://ilesanmi.vercel.app/" />
         <meta property="og:title" content="Ilesanmi Erioluwa Victor - Full Stack Developer" />
         <meta
           property="og:description"
           content="Full Stack Developer in Lagos, specializing in React, Node.js, and fintech platforms."
         />
-        <meta property="og:image" content="https://portfolio-black-omega-96.vercel.app/og.jpg" />
+        <meta property="og:image" content="https://ilesanmi.vercel.app/og.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="Ilesanmi Erioluwa Victor — Full Stack Developer" />
@@ -47,7 +47,7 @@ export default function App({ Component, pageProps }) {
           name="twitter:description"
           content="Full Stack Developer in Lagos, specializing in React, Node.js, and fintech platforms."
         />
-        <meta name="twitter:image" content="https://portfolio-black-omega-96.vercel.app/og.jpg" />
+        <meta name="twitter:image" content="https://ilesanmi.vercel.app/og.jpg" />
       </Head>
       <Component {...pageProps} />
     </>

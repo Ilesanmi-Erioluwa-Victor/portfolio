@@ -23,8 +23,8 @@ export default function Home() {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Ilesanmi Erioluwa Victor",
-  "url": "https://portfolio-black-omega-96.vercel.app/",
-  "image": "https://portfolio-black-omega-96.vercel.app/og.jpg",
+  "url": "https://ilesanmi.vercel.app/",
+  "image": "https://ilesanmi.vercel.app/og.jpg",
   "jobTitle": "Full Stack Developer",
   "email": "mailto:ilesanmierioluwavictor@gmail.com",
   "address": {

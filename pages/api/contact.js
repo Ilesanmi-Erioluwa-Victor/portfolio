@@ -149,7 +149,7 @@ export default async function handler(req, res) {
             <tr>
               <td style="padding:18px 4px 0 4px;text-align:center;">
                 <p style="margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#5d5d5d;">
-                  Sent from the contact form at portfolio-black-omega-96.vercel.app
+                  Sent from the contact form at ilesanmi.vercel.app
                 </p>
                 <p style="margin:6px 0 0 0;width:40px;height:3px;background:#2ecc71;border-radius:2px;display:inline-block;"></p>
               </td>
