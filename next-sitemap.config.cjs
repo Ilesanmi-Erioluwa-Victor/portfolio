@@ -1,3 +1,5 @@
+const { POSTS } = require("./data/posts.js");
+
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: "https://ilesanmi.vercel.app",
@@ -33,17 +35,13 @@ module.exports = {
   },
 
   additionalPaths: async () => {
-    const slugs = [
-      "building-scalable-react-apps",
-      "real-time-features-with-websockets",
-      "ci-cd-pipelines-for-startups",
-    ];
-    const now = new Date().toISOString();
-    return slugs.map((slug) => ({
-      loc: `/blog/${slug}`,
+    return POSTS.map((post) => ({
+      loc: `/blog/${post.slug}`,
       changefreq: "monthly",
       priority: 0.6,
-      lastmod: now,
+      lastmod: post.updatedAt
+        ? new Date(post.updatedAt).toISOString()
+        : new Date(post.date).toISOString(),
     }));
   },
 };

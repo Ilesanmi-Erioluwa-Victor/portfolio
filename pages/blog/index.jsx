@@ -1,43 +1,28 @@
-import Head from "next/head";
 import Link from "next/link";
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
+import Seo from "../../components/Seo";
+import { POSTS } from "../../data/posts";
 import { SIGNATURE_SVG } from "../../data/signature";
-
-const ALL_POSTS = [
-  {
-    slug: "building-scalable-react-apps",
-    title: "Building Scalable React Applications",
-    date: "2025-12-15",
-    excerpt: "Lessons learned from architecting React frontends that serve thousands of users. From component composition to state management patterns that scale.",
-    tags: ["React", "Architecture"],
-    readTime: "8 min read",
-  },
-  {
-    slug: "real-time-features-with-websockets",
-    title: "Real-time Features with WebSockets in Node.js",
-    date: "2025-11-02",
-    excerpt: "How to implement live chat, notifications, and collaborative features using WebSocket events in a production Node.js backend.",
-    tags: ["Node.js", "WebSockets"],
-    readTime: "6 min read",
-  },
-  {
-    slug: "ci-cd-pipelines-for-startups",
-    title: "CI/CD Pipelines That Actually Work for Startups",
-    date: "2025-09-20",
-    excerpt: "A practical guide to setting up GitHub Actions for automated testing, building, and deploying to AWS EC2/RDS without over-engineering.",
-    tags: ["DevOps", "AWS"],
-    readTime: "5 min read",
-  },
-];
 
 export default function BlogListing() {
   return (
     <>
-      <Head>
-        <title>Blog — Ilesanmi Erioluwa Victor</title>
-        <meta name="description" content="Articles on React, Node.js, DevOps, and full-stack development by Ilesanmi Erioluwa Victor." />
-      </Head>
+      <Seo
+        path="/blog"
+        title="Blog"
+        description="Articles on React, Node.js, DevOps, and full-stack development by Ilesanmi Erioluwa Victor."
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Blog",
+          name: "Ilesanmi Erioluwa Victor — Blog",
+          url: "https://ilesanmi.vercel.app/blog",
+          author: {
+            "@type": "Person",
+            name: "Ilesanmi Erioluwa Victor",
+          },
+        }}
+      />
 
       <div className="blog-page">
         <Nav />
@@ -55,7 +40,7 @@ export default function BlogListing() {
           </div>
 
           <div className="blog-list">
-            {ALL_POSTS.map((post) => (
+            {POSTS.map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-list-item">
                 <span className="blog-card-date">{post.date}</span>
                 <span className="blog-item-title">{post.title}</span>

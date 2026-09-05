@@ -1,14 +1,17 @@
 import Link from "next/link";
 import Head from "next/head";
 import Footer from "../components/Footer";
+import Seo from "../components/Seo";
 import { SIGNATURE_SVG } from "../data/signature";
 
 export default function Resume() {
   return (
     <>
-      <Head>
-        <title>Resume — Ilesanmi Erioluwa Victor</title>
-      </Head>
+      <Seo
+        path="/resume"
+        title="Resume"
+        description="Ilesanmi Erioluwa Victor — Full Stack Developer. React, Next.js, Node.js, fintech platforms. Lagos, Nigeria."
+      />
       <div className="blog-page">
         <div className="col">
           <header className="blog-header">

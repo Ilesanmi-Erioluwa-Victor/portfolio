@@ -1,4 +1,9 @@
+# *
 User-agent: *
 Allow: /
 
+# Host
+Host: https://ilesanmi.vercel.app
+
+# Sitemaps
 Sitemap: https://ilesanmi.vercel.app/sitemap.xml
