@@ -11,10 +11,12 @@ export default function Login({ adminEmail }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("loading");
-    const result = await signIn("email", { email, callbackUrl: from || "/admin/posts" });
-    if (result?.ok) {
+    try {
+      await signIn("email", { email, callbackUrl: from || "/admin/posts" });
+      // If we get here without redirect, show success
       setStatus("sent");
-    } else {
+    } catch {
+      // Only set error if signIn actually throws (not on redirect)
       setStatus("error");
     }
   };
@@ -87,10 +89,6 @@ export default function Login({ adminEmail }) {
               <p className="success-hint">The link expires in 24 hours.</p>
             </div>
           )}
-
-          <p className="login-footer">
-            Only <span className="login-admin-email">{adminEmail}</span> can sign in.
-          </p>
         </div>
       </main>
     </div>
