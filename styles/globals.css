@@ -2741,3 +2741,208 @@ nav.snap * {
     transition: none;
   }
 }
+
+/* ============================================================================
+   Verify Request Page
+   ============================================================================ */
+.verify-request-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.verify-request-main {
+  width: 100%;
+  max-width: 400px;
+}
+
+.verify-request-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px 36px;
+  box-shadow: 0 20px 40px var(--paper-shadow);
+  text-align: center;
+}
+
+.verify-request-header {
+  margin-bottom: 28px;
+}
+
+.verify-request-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--ink);
+  color: var(--cta-text);
+  margin: 0 auto 20px;
+}
+
+.verify-request-title {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+  color: var(--ink);
+}
+
+.verify-request-subtitle {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.verify-request-subtitle strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.verify-request-info {
+  margin-bottom: 24px;
+}
+
+.verify-request-timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 20px 16px;
+  background: var(--overlay);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.timer-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.timer-value {
+  font-size: 28px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.5px;
+  color: var(--ink);
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.verify-request-hint {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.verify-request-link {
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.2s ease;
+}
+
+.verify-request-link:hover {
+  opacity: 0.7;
+}
+
+.verify-request-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 20px 0;
+  color: var(--soft);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.verify-request-divider::before,
+.verify-request-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.verify-request-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 48px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.0462px;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+  margin-bottom: 20px;
+}
+
+.verify-request-btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-strong);
+}
+
+.verify-request-btn:active {
+  transform: scale(0.985);
+}
+
+.verify-request-btn:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+
+.verify-request-footer {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--soft);
+}
+
+@media (max-width: 480px) {
+  .verify-request-card {
+    padding: 32px 24px;
+    border-radius: 16px;
+  }
+
+  .verify-request-title {
+    font-size: 22px;
+  }
+
+  .verify-request-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+
+  .timer-value {
+    font-size: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verify-request-timer,
+  .verify-request-btn {
+    transition: none;
+  }
+}
