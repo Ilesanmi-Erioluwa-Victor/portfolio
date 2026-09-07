@@ -84,9 +84,12 @@ export async function getServerSideProps(context) {
   const { provider, identifier, url, token } = context.query;
   return {
     props: {
-      params: { provider, token },
-      identifier,
-      url,
+      params: {
+        provider: provider || null,
+        token: token || null,
+      },
+      identifier: identifier || "",
+      url: url || "/admin/login",
     },
   };
 }
