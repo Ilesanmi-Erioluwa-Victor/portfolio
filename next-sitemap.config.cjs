@@ -1,4 +1,6 @@
-const { POSTS } = require("./data/posts.js");
+const { PrismaClient } = require("@prisma/client");
+
+const prisma = new PrismaClient();
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
@@ -35,7 +37,11 @@ module.exports = {
   },
 
   additionalPaths: async () => {
-    return POSTS.map((post) => ({
+    const posts = await prisma.post.findMany({
+      where: { status: "PUBLISHED" },
+      select: { slug: true, updatedAt: true, date: true },
+    });
+    return posts.map((post) => ({
       loc: `/blog/${post.slug}`,
       changefreq: "monthly",
       priority: 0.6,

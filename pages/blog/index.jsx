@@ -1,28 +1,30 @@
+import Head from "next/head";
 import Link from "next/link";
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
-import Seo from "../../components/Seo";
-import { POSTS } from "../../data/posts";
+import { prisma } from "../../lib/db";
 import { SIGNATURE_SVG } from "../../data/signature";
 
-export default function BlogListing() {
+export default async function BlogListing() {
+  const posts = await prisma.post.findMany({
+    where: { status: "PUBLISHED" },
+    orderBy: { publishedAt: "desc" },
+    select: {
+      slug: true,
+      title: true,
+      date: true,
+      excerpt: true,
+      readTime: true,
+      tags: true,
+    },
+  });
+
   return (
     <>
-      <Seo
-        path="/blog"
-        title="Blog"
-        description="Articles on React, Node.js, DevOps, and full-stack development by Ilesanmi Erioluwa Victor."
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "Blog",
-          name: "Ilesanmi Erioluwa Victor — Blog",
-          url: "https://ilesanmi.vercel.app/blog",
-          author: {
-            "@type": "Person",
-            name: "Ilesanmi Erioluwa Victor",
-          },
-        }}
-      />
+      <Head>
+        <title>Blog — Ilesanmi Erioluwa Victor</title>
+        <meta name="description" content="Articles on React, Node.js, DevOps, and full-stack development by Ilesanmi Erioluwa Victor." />
+      </Head>
 
       <div className="blog-page">
         <Nav />
@@ -40,7 +42,7 @@ export default function BlogListing() {
           </div>
 
           <div className="blog-list">
-            {POSTS.map((post) => (
+            {posts.map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-list-item">
                 <span className="blog-card-date">{post.date}</span>
                 <span className="blog-item-title">{post.title}</span>
@@ -50,10 +52,33 @@ export default function BlogListing() {
           </div>
         </div>
 
-        <section className="outro">
-          <Footer signatureSvg={SIGNATURE_SVG} dedupe />
-        </section>
+        <Footer signatureSvg={SIGNATURE_SVG} dedupe />
       </div>
     </>
   );
+}
+
+export async function getStaticProps() {
+  const posts = await prisma.post.findMany({
+    where: { status: "PUBLISHED" },
+    orderBy: { publishedAt: "desc" },
+    select: {
+      slug: true,
+      title: true,
+      date: true,
+      excerpt: true,
+      readTime: true,
+      tags: true,
+    },
+  });
+
+  return {
+    props: { posts },
+    revalidate: 60,
+  };
+}
+
+export default function BlogListing() {
+  // This is just for TypeScript - actual component is the async one above
+  return null;
 }
