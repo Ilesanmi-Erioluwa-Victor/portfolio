@@ -1,48 +1,47 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../../../lib/auth";
-import { presignUpload } from "../../../../lib/s3";
+import { authOptions } from "../../../lib/auth";
+import {
+  presignUpload,
+  getPublicUrl,
+  generateCoverKey,
+  generateInlineKey,
+  getExtFromFilename,
+} from "../../../lib/s3";
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
-  if (!session) return res.status(401).json({ error: "Unauthorized" });
+  if (!session) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
 
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { filename, contentType, kind, postSlug } = req.body;
+  const { kind, filename, contentType, postSlug } = req.body;
 
-  if (!filename || !contentType) {
-    return res.status(400).json({ error: "filename and contentType are required" });
+  if (!kind || !filename || !contentType) {
+    return res.status(400).json({ error: "Missing required fields" });
   }
 
-  const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-  if (!allowedTypes.includes(contentType)) {
-    return res.status(400).json({ error: "Invalid file type" });
+  if (!["cover", "inline"].includes(kind)) {
+    return res.status(400).json({ error: "Invalid kind" });
   }
 
-  if (filename.length > 255) {
-    return res.status(400).json({ error: "Filename too long" });
-  }
+  const ext = getExtFromFilename(filename);
+  let key;
 
-  try {
-    let key;
-    const ext = filename.split(".").pop().toLowerCase();
-
-    if (kind === "cover") {
-      const slug = req.body.postSlug || "cover";
-      key = `blog/coverImages/${slug}.${ext}`;
-    } else {
-      const id = require("crypto").randomUUID().replace(/-/g, "").slice(0, 12);
-      key = `blog/postImages/${id}.${ext}`;
+  if (kind === "cover") {
+    if (!postSlug) {
+      return res.status(400).json({ error: "postSlug required for cover images" });
     }
-
-    const uploadUrl = await presignUpload(key, contentType);
-    const publicUrl = `https://${process.env.AWS_CLOUDFRONT_DOMAIN}/${key}`;
-
-    return res.json({ uploadUrl, publicUrl, key });
-  } catch (err) {
-    console.error("Presign error:", err);
-    return res.status(500).json({ error: "Failed to generate upload URL" });
+    key = generateCoverKey(postSlug, ext);
+  } else {
+    key = generateInlineKey(ext);
   }
+
+  const uploadUrl = await presignUpload(key, contentType);
+  const publicUrl = getPublicUrl(key);
+
+  res.status(200).json({ uploadUrl, publicUrl, key });
 }
