@@ -6,10 +6,18 @@ import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { common, createLowlight } from "lowlight";
+import imageCompression from "browser-image-compression";
 import { generateHTML } from "../../../lib/tiptap-render";
 import { presignUpload, getPublicUrl, generateInlineKey, getExtFromFilename } from "../../../lib/s3";
 
 const lowlight = createLowlight(common);
+
+const COMPRESSION_OPTIONS = {
+  maxSizeMB: 1,
+  maxWidthOrHeight: 1920,
+  useWebWorker: true,
+  fileType: "image/webp",
+};
 
 export default function AdminPostEdit({ post, tags, session }) {
   const router = useRouter();
@@ -29,6 +37,23 @@ export default function AdminPostEdit({ post, tags, session }) {
   const editorRef = useRef(null);
   const saveTimeoutRef = useRef(null);
 
+  const compressAndUpload = async (file, kind, postSlug) => {
+    const compressedFile = await imageCompression(file, COMPRESSION_OPTIONS);
+    const ext = "webp";
+    const key = kind === "cover"
+      ? (postSlug ? `blog/coverImages/${postSlug}.${ext}` : `blog/coverImages/${Date.now()}.${ext}`)
+      : `blog/postImages/${Math.random().toString(36).substring(2, 15)}.${ext}`;
+
+    const uploadRes = await fetch("/api/admin/upload", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ kind, filename: `${key}.${ext}`, contentType: "image/webp", postSlug }),
+    });
+    const { uploadUrl, publicUrl } = await uploadRes.json();
+    await fetch(uploadUrl, { method: "PUT", headers: { "Content-Type": "image/webp" }, body: compressedFile });
+    return publicUrl;
+  };
+
   const editor = useRef(
     new Editor({
       extensions: [
@@ -36,16 +61,7 @@ export default function AdminPostEdit({ post, tags, session }) {
         Image.configure({
           HTMLAttributes: { class: "tiptap-image" },
           addImage: async ({ file }) => {
-            const ext = getExtFromFilename(file.name);
-            const key = generateInlineKey(ext);
-            const uploadRes = await fetch("/api/admin/upload", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ kind: "inline", filename: file.name, contentType: file.type }),
-            });
-            const { uploadUrl, publicUrl } = await uploadRes.json();
-            await fetch(uploadUrl, { method: "PUT", headers: { "Content-Type": file.type }, body: file });
-            return publicUrl;
+            return compressAndUpload(file, "inline", slug);
           },
         }),
         Link.configure({ openOnClick: false, HTMLAttributes: { class: "tiptap-link", target: "_blank", rel: "noopener noreferrer" } }),
@@ -103,15 +119,7 @@ export default function AdminPostEdit({ post, tags, session }) {
   };
 
   const handleCoverUpload = async (file) => {
-    const ext = getExtFromFilename(file.name);
-    const key = slug ? `blog/coverImages/${slug}.${ext}` : generateInlineKey(ext);
-    const uploadRes = await fetch("/api/admin/upload", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ kind: "cover", filename: file.name, contentType: file.type, postSlug: slug }),
-    });
-    const { uploadUrl, publicUrl } = await uploadRes.json();
-    await fetch(uploadUrl, { method: "PUT", headers: { "Content-Type": file.type }, body: file });
+    const publicUrl = await compressAndUpload(file, "cover", slug);
     setCoverImage(publicUrl);
   };
 
