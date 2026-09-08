@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  serverExternalPackages: ["@prisma/adapter-pg", "@prisma/client", "pg", "pg-connection-string"],
+  experimental: {
+    serverComponentsExternalPackages: ["@prisma/adapter-pg", "@prisma/client", "pg", "pg-connection-string"],
+  },
   webpack: (config, { isServer }) => {
     if (isServer) {
       config.externals = config.externals || [];
@@ -28,6 +30,8 @@ const nextConfig = {
       os: false,
       path: false,
       dns: false,
+      util: false,
+      "util/types": false,
     };
     return config;
   },
