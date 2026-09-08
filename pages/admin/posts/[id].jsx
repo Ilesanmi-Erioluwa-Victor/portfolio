@@ -257,8 +257,8 @@ export default function AdminPostEdit({ post, tags, session }) {
 
 export async function getServerSideProps(context) {
   const { getServerSession } = await import("next-auth");
-  const { authOptions } = await import("../../lib/auth");
-  const { prisma } = await import("../../lib/db");
+  const { authOptions } = await import("../../../lib/auth");
+  const { prisma } = await import("../../../lib/db");
 
   const session = await getServerSession(context.req, context.res, authOptions);
   if (!session) {
