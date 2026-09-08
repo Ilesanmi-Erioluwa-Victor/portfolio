@@ -7,7 +7,7 @@ import Link from "@tiptap/extension-link";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { common, createLowlight } from "lowlight";
 import imageCompression from "browser-image-compression";
-import { generateHTML } from "../../../lib/tiptap-render";
+import { renderContentToHtml } from "../../../lib/actions";
 import { presignUpload, getPublicUrl, generateInlineKey, getExtFromFilename } from "../../../lib/s3";
 
 const lowlight = createLowlight(common);
@@ -81,7 +81,7 @@ export default function AdminPostEdit({ post, tags, session }) {
     if (!editor || !editor.getJSON) return;
     try {
       const contentJson = editor.getJSON();
-      const contentHtml = await generateHTML(contentJson);
+      const contentHtml = await renderContentToHtml(contentJson);
       await fetch(`/api/admin/posts/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -99,7 +99,7 @@ export default function AdminPostEdit({ post, tags, session }) {
     setIsPublishing(true);
     try {
       const contentJson = editor.getJSON();
-      const contentHtml = await generateHTML(contentJson);
+      const contentHtml = await renderContentToHtml(contentJson);
       await fetch(`/api/admin/posts/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
