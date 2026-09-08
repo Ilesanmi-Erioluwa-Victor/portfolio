@@ -1,54 +1,76 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../../../../lib/auth";
-import { prisma } from "../../../../../lib/db";
+import { authOptions } from "../../../lib/auth";
+import { prisma } from "../../../lib/db";
+import { revalidatePath } from "next/cache";
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
-  if (!session) return res.status(401).json({ error: "Unauthorized" });
+  if (!session) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
 
   const { id } = req.query;
 
+  const post = await prisma.post.findUnique({
+    where: { id },
+    include: { tags: true },
+  });
+
+  if (!post) {
+    return res.status(404).json({ error: "Post not found" });
+  }
+
+  if (post.authorId !== session.user.id) {
+    return res.status(403).json({ error: "Forbidden" });
+  }
+
   if (req.method === "GET") {
-    const post = await prisma.post.findUnique({
-      where: { id },
-      include: { tags: true, author: true },
-    });
-    if (!post) return res.status(404).json({ error: "Post not found" });
-    return res.json(post);
+    return res.status(200).json(post);
   }
 
   if (req.method === "PATCH") {
-    const { title, slug, excerpt, contentJson, contentHtml, coverImage, status } = req.body;
+    const { title, slug, excerpt, contentJson, contentHtml, coverImage, status, tags, publishedAt } = req.body;
 
-    if (slug) {
-      const existing = await prisma.post.findFirst({
-        where: { slug, NOT: { id } },
-      });
-      if (existing) {
-        return res.status(400).json({ error: "Slug already exists" });
-      }
-    }
+    const wasPublished = post.status === "PUBLISHED";
+    const willBePublished = status === "PUBLISHED";
+    const isPublishingNow = !wasPublished && willBePublished;
+    const isUnpublishing = wasPublished && !willBePublished;
 
-    const post = await prisma.post.update({
+    const updated = await prisma.post.update({
       where: { id },
       data: {
-        title,
-        slug,
-        excerpt,
-        contentJson,
-        contentHtml,
-        coverImage,
-        status,
-        publishedAt: status === "PUBLISHED" ? new Date() : undefined,
+        ...(title && { title }),
+        ...(slug && { slug }),
+        ...(excerpt !== undefined && { excerpt }),
+        ...(contentJson && { contentJson }),
+        ...(contentHtml !== undefined && { contentHtml }),
+        ...(coverImage !== undefined && { coverImage }),
+        ...(status && { status }),
+        ...(tags && { tags: { set: tags.map((tagId) => ({ id: tagId })) } }),
+        ...(isPublishingNow && { publishedAt: new Date() }),
+        ...(isUnpublishing && { publishedAt: null }),
+        ...(publishedAt && { publishedAt: new Date(publishedAt) }),
       },
+      include: { tags: true },
     });
-    return res.json(post);
+
+    if (isPublishingNow || isUnpublishing || (wasPublished && contentJson)) {
+      revalidatePath("/blog");
+      revalidatePath(`/blog/${updated.slug}`, "page");
+    }
+
+    return res.status(200).json(updated);
   }
 
   if (req.method === "DELETE") {
     await prisma.post.delete({ where: { id } });
+    if (post.status === "PUBLISHED") {
+      revalidatePath("/blog");
+      revalidatePath(`/blog/${post.slug}`, "page");
+    }
     return res.status(204).end();
   }
 
+  res.setHeader("Allow", ["GET", "PATCH", "DELETE"]);
   return res.status(405).json({ error: "Method not allowed" });
 }

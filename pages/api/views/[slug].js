@@ -1,24 +1,7 @@
-import { prisma } from "../../../../lib/db";
-
-const BOT_REGEX = /bot|crawler|spider|googlebot|bingbot|ahrefsbot|yandexbot|duckduckbot/i;
-
-function isBot(userAgent) {
-  if (!userAgent) return true;
-  return BOT_REGEX.test(userAgent.toLowerCase());
-}
-
-const recentlyViewedMap = new Map();
-
-function recentlyViewed(ip, slug) {
-  const key = `${ip}:${slug}`;
-  const lastSeen = recentlyViewed.get(key);
-  const now = Date.now();
-  if (lastSeen && now - lastSeen < 60 * 60 * 1000) {
-    return true;
-  }
-  recentlyViewedMap.set(key, now);
-  return false;
-}
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../../lib/auth";
+import { prisma } from "../../../lib/db";
+import { recordView } from "../../../lib/views";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -26,39 +9,21 @@ export default async function handler(req, res) {
   }
 
   const { slug } = req.query;
-  const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+  const post = await prisma.post.findUnique({ where: { slug }, select: { id: true } });
+
+  if (!post) {
+    return res.status(404).json({ error: "Post not found" });
+  }
+
+  const session = await getServerSession(req, res, authOptions);
+  if (session) {
+    return res.status(200).json({ skipped: true, reason: "admin" });
+  }
+
+  const ip = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.socket.remoteAddress;
   const userAgent = req.headers["user-agent"] || "";
 
-  if (isBot(userAgent)) {
-    return res.status(200).json({ skipped: true, reason: "bot" });
-  }
+  const counted = await recordView({ prisma, postId: post.id, ip, userAgent });
 
-  // Check session - would need session check here
-  // For now we'll rely on IP-based dedupe
-
-  if (recentlyViewedMap.get(key)) {
-    return res.status(200).json({ skipped: true, reason: "recently viewed" });
-  }
-
-  try {
-    const post = await prisma.post.findUnique({ where: { slug } });
-    if (!post) {
-      return res.status(404).json({ error: "Post not found" });
-    }
-
-    await prisma.$transaction([
-      prisma.post.update({
-        where: { slug },
-        data: { views: { increment: 1 } },
-      }),
-      prisma.viewEvent.create({
-        data: { postId: post.id, ip, userAgent: req.headers["user-agent"] || "" },
-      }),
-    ]);
-
-    return res.json({ success: true, views: post.views + 1 });
-  } catch (err) {
-    console.error("View increment error:", err);
-    return res.status(500).json({ error: "Failed to record view" });
-  }
+  res.status(200).json({ counted });
 }

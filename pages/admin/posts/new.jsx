@@ -1,63 +1,63 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../../lib/auth";
 import { prisma } from "../../../lib/db";
-import TiptapEditor from "../../../components/editor/TiptapEditor";
 
-export default function NewPost() {
+export default function AdminNewPost({ session }) {
   return (
     <div className="admin-new-post">
-      <NewPostForm />
+      <h1>Create new post</h1>
+      <p>Start writing a new blog post. You can save it as a draft and publish later.</p>
+
+      <form className="new-post-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="title" className="form-label">Title</label>
+          <input
+            id="title"
+            type="text"
+            className="form-input"
+            placeholder="Enter post title"
+            required
+            autoFocus
+            ref={titleRef}
+          />
+        </div>
+
+        <button type="submit" className="btn btn-primary" style={{ width: "100%", height: "48px", fontSize: "15px" }}>
+          Create post
+        </button>
+      </form>
     </div>
   );
 }
 
-async function NewPostForm() {
-  const session = await getServerSession({ req: {}, res: {}, ...authOptions });
-  if (!session) return null;
+import { useState, useRef } from "react";
+import { useRouter } from "next/router";
 
-  const handleSave = async (post) => {
-    const created = await prisma.post.create({
-      data: {
-        title: post.title,
-        slug: post.slug,
-        excerpt: post.excerpt,
-        contentJson: post.contentJson,
-        contentHtml: post.contentHtml,
-        coverImage: post.coverImage,
-        status: post.status,
-        authorId: session.user.id,
-      },
-    });
-    return created;
-  };
+function handleSubmit(e) {
+  e.preventDefault();
+  const title = titleRef.current.value.trim();
+  if (!title) return;
 
-  const handlePublish = async (postId) => {
-    await prisma.post.update({
-      where: { id: postId },
-      data: { status: "PUBLISHED", publishedAt: new Date() },
-    });
-  };
-
-  const handleUnpublish = async (postId) => {
-    await prisma.post.update({
-      where: { id: postId },
-      data: { status: "DRAFT", publishedAt: null },
-    });
-  };
-
-  return (
-    <TiptapEditor
-      onSave={handleSave}
-      onPublish={handlePublish}
-      onUnpublish={handleUnpublish}
-    />
-  );
+  fetch("/api/admin/posts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title, status: "DRAFT" }),
+  })
+    .then((res) => res.json())
+    .then((post) => {
+      router.push(`/admin/posts/${post.id}`);
+    })
+    .catch(() => alert("Failed to create post"));
 }
 
 export async function getServerSideProps(context) {
   const session = await getServerSession(context.req, context.res, authOptions);
+
   if (!session) {
-    return { redirect: { destination: "/admin/login", permanent: false } };
+    return {
+      redirect: { destination: "/admin/login", permanent: false },
+    };
   }
-  return { props: {} };
+
+  return { props: { session } };
 }
