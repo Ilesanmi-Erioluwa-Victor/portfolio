@@ -150,14 +150,14 @@ export default function AdminPostEdit({ post, tags, session }) {
           <div className="toolbar-group">
             <button type="button" className="toolbar-btn" onClick={() => editor?.chain().focus().toggleBold().run()} title="Bold"><strong>B</strong></button>
             <button type="button" className="toolbar-btn" onClick={() => editor?.chain().focus().toggleItalic().run()} title="Italic"><em>I</em></button>
-            <button type="button" className="toolbar-btn" onClick={() => editor?.chain().focus().toggleCode().run()} title="Inline code"><code></></code></button>
+            <button type="button" className="toolbar-btn" onClick={() => editor?.chain().focus().toggleCode().run()} title="Inline code"><code/></button>
             <button type="button" className="toolbar-btn" onClick={() => editor?.chain().focus().toggleStrike().run()} title="Strikethrough"><s>S</s></button>
           </div>
           <div className="toolbar-group">
             <button type="button" className="toolbar-btn" onClick={() => editor?.chain().focus().toggleBulletList().run()} title="Bullet list">•</button>
             <button type="button" className="toolbar-btn" onClick={() => editor?.chain().focus().toggleOrderedList().run()} title="Ordered list">1.</button>
             <button type="button" className="toolbar-btn" onClick={() => editor?.chain().focus().toggleBlockquote().run()} title="Blockquote">❝</button>
-            <button type="button" className="toolbar-btn" onClick={() => editor?.chain().focus().setCodeBlock().run()} title="Code block">{/\\}</button>
+            <button type="button" className="toolbar-btn" onClick={() => editor?.chain().focus().setCodeBlock().run()} title="Code block">{"/\\"}</button>
           </div>
           <div className="toolbar-group">
             <button type="button" className="toolbar-btn" onClick={() => {
