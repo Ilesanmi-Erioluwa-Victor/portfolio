@@ -7,8 +7,8 @@ import Link from "@tiptap/extension-link";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { common, createLowlight } from "lowlight";
 import imageCompression from "browser-image-compression";
-import { generateHTML } from "../../lib/tiptap-render";
-import { presignUpload, getPublicUrl, generateInlineKey, getExtFromFilename } from "../../lib/s3";
+import { generateHTML } from "../../../lib/tiptap-render";
+import { presignUpload, getPublicUrl, generateInlineKey, getExtFromFilename } from "../../../lib/s3";
 
 const lowlight = createLowlight(common);
 
