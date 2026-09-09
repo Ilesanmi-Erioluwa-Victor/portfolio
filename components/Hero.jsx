@@ -42,7 +42,7 @@ export default function Hero({ signatureSvg }) {
         <div className="metric">
           <span className="metric-num">3</span>
           <span className="metric-label txt">
-            production platforms | Education + Fintech
+            production platforms 
           </span>
         </div>
       </div>
