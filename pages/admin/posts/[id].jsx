@@ -84,6 +84,9 @@ export default function AdminPostEdit({ post, tags, session }) {
   const [editingName, setEditingName] = useState("");
   const [busyTagId, setBusyTagId] = useState(null);
   const [tagQuery, setTagQuery] = useState("");
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewHtml, setPreviewHtml] = useState("");
+  const [previewLoading, setPreviewLoading] = useState(false);
   const [openSections, setOpenSections] = useState({
     content: true,
     excerpt: false,
@@ -292,6 +295,21 @@ export default function AdminPostEdit({ post, tags, session }) {
       setTagError(err.message || "Failed to delete tag");
     } finally {
       setBusyTagId(null);
+    }
+  };
+
+  const openPreview = async () => {
+    if (!editor) return;
+    setPreviewLoading(true);
+    try {
+      const html = await renderContentToHtml(editor.getJSON());
+      setPreviewHtml(html);
+      setPreviewOpen(true);
+    } catch {
+      setPreviewHtml(editor.getHTML());
+      setPreviewOpen(true);
+    } finally {
+      setPreviewLoading(false);
     }
   };
 
@@ -511,6 +529,9 @@ export default function AdminPostEdit({ post, tags, session }) {
             <span>{saveStatus === "saving" ? "Saving…" : saveStatus === "saved" ? "All changes saved" : saveStatus === "dirty" ? "Unsaved changes" : "Error"}</span>
           </div>
           <div style={{ display: "flex", gap: "12px" }}>
+            <button className="btn btn-ghost" onClick={openPreview} disabled={isPublishing || previewLoading}>
+              {previewLoading ? "Loading…" : "👁 Preview"}
+            </button>
             <button className={`btn publish-btn ${status === "PUBLISHED" ? "published" : "draft"}`} onClick={() => handleSave(status === "PUBLISHED" ? "DRAFT" : "PUBLISHED")} disabled={isPublishing}>
               {status === "PUBLISHED" ? "Unpublish" : "Publish"}
             </button>
@@ -672,6 +693,56 @@ export default function AdminPostEdit({ post, tags, session }) {
           </section>
         )}
       </aside>
+
+      {previewOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Post preview"
+          onClick={() => setPreviewOpen(false)}
+          style={{ position: "fixed", inset: 0, zIndex: 50, background: "rgba(0,0,0,0.55)", display: "flex", justifyContent: "center", padding: "32px 16px", overflowY: "auto" }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{ background: "var(--bg)", border: "1px solid var(--border)", borderRadius: "16px", maxWidth: "760px", width: "100%", height: "fit-content", overflow: "hidden" }}
+          >
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 20px", borderBottom: "1px solid var(--border)", position: "sticky", top: 0, background: "var(--bg)" }}>
+              <strong style={{ fontSize: "14px" }}>Preview — how readers will see it</strong>
+              <div style={{ display: "flex", gap: "8px" }}>
+                <button type="button" className="btn btn-secondary" style={{ height: "34px" }} onClick={() => setPreviewOpen(false)}>Close</button>
+                <button
+                  type="button"
+                  className={`btn publish-btn ${status === "PUBLISHED" ? "published" : "draft"}`}
+                  style={{ height: "34px" }}
+                  disabled={isPublishing}
+                  onClick={async () => { await handleSave("PUBLISHED"); setPreviewOpen(false); }}
+                >
+                  Publish
+                </button>
+              </div>
+            </div>
+            <div className="blog-page" style={{ padding: "32px 24px 48px" }}>
+              <div className="col" style={{ maxWidth: "680px", margin: "0 auto" }}>
+                <p style={{ fontSize: "12px", color: "var(--muted)", margin: "0 0 8px" }}>/blog/{slug || "…"}</p>
+                <h1 className="blog-post-title">{title || "Untitled"}</h1>
+                <div className="blog-post-meta" style={{ margin: "12px 0 20px" }}>
+                  <span className="blog-card-date">{new Date().toLocaleDateString()}</span>
+                  <div className="blog-card-tags">
+                    {allTags.filter((t) => selectedTags.includes(t.id)).map((tag) => (
+                      <span key={tag.id} className="blog-card-tag">{tag.name}</span>
+                    ))}
+                  </div>
+                </div>
+                {excerpt.trim() && <p style={{ fontSize: "16px", color: "var(--muted)", margin: "0 0 20px" }}>{excerpt}</p>}
+                {(coverPreview || coverImage) && (
+                  <img src={coverPreview || coverImage} alt="Cover preview" style={{ width: "100%", borderRadius: "12px", marginBottom: "24px" }} />
+                )}
+                <article className="blog-post-content" dangerouslySetInnerHTML={{ __html: previewHtml || "<p>Nothing to preview yet.</p>" }} />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
