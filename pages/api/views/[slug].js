@@ -15,7 +15,12 @@ export default async function handler(req, res) {
     return res.status(404).json({ error: "Post not found" });
   }
 
-  const session = await getServerSession(req, res, authOptions);
+  let session = null;
+  try {
+    session = await getServerSession(req, res, authOptions);
+  } catch (err) {
+    console.warn("getServerSession failed in /api/views, counting as anonymous:", err?.code || err?.message);
+  }
   if (session) {
     return res.status(200).json({ counted: false, skipped: true, reason: "admin" });
   }
