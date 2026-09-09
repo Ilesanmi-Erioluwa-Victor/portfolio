@@ -37,7 +37,7 @@ export default function BlogPost({ post }) {
         path={`/blog/${post.slug}`}
         title={post.title}
         description={post.excerpt}
-        ogImage={`/api/og?title=${encodeURIComponent(post.title)}&tags=${post.tags.map((t) => t.slug).join(",")}`}
+        ogImage={`/api/og?title=${encodeURIComponent(post.title)}&desc=${encodeURIComponent((post.excerpt || "").slice(0, 160))}&tags=${post.tags.map((t) => t.slug).join(",")}`}
         ogType="article"
         publishedTime={post.publishedAt}
         modifiedTime={post.updatedAt}
