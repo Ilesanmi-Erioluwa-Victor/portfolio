@@ -17,6 +17,8 @@
     "db:migrate:deploy": "prisma migrate deploy",
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
+    "db:sanitize": "node scripts/sanitize-posts.js",
+    "test:xss": "node scripts/test-xss-payloads.js",
     "postinstall": "prisma generate || true"
   },
   "prisma": {
@@ -47,7 +49,7 @@
     "browser-image-compression": "^2.0.2",
     "dotenv": "^17.4.2",
     "lowlight": "^3.3.0",
-    "next": "14.1.1",
+    "next": "14.2.35",
     "next-auth": "^4.24.15",
     "nodemailer": "^7.0.13",
     "pg": "^8.23.0",
@@ -57,6 +59,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.87.0",
     "react-pdf": "^10.5.0",
+    "sanitize-html": "^2.17.5",
     "server-only": "^0.0.1",
     "zod": "^4.5.4"
   },

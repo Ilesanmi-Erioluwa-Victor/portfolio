@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../../../lib/auth";
 import { prisma } from "../../../../lib/db";
+import { sanitizePostHtml } from "../../../../lib/sanitize";
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
@@ -42,7 +43,7 @@ export default async function handler(req, res) {
         ...(slug && { slug }),
         ...(excerpt !== undefined && { excerpt }),
         ...(contentJson && { contentJson }),
-        ...(contentHtml !== undefined && { contentHtml }),
+        ...(contentHtml !== undefined && { contentHtml: sanitizePostHtml(contentHtml) }),
         ...(coverImage !== undefined && { coverImage }),
         ...(status && { status }),
         ...(tags && { tags: { set: tags.map((tagId) => ({ id: tagId })) } }),

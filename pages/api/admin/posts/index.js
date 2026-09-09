@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../../../lib/auth";
 import { prisma } from "../../../../lib/db";
+import { sanitizePostHtml } from "../../../../lib/sanitize";
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
@@ -18,7 +19,7 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "POST") {
-    const { title, excerpt, contentJson, tags, status = "DRAFT" } = req.body;
+    const { title, excerpt, contentJson, contentHtml, tags, status = "DRAFT" } = req.body;
 
     if (!title?.trim()) {
       return res.status(400).json({ error: "Title is required" });
@@ -53,7 +54,7 @@ export default async function handler(req, res) {
         title,
         excerpt: excerpt || "",
         contentJson: contentJson || { type: "doc", content: [] },
-        contentHtml: "",
+        contentHtml: sanitizePostHtml(contentHtml),
         status,
         authorId,
         tags: tags?.length ? { connect: tags.map((id) => ({ id })) } : undefined,

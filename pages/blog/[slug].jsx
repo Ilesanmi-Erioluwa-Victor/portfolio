@@ -102,6 +102,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const { prisma } = await import("../../lib/db");
+  const { sanitizePostHtml } = await import("../../lib/sanitize");
   const row = await prisma.post.findUnique({
     where: { slug: params.slug },
     include: { tags: { select: { slug: true, name: true } } },
@@ -113,7 +114,7 @@ export async function getStaticProps({ params }) {
     slug: row.slug,
     title: row.title,
     excerpt: row.excerpt,
-    contentHtml: row.contentHtml,
+    contentHtml: sanitizePostHtml(row.contentHtml),
     views: row.views,
     publishedAt: row.publishedAt ? row.publishedAt.toISOString() : null,
     updatedAt: row.updatedAt ? row.updatedAt.toISOString() : null,
