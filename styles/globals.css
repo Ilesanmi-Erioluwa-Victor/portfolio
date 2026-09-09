@@ -3345,11 +3345,13 @@ nav.snap * {
 .cover-preview {
   width: 100%;
   aspect-ratio: 16/9;
+  max-height: 180px;
   border-radius: 8px;
   background: var(--overlay);
   border: 1px solid var(--border);
   object-fit: cover;
   margin-top: 8px;
+  display: block;
 }
 
 .cover-upload {

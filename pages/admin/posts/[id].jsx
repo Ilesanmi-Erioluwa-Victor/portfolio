@@ -735,7 +735,7 @@ export default function AdminPostEdit({ post, tags, session }) {
                 </div>
                 {excerpt.trim() && <p style={{ fontSize: "16px", color: "var(--muted)", margin: "0 0 20px" }}>{excerpt}</p>}
                 {(coverPreview || coverImage) && (
-                  <img src={coverPreview || coverImage} alt="Cover preview" style={{ width: "100%", borderRadius: "12px", marginBottom: "24px" }} />
+                  <img src={coverPreview || coverImage} alt="Cover preview" style={{ width: "100%", aspectRatio: "16/9", maxHeight: "320px", objectFit: "cover", borderRadius: "12px", marginBottom: "24px", display: "block" }} />
                 )}
                 <article className="blog-post-content" dangerouslySetInnerHTML={{ __html: previewHtml || "<p>Nothing to preview yet.</p>" }} />
               </div>
