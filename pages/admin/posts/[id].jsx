@@ -46,6 +46,25 @@ function toLocalInput(value) {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
+function SidebarSection({ title, badge, open, onToggle, children }) {
+  return (
+    <section className="sidebar-section">
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={open}
+        style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", background: "none", border: 0, padding: 0, cursor: "pointer", font: "inherit" }}
+      >
+        <span className="sidebar-section-title" style={{ margin: 0 }}>
+          {title} {badge ? <span style={{ color: "var(--soft)", fontWeight: 400 }}>{badge}</span> : null}
+        </span>
+        <span style={{ color: "var(--muted)", fontSize: "14px" }}>{open ? "▾" : "▸"}</span>
+      </button>
+      {open && <div style={{ marginTop: "16px" }}>{children}</div>}
+    </section>
+  );
+}
+
 export default function AdminPostEdit({ post, tags, session }) {
   const router = useRouter();
   const { id } = router.query;
@@ -64,6 +83,21 @@ export default function AdminPostEdit({ post, tags, session }) {
   const [editingTagId, setEditingTagId] = useState(null);
   const [editingName, setEditingName] = useState("");
   const [busyTagId, setBusyTagId] = useState(null);
+  const [tagQuery, setTagQuery] = useState("");
+  const [openSections, setOpenSections] = useState({
+    content: true,
+    excerpt: false,
+    cover: true,
+    tags: true,
+    publish: true,
+  });
+
+  const toggleSection = (key) =>
+    setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
+
+  const filteredTags = allTags.filter((t) =>
+    t.name.toLowerCase().includes(tagQuery.trim().toLowerCase())
+  );
   const [publishAt, setPublishAt] = useState(
     post?.publishedAt ? toLocalInput(post.publishedAt) : ""
   );
@@ -488,8 +522,7 @@ export default function AdminPostEdit({ post, tags, session }) {
       </main>
 
       <aside className="editor-sidebar">
-        <section className="sidebar-section">
-          <h3 className="sidebar-section-title">Title & Slug</h3>
+        <SidebarSection title="Title & Slug" open={openSections.content} onToggle={() => toggleSection("content")}>
           <div className="form-group">
             <label htmlFor="title" className="form-label">Title</label>
             <input id="title" type="text" className="form-input" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Post title" />
@@ -499,17 +532,16 @@ export default function AdminPostEdit({ post, tags, session }) {
             <input id="slug" type="text" className="form-input" value={slug} onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""))} placeholder="auto-generated" />
             <p className="form-hint">Used in URL: /blog/<strong>{slug}</strong></p>
           </div>
-        </section>
+        </SidebarSection>
 
-        <section className="sidebar-section">
-          <h3 className="sidebar-section-title">Excerpt</h3>
+        <SidebarSection title="Excerpt" badge={excerpt.trim() ? "· set" : "· empty"} open={openSections.excerpt} onToggle={() => toggleSection("excerpt")}>
           <div className="form-group">
-            <textarea className="form-textarea" value={excerpt} onChange={(e) => setExcerpt(e.target.value)} placeholder="Short description for listings and SEO" rows={3} />
+            <textarea className="form-textarea" value={excerpt} onChange={(e) => setExcerpt(e.target.value)} placeholder="Short description for listings and SEO" rows={3} maxLength={160} />
+            <p className="form-hint">{excerpt.trim().length}/160</p>
           </div>
-        </section>
+        </SidebarSection>
 
-        <section className="sidebar-section">
-          <h3 className="sidebar-section-title">Cover Image</h3>
+        <SidebarSection title="Cover Image" badge={coverPreview ? "· set" : ""} open={openSections.cover} onToggle={() => toggleSection("cover")}>
           <div className="cover-upload">
             {coverPreview ? (
               <div>
@@ -534,12 +566,21 @@ export default function AdminPostEdit({ post, tags, session }) {
             {coverUploading && <p className="form-hint">Uploading…</p>}
             {coverError && <p role="alert" style={{ color: "#ef4444", fontSize: "13px" }}>{coverError}</p>}
           </div>
-        </section>
+        </SidebarSection>
 
-        <section className="sidebar-section">
-          <h3 className="sidebar-section-title">Tags</h3>
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-            {allTags.map((tag) => (
+        <SidebarSection title="Tags" badge={`${selectedTags.length}/${allTags.length}`} open={openSections.tags} onToggle={() => toggleSection("tags")}>
+          {allTags.length > 5 && (
+            <input
+              type="search"
+              className="form-input"
+              value={tagQuery}
+              onChange={(e) => setTagQuery(e.target.value)}
+              placeholder="Filter tags…"
+              style={{ marginBottom: "10px" }}
+            />
+          )}
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px", maxHeight: "240px", overflowY: "auto", paddingRight: "4px" }}>
+            {filteredTags.map((tag) => (
               <div key={tag.id} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <label className={`tag-option ${selectedTags.includes(tag.id) ? "selected" : ""}`} style={{ flex: 1 }}>
                   <input type="checkbox" value={tag.id} checked={selectedTags.includes(tag.id)} onChange={(e) => setSelectedTags(e.target.checked ? [...selectedTags, tag.id] : selectedTags.filter((tagId) => tagId !== tag.id))} />
@@ -570,8 +611,8 @@ export default function AdminPostEdit({ post, tags, session }) {
                 )}
               </div>
             ))}
+            {!filteredTags.length && <p className="form-hint">{allTags.length ? "No tags match." : "No tags yet — create the first one below."}</p>}
           </div>
-          {!allTags.length && <p className="form-hint">No tags yet — create the first one below.</p>}
           <form onSubmit={handleCreateTag} style={{ display: "flex", gap: "8px", marginTop: "12px" }}>
             <input
               type="text"
@@ -587,10 +628,22 @@ export default function AdminPostEdit({ post, tags, session }) {
             </button>
           </form>
           {tagError && <p role="alert" style={{ color: "#ef4444", fontSize: "13px" }}>{tagError}</p>}
-        </section>
+        </SidebarSection>
 
-        <section className="sidebar-section">
-          <h3 className="sidebar-section-title">Schedule</h3>
+        <SidebarSection
+          title="Publish"
+          badge={status === "PUBLISHED" ? (publishAt && new Date(publishAt) > new Date() ? "· scheduled" : "· live") : "· draft"}
+          open={openSections.publish}
+          onToggle={() => toggleSection("publish")}
+        >
+          <div className="form-group">
+            <label htmlFor="status" className="form-label">Status</label>
+            <select id="status" className="form-select" value={status} onChange={(e) => setStatus(e.target.value)}>
+              <option value="DRAFT">Draft</option>
+              <option value="PUBLISHED">Published</option>
+              <option value="ARCHIVED">Archived</option>
+            </select>
+          </div>
           <div className="form-group">
             <label htmlFor="publishAt" className="form-label">Publish at</label>
             <input
@@ -602,8 +655,8 @@ export default function AdminPostEdit({ post, tags, session }) {
             />
             <p className="form-hint">
               {publishAt && new Date(publishAt) > new Date()
-                ? "Post stays hidden until this time, then appears automatically."
-                : "Empty = publish immediately."}
+                ? "Stays hidden until this time, then appears automatically."
+                : "Empty = immediately."}
             </p>
             {publishAt && (
               <button type="button" className="btn btn-ghost" style={{ height: "32px", marginTop: "8px" }} onClick={() => setPublishAt("")}>
@@ -611,18 +664,7 @@ export default function AdminPostEdit({ post, tags, session }) {
               </button>
             )}
           </div>
-        </section>
-
-        <section className="sidebar-section">
-          <h3 className="sidebar-section-title">Status</h3>
-          <div className="form-group">
-            <select className="form-select" value={status} onChange={(e) => setStatus(e.target.value)}>
-              <option value="DRAFT">Draft</option>
-              <option value="PUBLISHED">Published</option>
-              <option value="ARCHIVED">Archived</option>
-            </select>
-          </div>
-        </section>
+        </SidebarSection>
 
         {saveError && (
           <section className="sidebar-section" style={{ borderColor: "#ef4444", background: "rgba(239, 68, 68, 0.05)" }}>

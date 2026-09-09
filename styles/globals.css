@@ -3214,7 +3214,13 @@ nav.snap * {
 .editor-sidebar {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
+  position: sticky;
+  top: 24px;
+  align-self: start;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  padding-bottom: 8px;
 }
 
 .sidebar-section {
