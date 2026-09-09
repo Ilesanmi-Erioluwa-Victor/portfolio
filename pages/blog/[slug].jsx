@@ -1,24 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
 import Seo from "../../components/Seo";
 import { SIGNATURE_SVG } from "../../data/signature";
+import { readViewsCache, writeViewsCache } from "../../lib/useLiveViews";
 
 export default function BlogPost({ post }) {
+  const [shownViews, setShownViews] = useState(() => {
+    const cached = readViewsCache()[post?.slug];
+    return typeof cached === "number" ? cached : post?.views ?? 0;
+  });
+
   useEffect(() => {
     if (!post) return;
     fetch(`/api/views/${post.slug}`, { method: "POST" })
       .then((res) => res.json())
       .then((data) => {
         if (typeof data.views === "number") {
-          try {
-            const cached = JSON.parse(sessionStorage.getItem("post-views") || "{}");
-            cached[post.slug] = data.views;
-            sessionStorage.setItem("post-views", JSON.stringify(cached));
-          } catch {}
-          const el = document.querySelector("[data-views]");
-          if (el) el.textContent = `${data.views.toLocaleString()} views`;
+          writeViewsCache({ [post.slug]: data.views });
+          setShownViews(data.views);
         }
       })
       .catch(() => {});
@@ -66,7 +67,7 @@ export default function BlogPost({ post }) {
               <span className="blog-card-date">
                 {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : ""}
               </span>
-              <span className="blog-card-time" data-views>{post.views.toLocaleString()} views</span>
+              <span className="blog-card-time" data-views>{shownViews.toLocaleString()} views</span>
               <div className="blog-card-tags">
                 {post.tags.map((tag) => (
                   <Link key={tag.slug} href={`/blog/tag/${tag.slug}`} className="blog-card-tag">{tag.name}</Link>

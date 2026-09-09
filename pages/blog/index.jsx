@@ -1,44 +1,12 @@
-import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
 import { SIGNATURE_SVG } from "../../data/signature";
+import { useLiveViews } from "../../lib/useLiveViews";
 
 export default function BlogListing({ posts: initialPosts }) {
-  const [liveViews, setLiveViews] = useState(() => {
-    try {
-      return JSON.parse(sessionStorage.getItem("post-views") || "{}");
-    } catch {
-      return {};
-    }
-  });
-
-  useEffect(() => {
-    let cancelled = false;
-    Promise.all(
-      initialPosts.map((p) =>
-        fetch(`/api/views/${p.slug}`)
-          .then((r) => (r.ok ? r.json() : null))
-          .then((d) => (d && typeof d.views === "number" ? [p.slug, d.views] : null))
-          .catch(() => null)
-      )
-    ).then((entries) => {
-      if (cancelled) return;
-      const map = {};
-      for (const e of entries) if (e) map[e[0]] = e[1];
-      setLiveViews((prev) => {
-        const next = { ...prev, ...map };
-        try {
-          sessionStorage.setItem("post-views", JSON.stringify(next));
-        } catch {}
-        return next;
-      });
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [initialPosts]);
+  const liveViews = useLiveViews(initialPosts);
   return (
     <>
       <Head>
