@@ -1,7 +1,30 @@
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
-export default function RecentBlog({ posts = [] }) {
-  if (!posts.length) return null;
+export default function RecentBlog({ posts: initialPosts = [] }) {
+  const [liveViews, setLiveViews] = useState({});
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all(
+      initialPosts.map((p) =>
+        fetch(`/api/views/${p.slug}`)
+          .then((r) => (r.ok ? r.json() : null))
+          .then((d) => (d && typeof d.views === "number" ? [p.slug, d.views] : null))
+          .catch(() => null)
+      )
+    ).then((entries) => {
+      if (cancelled) return;
+      const map = {};
+      for (const e of entries) if (e) map[e[0]] = e[1];
+      setLiveViews(map);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [initialPosts]);
+
+  if (!initialPosts.length) return null;
 
   return (
     <section className="works" style={{ marginBottom: "60px" }}>
@@ -15,13 +38,13 @@ export default function RecentBlog({ posts = [] }) {
         </Link>
       </div>
       <div className="recent-blog-grid">
-        {posts.map((post) => (
+        {initialPosts.map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
             <div className="blog-card-top">
               <span className="blog-card-date">
                 {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : ""}
               </span>
-              <span className="blog-card-time">{(post.views || 0).toLocaleString()} views</span>
+              <span className="blog-card-time">{(liveViews[post.slug] ?? post.views ?? 0).toLocaleString()} views</span>
             </div>
             <h3 className="blog-card-title">{post.title}</h3>
             <p className="blog-card-excerpt">{post.excerpt}</p>

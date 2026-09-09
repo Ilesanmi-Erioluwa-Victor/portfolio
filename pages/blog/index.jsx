@@ -1,10 +1,32 @@
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
 import { SIGNATURE_SVG } from "../../data/signature";
 
-export default function BlogListing({ posts }) {
+export default function BlogListing({ posts: initialPosts }) {
+  const [liveViews, setLiveViews] = useState({});
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all(
+      initialPosts.map((p) =>
+        fetch(`/api/views/${p.slug}`)
+          .then((r) => (r.ok ? r.json() : null))
+          .then((d) => (d && typeof d.views === "number" ? [p.slug, d.views] : null))
+          .catch(() => null)
+      )
+    ).then((entries) => {
+      if (cancelled) return;
+      const map = {};
+      for (const e of entries) if (e) map[e[0]] = e[1];
+      setLiveViews(map);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [initialPosts]);
   return (
     <>
       <Head>
@@ -28,11 +50,11 @@ export default function BlogListing({ posts }) {
           </div>
 
           <div className="blog-list">
-            {posts.map((post) => (
+            {initialPosts.map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-list-item">
                 <span className="blog-card-date">{post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : ""}</span>
                 <span className="blog-item-title">{post.title}</span>
-                <span className="blog-card-time">{post.views.toLocaleString()} views</span>
+                <span className="blog-card-time">{(liveViews[post.slug] ?? post.views).toLocaleString()} views</span>
               </Link>
             ))}
           </div>
