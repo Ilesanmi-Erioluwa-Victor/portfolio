@@ -2069,6 +2069,21 @@ nav.snap * {
   .blog-page-title {
     font-size: 28px;
   }
+  .blog-list-item {
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    padding: 16px 0;
+  }
+  .blog-item-title {
+    flex: 1 1 100%;
+    order: -1;
+    font-size: 17px;
+  }
+  .blog-list-item .blog-card-date,
+  .blog-list-item .blog-card-time {
+    font-size: 12px;
+    white-space: nowrap;
+  }
   .blog-post-content {
     max-width: 100%;
   }
