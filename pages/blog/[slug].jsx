@@ -11,13 +11,13 @@ export default function BlogPost({ post }) {
     fetch(`/api/views/${post.slug}`, { method: "POST" })
       .then((res) => res.json())
       .then((data) => {
-        if (data.views) {
+        if (typeof data.views === "number") {
           const el = document.querySelector("[data-views]");
           if (el) el.textContent = `${data.views.toLocaleString()} views`;
         }
       })
       .catch(() => {});
-  }, [post]);
+  }, [post?.slug]);
 
   if (!post) {
     return (
