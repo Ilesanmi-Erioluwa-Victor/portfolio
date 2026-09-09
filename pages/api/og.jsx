@@ -8,7 +8,7 @@ export const alt = "Ilesanmi Erioluwa Victor — portfolio article";
 
 export default async function GET(req) {
   const { searchParams } = new URL(req.url);
-  const title = (searchParams.get("title") || "Ilesanmi Erioluwa Victor").slice(0, 120);
+  const title = (searchParams.get("title") || "Ilesanmi Erioluwa Victor").slice(0, 90);
   const desc = (searchParams.get("desc") || "").slice(0, 160);
   const tags = (searchParams.get("tags") || "")
     .split(",")
@@ -22,7 +22,7 @@ export default async function GET(req) {
   const bg = "#ededed";
   const accent = "#2ECC71";
 
-  const titleSize = title.length <= 40 ? 64 : title.length <= 70 ? 52 : title.length <= 100 ? 44 : 36;
+  const titleSize = title.length <= 40 ? 68 : title.length <= 70 ? 56 : 48;
 
   return new ImageResponse(
     (
@@ -75,9 +75,9 @@ export default async function GET(req) {
           <div
             style={{
               fontSize: titleSize,
-              fontWeight: 600,
+              fontWeight: 700,
               lineHeight: 1.15,
-              letterSpacing: -1.5,
+              letterSpacing: -0.5,
               color: ink,
               display: "flex",
             }}
@@ -87,9 +87,9 @@ export default async function GET(req) {
           {desc && (
             <div
               style={{
-                fontSize: 26,
+                fontSize: 28,
                 lineHeight: 1.4,
-                color: muted,
+                color: "#444",
                 display: "flex",
                 maxWidth: 960,
               }}
