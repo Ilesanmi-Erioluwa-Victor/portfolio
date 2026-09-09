@@ -12,6 +12,11 @@ export default function BlogPost({ post }) {
       .then((res) => res.json())
       .then((data) => {
         if (typeof data.views === "number") {
+          try {
+            const cached = JSON.parse(sessionStorage.getItem("post-views") || "{}");
+            cached[post.slug] = data.views;
+            sessionStorage.setItem("post-views", JSON.stringify(cached));
+          } catch {}
           const el = document.querySelector("[data-views]");
           if (el) el.textContent = `${data.views.toLocaleString()} views`;
         }
@@ -73,7 +78,9 @@ export default function BlogPost({ post }) {
           <article className="blog-post-content" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
         </div>
 
-        <Footer signatureSvg={SIGNATURE_SVG} dedupe />
+        <section className="outro">
+          <Footer signatureSvg={SIGNATURE_SVG} dedupe />
+        </section>
       </div>
     </>
   );

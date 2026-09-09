@@ -42,7 +42,9 @@ export default function TagPage({ tag, posts }) {
           )}
         </div>
 
-        <Footer signatureSvg={SIGNATURE_SVG} dedupe />
+        <section className="outro">
+          <Footer signatureSvg={SIGNATURE_SVG} dedupe />
+        </section>
       </div>
     </>
   );

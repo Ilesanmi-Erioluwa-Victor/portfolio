@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function RecentBlog({ posts: initialPosts = [] }) {
-  const [liveViews, setLiveViews] = useState({});
+  const [liveViews, setLiveViews] = useState(() => {
+    try {
+      return JSON.parse(sessionStorage.getItem("post-views") || "{}");
+    } catch {
+      return {};
+    }
+  });
 
   useEffect(() => {
     let cancelled = false;
@@ -17,7 +23,13 @@ export default function RecentBlog({ posts: initialPosts = [] }) {
       if (cancelled) return;
       const map = {};
       for (const e of entries) if (e) map[e[0]] = e[1];
-      setLiveViews(map);
+      setLiveViews((prev) => {
+        const next = { ...prev, ...map };
+        try {
+          sessionStorage.setItem("post-views", JSON.stringify(next));
+        } catch {}
+        return next;
+      });
     });
     return () => {
       cancelled = true;
