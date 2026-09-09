@@ -1292,6 +1292,30 @@ nav.snap * {
   color: var(--ink);
   font-weight: 500;
 }
+.blog-post-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin: 16px 0;
+  display: block;
+}
+.blog-post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 16px;
+  font-size: 14px;
+}
+.blog-post-content th,
+.blog-post-content td {
+  border: 1px solid var(--border-strong);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+.blog-post-content th {
+  background: var(--overlay);
+  font-weight: 600;
+}
 
 /* ------------------------------------------------------ card 05: states
      Two exports stacked, crossfading on tap. Both stay in the DOM so the
@@ -3320,9 +3344,8 @@ nav.snap * {
 }
 
 .editor-toolbar {
-  position: sticky;
-  top: 24px;
-  z-index: 10;
+  position: static;
+  z-index: auto;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -3386,6 +3409,17 @@ nav.snap * {
   height: 18px;
 }
 
+.editor-contextbar .toolbar-btn {
+  width: auto;
+  min-width: 32px;
+  padding: 0 10px;
+  height: 32px;
+  font-size: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  opacity: 1;
+}
+
 .editor-wrapper {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -3394,8 +3428,154 @@ nav.snap * {
 }
 
 .editor-content {
-  min-height: 500px;
-  padding: 24px;
+  min-height: 560px;
+  padding: 28px 32px;
+}
+
+.tiptap-editor {
+  min-height: 520px;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink);
+}
+
+.tiptap-editor:focus {
+  outline: none;
+}
+
+.tiptap-editor p {
+  margin: 0 0 16px;
+}
+
+.tiptap-editor p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--soft);
+  pointer-events: none;
+  height: 0;
+}
+
+.tiptap-editor h1,
+.tiptap-editor h2,
+.tiptap-editor h3,
+.tiptap-editor h4 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 32px 0 12px;
+  line-height: 1.25;
+}
+
+.tiptap-editor h1 {
+  font-size: 30px;
+}
+
+.tiptap-editor h2 {
+  font-size: 24px;
+}
+
+.tiptap-editor h3 {
+  font-size: 20px;
+}
+
+.tiptap-editor h4 {
+  font-size: 17px;
+}
+
+.tiptap-editor ul,
+.tiptap-editor ol {
+  margin: 0 0 16px;
+  padding-left: 24px;
+}
+
+.tiptap-editor li {
+  margin-bottom: 6px;
+}
+
+.tiptap-editor blockquote {
+  margin: 0 0 16px;
+  padding: 12px 20px;
+  border-left: 3px solid var(--border-strong);
+  background: var(--overlay);
+  border-radius: 0 8px 8px 0;
+  color: var(--muted);
+}
+
+.tiptap-editor code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.88em;
+  background: var(--overlay);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+
+.tiptap-editor pre {
+  margin: 0 0 16px;
+  padding: 16px 20px;
+  background: #0d1117;
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.tiptap-editor pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: #e6edf3;
+}
+
+.tiptap-editor a.tiptap-link {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.tiptap-editor img.tiptap-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin: 16px 0;
+  display: block;
+}
+
+.tiptap-editor table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 16px;
+  font-size: 14px;
+}
+
+.tiptap-editor th,
+.tiptap-editor td {
+  border: 1px solid var(--border-strong);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+  min-width: 80px;
+}
+
+.tiptap-editor th {
+  background: var(--overlay);
+  font-weight: 600;
+}
+
+.tiptap-editor tr:nth-child(even) td {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.tiptap-editor .selectedCell {
+  background: rgba(37, 99, 235, 0.12);
+}
+
+.tiptap-editor hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 28px 0;
+}
+
+.tiptap-editor u {
+  text-underline-offset: 2px;
 }
 
 .editor-placeholder {
