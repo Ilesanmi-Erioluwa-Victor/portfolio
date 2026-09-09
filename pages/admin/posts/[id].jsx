@@ -18,6 +18,19 @@ import { renderContentToHtml } from "../../../lib/actions";
 
 const lowlight = createLowlight(common);
 
+const ResizableImage = Image.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      align: {
+        default: "center",
+        parseHTML: (el) => el.getAttribute("data-align") || "center",
+        renderHTML: (attrs) => ({ "data-align": attrs.align || "center" }),
+      },
+    };
+  },
+});
+
 const COMPRESSION_OPTIONS = {
   maxSizeMB: 1,
   maxWidthOrHeight: 1920,
@@ -90,11 +103,11 @@ export default function AdminPostEdit({ post, tags, session }) {
       Placeholder.configure({
         placeholder: "Start writing your post… Use the toolbar for headings, lists, quotes, code, and images.",
       }),
-      Image.configure({
+      ResizableImage.configure({
         HTMLAttributes: { class: "tiptap-image" },
         allowBase64: false,
       }),
-      TextAlign.configure({ types: ["heading", "paragraph", "image"] }),
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
       Table.configure({ resizable: true }),
       TableRow,
       TableHeader,
@@ -339,9 +352,9 @@ export default function AdminPostEdit({ post, tags, session }) {
         {imageActive && (
           <div className="editor-contextbar" style={{ display: "flex", flexWrap: "wrap", gap: "8px", alignItems: "center", padding: "10px 12px", background: "var(--overlay)", border: "1px solid var(--border)", borderRadius: "10px", marginBottom: "12px", fontSize: "13px" }}>
             <strong>Image:</strong>
-            <button type="button" className="toolbar-btn" onClick={() => editor.chain().focus().setTextAlign("left").run()} title="Align left">◧</button>
-            <button type="button" className="toolbar-btn" onClick={() => editor.chain().focus().setTextAlign("center").run()} title="Center">⬒</button>
-            <button type="button" className="toolbar-btn" onClick={() => editor.chain().focus().setTextAlign("right").run()} title="Align right">◨</button>
+            <button type="button" className={`toolbar-btn${imageAttrs.align === "left" ? " active" : ""}`} onClick={() => editor.chain().focus().updateAttributes("image", { align: "left" }).run()} title="Align left">◧</button>
+            <button type="button" className={`toolbar-btn${(!imageAttrs.align || imageAttrs.align === "center") ? " active" : ""}`} onClick={() => editor.chain().focus().updateAttributes("image", { align: "center" }).run()} title="Center">⬒</button>
+            <button type="button" className={`toolbar-btn${imageAttrs.align === "right" ? " active" : ""}`} onClick={() => editor.chain().focus().updateAttributes("image", { align: "right" }).run()} title="Align right">◨</button>
             <label style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
               Size
               <input

@@ -1296,8 +1296,17 @@ nav.snap * {
   max-width: 100%;
   height: auto;
   border-radius: 10px;
-  margin: 16px 0;
+  margin: 16px auto;
   display: block;
+}
+.blog-post-content img[data-align="left"] {
+  margin: 16px auto 16px 0;
+}
+.blog-post-content img[data-align="center"] {
+  margin: 16px auto;
+}
+.blog-post-content img[data-align="right"] {
+  margin: 16px 0 16px auto;
 }
 .blog-post-content table {
   width: 100%;
@@ -3535,8 +3544,20 @@ nav.snap * {
   height: auto;
   border-radius: 10px;
   border: 1px solid var(--border);
-  margin: 16px 0;
+  margin: 16px auto;
   display: block;
+}
+
+.tiptap-editor img.tiptap-image[data-align="left"] {
+  margin: 16px auto 16px 0;
+}
+
+.tiptap-editor img.tiptap-image[data-align="center"] {
+  margin: 16px auto;
+}
+
+.tiptap-editor img.tiptap-image[data-align="right"] {
+  margin: 16px 0 16px auto;
 }
 
 .tiptap-editor table {
