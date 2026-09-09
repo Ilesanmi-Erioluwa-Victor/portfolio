@@ -1,34 +1,8 @@
-"use client";
 import Link from "next/link";
 
-const RECENT_POSTS = [
-  {
-    slug: "building-scalable-react-apps",
-    title: "Building Scalable React Applications",
-    date: "2025-12-15",
-    excerpt: "Lessons learned from architecting React frontends that serve thousands of users. From component composition to state management patterns that scale.",
-    tags: ["React", "Architecture"],
-    readTime: "8 min read",
-  },
-  {
-    slug: "real-time-features-with-websockets",
-    title: "Real-time Features with WebSockets in Node.js",
-    date: "2025-11-02",
-    excerpt: "How to implement live chat, notifications, and collaborative features using WebSocket events in a production Node.js backend.",
-    tags: ["Node.js", "WebSockets"],
-    readTime: "6 min read",
-  },
-  {
-    slug: "ci-cd-pipelines-for-startups",
-    title: "CI/CD Pipelines That Actually Work for Startups",
-    date: "2025-09-20",
-    excerpt: "A practical guide to setting up GitHub Actions for automated testing, building, and deploying to AWS EC2/RDS without over-engineering.",
-    tags: ["DevOps", "AWS"],
-    readTime: "5 min read",
-  },
-];
+export default function RecentBlog({ posts = [] }) {
+  if (!posts.length) return null;
 
-export default function RecentBlog() {
   return (
     <section className="works" style={{ marginBottom: "60px" }}>
       <div className="works-head">
@@ -41,17 +15,21 @@ export default function RecentBlog() {
         </Link>
       </div>
       <div className="recent-blog-grid">
-        {RECENT_POSTS.map((post) => (
+        {posts.map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
             <div className="blog-card-top">
-              <span className="blog-card-date">{post.date}</span>
-              <span className="blog-card-time">{post.readTime}</span>
+              <span className="blog-card-date">
+                {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : ""}
+              </span>
+              <span className="blog-card-time">{(post.views || 0).toLocaleString()} views</span>
             </div>
             <h3 className="blog-card-title">{post.title}</h3>
             <p className="blog-card-excerpt">{post.excerpt}</p>
             <div className="blog-card-tags">
-              {post.tags.map((tag) => (
-                <span key={tag} className="blog-card-tag">{tag}</span>
+              {(post.tags || []).map((tag) => (
+                <span key={typeof tag === "string" ? tag : tag.slug} className="blog-card-tag">
+                  {typeof tag === "string" ? tag : tag.name}
+                </span>
               ))}
             </div>
           </Link>

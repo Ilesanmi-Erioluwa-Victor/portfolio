@@ -11,7 +11,7 @@ import { SIGNATURE_SVG } from "../data/signature";
 
 const signatureSvg = SIGNATURE_SVG;
 
-export default function Home() {
+export default function Home({ recentPosts = [] }) {
   return (
     <>
       <Seo
@@ -49,7 +49,7 @@ export default function Home() {
           <Hero signatureSvg={signatureSvg} />
         </div>
 
-        <RecentBlog />
+        <RecentBlog posts={recentPosts} />
 
         <WorksGrid />
 
@@ -62,4 +62,32 @@ export default function Home() {
       <FloatingNav />
     </>
   );
+}
+
+export async function getStaticProps() {
+  const { prisma } = await import("../lib/db");
+  const now = new Date();
+  const rows = await prisma.post.findMany({
+    where: { status: "PUBLISHED", publishedAt: { lte: now } },
+    orderBy: { publishedAt: "desc" },
+    take: 3,
+    select: {
+      slug: true,
+      title: true,
+      excerpt: true,
+      views: true,
+      publishedAt: true,
+      tags: { select: { slug: true, name: true } },
+    },
+  });
+
+  return {
+    props: {
+      recentPosts: rows.map((p) => ({
+        ...p,
+        publishedAt: p.publishedAt ? p.publishedAt.toISOString() : null,
+      })),
+    },
+    revalidate: 60,
+  };
 }
