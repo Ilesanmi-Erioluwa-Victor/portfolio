@@ -1,7 +1,6 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../../lib/auth";
-import { prisma } from "../../../lib/db";
-import { revalidatePath } from "next/cache";
+import { authOptions } from "../../../../lib/auth";
+import { prisma } from "../../../../lib/db";
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
@@ -55,8 +54,10 @@ export default async function handler(req, res) {
     });
 
     if (isPublishingNow || isUnpublishing || (wasPublished && contentJson)) {
-      revalidatePath("/blog");
-      revalidatePath(`/blog/${updated.slug}`, "page");
+      try {
+        await res.revalidate("/blog");
+        await res.revalidate(`/blog/${updated.slug}`);
+      } catch {}
     }
 
     return res.status(200).json(updated);
@@ -65,8 +66,10 @@ export default async function handler(req, res) {
   if (req.method === "DELETE") {
     await prisma.post.delete({ where: { id } });
     if (post.status === "PUBLISHED") {
-      revalidatePath("/blog");
-      revalidatePath(`/blog/${post.slug}`, "page");
+      try {
+        await res.revalidate("/blog");
+        await res.revalidate(`/blog/${post.slug}`);
+      } catch {}
     }
     return res.status(204).end();
   }

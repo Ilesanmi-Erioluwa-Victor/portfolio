@@ -1,7 +1,6 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../../lib/auth";
-import { prisma } from "../../../lib/db";
-import { revalidatePath } from "next/cache";
+import { authOptions } from "../../../../lib/auth";
+import { prisma } from "../../../../lib/db";
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
@@ -21,8 +20,20 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     const { title, excerpt, contentJson, tags, status = "DRAFT" } = req.body;
 
-    if (!title) {
+    if (!title?.trim()) {
       return res.status(400).json({ error: "Title is required" });
+    }
+
+    let authorId = session.user?.id;
+    if (!authorId && session.user?.email) {
+      const author = await prisma.user.findUnique({
+        where: { email: session.user.email },
+        select: { id: true },
+      });
+      authorId = author?.id;
+    }
+    if (!authorId) {
+      return res.status(500).json({ error: "Signed in but no user record found. Sign out and sign in again." });
     }
 
     const baseSlug = title
@@ -44,7 +55,7 @@ export default async function handler(req, res) {
         contentJson: contentJson || { type: "doc", content: [] },
         contentHtml: "",
         status,
-        authorId: session.user.id,
+        authorId,
         tags: tags?.length ? { connect: tags.map((id) => ({ id })) } : undefined,
         publishedAt: status === "PUBLISHED" ? new Date() : null,
       },
@@ -52,8 +63,10 @@ export default async function handler(req, res) {
     });
 
     if (status === "PUBLISHED") {
-      revalidatePath("/blog");
-      revalidatePath(`/blog/${slug}`, "page");
+      try {
+        await res.revalidate("/blog");
+        await res.revalidate(`/blog/${slug}`);
+      } catch {}
     }
 
     return res.status(201).json(post);

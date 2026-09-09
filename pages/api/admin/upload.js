@@ -32,16 +32,24 @@ export default async function handler(req, res) {
   let key;
 
   if (kind === "cover") {
-    if (!postSlug) {
-      return res.status(400).json({ error: "postSlug required for cover images" });
+    if (!postSlug?.trim()) {
+      return res.status(400).json({ error: "postSlug required for cover images. Save the post slug first." });
     }
-    key = generateCoverKey(postSlug, ext);
+    key = generateCoverKey(postSlug.trim(), ext);
   } else {
     key = generateInlineKey(ext);
   }
 
-  const uploadUrl = await presignUpload(key, contentType);
-  const publicUrl = getPublicUrl(key);
+  if (!process.env.AWS_S3_BUCKET || !process.env.AWS_CLOUDFRONT_DOMAIN) {
+    return res.status(500).json({ error: "S3 not configured. Set AWS_S3_BUCKET and AWS_CLOUDFRONT_DOMAIN." });
+  }
 
-  res.status(200).json({ uploadUrl, publicUrl, key });
+  try {
+    const uploadUrl = await presignUpload(key, contentType);
+    const publicUrl = getPublicUrl(key);
+    res.status(200).json({ uploadUrl, publicUrl, key });
+  } catch (err) {
+    console.error("presignUpload failed:", err);
+    res.status(500).json({ error: "Could not create upload URL. Check AWS credentials/region." });
+  }
 }

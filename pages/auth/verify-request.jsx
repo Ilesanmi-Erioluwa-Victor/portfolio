@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function VerifyRequest({ identifier, url, params }) {
   const [countdown, setCountdown] = useState(24 * 60 * 60);
@@ -36,7 +37,7 @@ export default function VerifyRequest({ identifier, url, params }) {
             </div>
             <h1 className="verify-request-title">Check your email</h1>
             <p className="verify-request-subtitle">
-              We've sent a magic link to <strong>{identifier}</strong>
+              We&apos;ve sent a magic link to <strong>{identifier}</strong>
             </p>
           </div>
 
@@ -46,10 +47,10 @@ export default function VerifyRequest({ identifier, url, params }) {
               <span className="timer-value">{formatTime(countdown)}</span>
             </div>
             <p className="verify-request-hint">
-              Didn't receive it? Check your spam folder, or{" "}
-              <a href="/admin/login" className="verify-request-link">
+              Didn&apos;t receive it? Check your spam folder, or{" "}
+              <Link href="/admin/login" className="verify-request-link">
                 request a new link
-              </a>
+              </Link>
             </p>
           </div>
 
@@ -72,7 +73,7 @@ export default function VerifyRequest({ identifier, url, params }) {
           </a>
 
           <p className="verify-request-footer">
-            This link can only be used once. If you didn't request this, you can safely ignore this email.
+            This link can only be used once. If you didn&apos;t request this, you can safely ignore this email.
           </p>
         </div>
       </main>

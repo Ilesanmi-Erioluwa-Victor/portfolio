@@ -1,6 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
+const { PrismaPg } = require("@prisma/adapter-pg");
 
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
@@ -39,7 +41,7 @@ module.exports = {
   additionalPaths: async () => {
     const posts = await prisma.post.findMany({
       where: { status: "PUBLISHED" },
-      select: { slug: true, updatedAt: true, date: true },
+      select: { slug: true, updatedAt: true, publishedAt: true },
     });
     return posts.map((post) => ({
       loc: `/blog/${post.slug}`,
@@ -47,7 +49,9 @@ module.exports = {
       priority: 0.6,
       lastmod: post.updatedAt
         ? new Date(post.updatedAt).toISOString()
-        : new Date(post.date).toISOString(),
+        : post.publishedAt
+          ? new Date(post.publishedAt).toISOString()
+          : new Date().toISOString(),
     }));
   },
 };

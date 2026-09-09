@@ -1,6 +1,3 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../lib/auth";
-import { prisma } from "../../lib/db";
 import Link from "next/link";
 
 export default function AdminIndex({ posts, session }) {
@@ -87,6 +84,9 @@ export default function AdminIndex({ posts, session }) {
 }
 
 export async function getServerSideProps(context) {
+  const { getServerSession } = await import("next-auth");
+  const { authOptions } = await import("../../lib/auth");
+  const { prisma } = await import("../../lib/db");
   const session = await getServerSession(context.req, context.res, authOptions);
 
   if (!session) {
@@ -95,11 +95,18 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const posts = await prisma.post.findMany({
+  const rows = await prisma.post.findMany({
     where: { authorId: session.user.id },
     include: { tags: true },
     orderBy: { updatedAt: "desc" },
   });
+
+  const posts = rows.map((p) => ({
+    ...p,
+    createdAt: p.createdAt ? p.createdAt.toISOString() : null,
+    updatedAt: p.updatedAt ? p.updatedAt.toISOString() : null,
+    publishedAt: p.publishedAt ? p.publishedAt.toISOString() : null,
+  }));
 
   return {
     props: {

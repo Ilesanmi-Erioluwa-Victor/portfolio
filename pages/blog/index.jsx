@@ -2,23 +2,9 @@ import Head from "next/head";
 import Link from "next/link";
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
-import { prisma } from "../../lib/db";
 import { SIGNATURE_SVG } from "../../data/signature";
 
-export default async function BlogListing() {
-  const posts = await prisma.post.findMany({
-    where: { status: "PUBLISHED" },
-    orderBy: { publishedAt: "desc" },
-    select: {
-      slug: true,
-      title: true,
-      date: true,
-      excerpt: true,
-      readTime: true,
-      tags: true,
-    },
-  });
-
+export default function BlogListing({ posts }) {
   return (
     <>
       <Head>
@@ -44,9 +30,9 @@ export default async function BlogListing() {
           <div className="blog-list">
             {posts.map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-list-item">
-                <span className="blog-card-date">{post.date}</span>
+                <span className="blog-card-date">{post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : ""}</span>
                 <span className="blog-item-title">{post.title}</span>
-                <span className="blog-card-time">{post.readTime}</span>
+                <span className="blog-card-time">{post.views.toLocaleString()} views</span>
               </Link>
             ))}
           </div>
@@ -59,26 +45,29 @@ export default async function BlogListing() {
 }
 
 export async function getStaticProps() {
-  const posts = await prisma.post.findMany({
+  const { prisma } = await import("../../lib/db");
+  const rows = await prisma.post.findMany({
     where: { status: "PUBLISHED" },
     orderBy: { publishedAt: "desc" },
     select: {
       slug: true,
       title: true,
-      date: true,
       excerpt: true,
-      readTime: true,
-      tags: true,
+      views: true,
+      publishedAt: true,
+      updatedAt: true,
+      tags: { select: { slug: true, name: true } },
     },
   });
+
+  const posts = rows.map((p) => ({
+    ...p,
+    publishedAt: p.publishedAt ? p.publishedAt.toISOString() : null,
+    updatedAt: p.updatedAt ? p.updatedAt.toISOString() : null,
+  }));
 
   return {
     props: { posts },
     revalidate: 60,
   };
-}
-
-export default function BlogListing() {
-  // This is just for TypeScript - actual component is the async one above
-  return null;
 }

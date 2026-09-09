@@ -1,16 +1,14 @@
-"use client";
-
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
-import { lowlight } from "lowlight";
+import { common, createLowlight } from "lowlight";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
-const BOT_REGEX = /bot|crawler|spider|googlebot|bingbot|ahrefsbot|yandexbot|duckduckbot/i;
+const lowlight = createLowlight(common);
 
 export default function TiptapEditor({
   initialTitle,
@@ -47,20 +45,16 @@ export default function TiptapEditor({
     ],
     content: initialContent,
     editable: true,
-    onUpdate: ({ editor }) => {
-      if (editor.isChanged) {
-        // Content changed, could trigger autosave
-      }
-    },
   });
 
-  const { register, handleSubmit, setValue, watch } = useForm({
+  const { register, handleSubmit: rhfHandleSubmit, setValue, watch } = useForm({
     defaultValues: {
       title: initialTitle || "",
       slug: initialSlug || "",
       excerpt: initialExcerpt || "",
       status: initialStatus || "DRAFT",
       coverImage: initialCoverImage || "",
+      tags: "",
     },
   });
 
@@ -68,7 +62,6 @@ export default function TiptapEditor({
   const slug = watch("slug");
   const status = watch("status");
 
-  // Auto-generate slug from title
   useEffect(() => {
     if (!slug && title) {
       const generated = title
@@ -79,7 +72,6 @@ export default function TiptapEditor({
     }
   }, [title, slug, setValue]);
 
-  // Handle cover image upload
   const handleCoverChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -98,25 +90,33 @@ export default function TiptapEditor({
     setCoverPreview(URL.createObjectURL(file));
 
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const res = await fetch("/api/admin/upload", {
+      const presignRes = await fetch("/api/admin/upload", {
         method: "POST",
-        body: new FormData().append("file", file),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          kind: "cover",
+          filename: file.name,
+          contentType: file.type,
+          postSlug: slug || "untitled",
+        }),
       });
-
-      const data = await res.json();
-      if (data.publicUrl) {
-        setValue("coverImage", data.publicUrl);
-      }
+      const { uploadUrl, publicUrl } = await presignRes.json();
+      if (!uploadUrl) throw new Error("Failed to get upload URL");
+      await fetch(uploadUrl, {
+        method: "PUT",
+        headers: { "Content-Type": file.type },
+        body: file,
+      });
+      setValue("coverImage", publicUrl);
+      setCoverPreview(publicUrl);
     } catch (err) {
       console.error("Cover upload failed:", err);
       setError("Failed to upload cover image");
     }
   };
 
-  const handleSubmit = async (data) => {
+  const onSaveHandler = async (data) => {
+    if (!editor) return;
     setSaving(true);
     setError(null);
 
@@ -152,7 +152,7 @@ export default function TiptapEditor({
 
       const post = await res.json();
       if (onSave) onSave(post);
-      router.push(postId ? `/admin/posts/${post.id}` : `/admin/posts/${post.id}`);
+      router.push(`/admin/posts/${post.id}`);
     } catch (err) {
       setError(err.message || "Failed to save");
     } finally {
@@ -188,15 +188,13 @@ export default function TiptapEditor({
 
   return (
     <div className="editor-page">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={rhfHandleSubmit(onSaveHandler)}>
         <header className="editor-header">
           <div className="editor-meta">
             <input
               {...register("title")}
               placeholder="Post title"
               className="title-input"
-              value={title}
-              onChange={(e) => setValue("title", e.target.value)}
             />
             <input
               {...register("slug")}
@@ -214,15 +212,15 @@ export default function TiptapEditor({
             <button type="button" onClick={() => editor.chain().focus().toggleBold().run()} title="Bold"><strong>B</strong></button>
             <button type="button" onClick={() => editor.chain().focus().toggleItalic().run()} title="Italic"><em>I</em></button>
             <button type="button" onClick={() => editor.chain().focus().toggleStrike().run()} title="Strikethrough"><s>S</s></button>
-            <button type="button" onClick={() => editor.chain().focus().toggleCode().run()} title="Inline code"><code></></code></button>
+            <button type="button" onClick={() => editor.chain().focus().toggleCode().run()} title="Inline code"><code>{`< >`}</code></button>
             <div className="divider" />
             <button type="button" onClick={() => editor.chain().focus().toggleBulletList().run()} title="Bullet list">• List</button>
             <button type="button" onClick={() => editor.chain().focus().toggleOrderedList().run()} title="Numbered list">1. List</button>
-            <button type="button" onClick={() => editor.chain().focus().toggleCodeBlock().run()} title="Code block">{'<{ }>'}</button>
+            <button type="button" onClick={() => editor.chain().focus().toggleCodeBlock().run()} title="Code block">{`<{ }>`}</button>
             <button type="button" onClick={() => editor.chain().focus().toggleBlockquote().run()} title="Blockquote">❝</button>
             <div className="divider" />
-            <button type="button" onClick={() => editor.chain().focus().setLink({ href: prompt("URL:") }).run()} title="Add link">🔗</button>
-            <button type="button" onClick={() => editor.chain().focus().setImage({ src: prompt("Image URL:") }).run()} title="Add image">🖼</button>
+            <button type="button" onClick={() => { const href = prompt("URL:"); if (href) editor.chain().focus().setLink({ href }).run(); }} title="Add link">🔗</button>
+            <button type="button" onClick={() => { const src = prompt("Image URL:"); if (src) editor.chain().focus().setImage({ src }).run(); }} title="Add image">🖼</button>
           </div>
         </header>
 
@@ -278,5 +276,6 @@ export default function TiptapEditor({
           </aside>
         </div>
       </form>
+    </div>
   );
 }

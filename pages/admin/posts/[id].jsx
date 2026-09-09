@@ -8,7 +8,6 @@ import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { common, createLowlight } from "lowlight";
 import imageCompression from "browser-image-compression";
 import { renderContentToHtml } from "../../../lib/actions";
-import { presignUpload, getPublicUrl, generateInlineKey, getExtFromFilename } from "../../../lib/s3";
 
 const lowlight = createLowlight(common);
 
@@ -33,24 +32,37 @@ export default function AdminPostEdit({ post, tags, session }) {
   const [saveStatus, setSaveStatus] = useState("saved");
   const [saveError, setSaveError] = useState(null);
   const [isPublishing, setIsPublishing] = useState(false);
+  const [coverUploading, setCoverUploading] = useState(false);
+  const [coverError, setCoverError] = useState(null);
 
   const editorRef = useRef(null);
   const saveTimeoutRef = useRef(null);
 
   const compressAndUpload = async (file, kind, postSlug) => {
     const compressedFile = await imageCompression(file, COMPRESSION_OPTIONS);
-    const ext = "webp";
-    const key = kind === "cover"
-      ? (postSlug ? `blog/coverImages/${postSlug}.${ext}` : `blog/coverImages/${Date.now()}.${ext}`)
-      : `blog/postImages/${Math.random().toString(36).substring(2, 15)}.${ext}`;
 
     const uploadRes = await fetch("/api/admin/upload", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ kind, filename: `${key}.${ext}`, contentType: "image/webp", postSlug }),
+      body: JSON.stringify({ kind, filename: "cover.webp", contentType: "image/webp", postSlug }),
     });
-    const { uploadUrl, publicUrl } = await uploadRes.json();
-    await fetch(uploadUrl, { method: "PUT", headers: { "Content-Type": "image/webp" }, body: compressedFile });
+    const presign = await uploadRes.json().catch(() => ({}));
+    if (!uploadRes.ok) {
+      throw new Error(presign.error || `Upload request failed (${uploadRes.status})`);
+    }
+    const { uploadUrl, publicUrl } = presign;
+    if (!uploadUrl || !publicUrl) {
+      throw new Error("Upload request returned no URL. Check S3 env vars.");
+    }
+    let putRes;
+    try {
+      putRes = await fetch(uploadUrl, { method: "PUT", headers: { "Content-Type": "image/webp" }, body: compressedFile });
+    } catch {
+      throw new Error("Could not reach S3. Check bucket CORS for localhost:3000 and your network.");
+    }
+    if (!putRes.ok) {
+      throw new Error(`S3 upload failed (${putRes.status}). Check bucket policy/CORS and key permissions.`);
+    }
     return publicUrl;
   };
 
@@ -119,8 +131,20 @@ export default function AdminPostEdit({ post, tags, session }) {
   };
 
   const handleCoverUpload = async (file) => {
-    const publicUrl = await compressAndUpload(file, "cover", slug);
-    setCoverImage(publicUrl);
+    if (!slug?.trim()) {
+      setCoverError("Save a slug first before uploading a cover image.");
+      return;
+    }
+    setCoverUploading(true);
+    setCoverError(null);
+    try {
+      const publicUrl = await compressAndUpload(file, "cover", slug.trim());
+      setCoverImage(publicUrl);
+    } catch (err) {
+      setCoverError(err.message || "Cover upload failed");
+    } finally {
+      setCoverUploading(false);
+    }
   };
 
   useEffect(() => {
@@ -217,7 +241,9 @@ export default function AdminPostEdit({ post, tags, session }) {
         <section className="sidebar-section">
           <h3 className="sidebar-section-title">Cover Image</h3>
           <div className="cover-upload">
-            <input type="file" accept="image/*" className="form-input" onChange={(e) => e.target.files[0] && handleCoverUpload(e.target.files[0])} />
+            <input type="file" accept="image/*" className="form-input" disabled={coverUploading} onChange={(e) => e.target.files[0] && handleCoverUpload(e.target.files[0])} />
+            {coverUploading && <p className="form-hint">Uploading…</p>}
+            {coverError && <p role="alert" style={{ color: "#ef4444", fontSize: "13px" }}>{coverError}</p>}
             {coverImage && <img src={coverImage} alt="Cover preview" className="cover-preview" />}
           </div>
         </section>
@@ -268,16 +294,35 @@ export async function getServerSideProps(context) {
   const { id } = context.params;
   const isNew = id === "new";
 
-  let post = null;
+  let authorId = session.user?.id;
+  if (!authorId && session.user?.email) {
+    const { prisma: prismaUser } = await import("../../../lib/db");
+    const me = await prismaUser.user.findUnique({
+      where: { email: session.user.email },
+      select: { id: true },
+    });
+    authorId = me?.id;
+  }
+
+  let row = null;
   if (!isNew) {
-    post = await prisma.post.findUnique({
+    row = await prisma.post.findUnique({
       where: { id },
       include: { tags: true },
     });
-    if (!post || post.authorId !== session.user.id) {
+    if (!row || (authorId && row.authorId !== authorId)) {
       return { notFound: true };
     }
   }
+
+  const post = row
+    ? {
+        ...row,
+        createdAt: row.createdAt ? row.createdAt.toISOString() : null,
+        updatedAt: row.updatedAt ? row.updatedAt.toISOString() : null,
+        publishedAt: row.publishedAt ? row.publishedAt.toISOString() : null,
+      }
+    : null;
 
   const allTags = await prisma.tag.findMany({ orderBy: { name: "asc" } });
 

@@ -5,6 +5,7 @@ const nextConfig = {
     serverComponentsExternalPackages: ["@prisma/adapter-pg", "@prisma/client", "pg", "pg-connection-string"],
   },
   webpack: (config, { isServer }) => {
+    if (!isServer) return config;
     // Always externalize pg-related packages for both server and client
     config.externals = config.externals || [];
     const pgExternals = {
