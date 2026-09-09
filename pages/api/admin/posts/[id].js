@@ -31,6 +31,13 @@ export default async function handler(req, res) {
   if (req.method === "PATCH") {
     const { title, slug, excerpt, contentJson, contentHtml, coverImage, status, tags, publishedAt } = req.body;
 
+    if (coverImage !== undefined && coverImage !== "" && coverImage !== null) {
+      const { isApprovedImageUrl } = await import("../../../../lib/upload-validation");
+      if (!isApprovedImageUrl(coverImage, process.env.AWS_CLOUDFRONT_DOMAIN)) {
+        return res.status(400).json({ error: "Cover image must be hosted on the approved CDN." });
+      }
+    }
+
     const wasPublished = post.status === "PUBLISHED";
     const willBePublished = status === "PUBLISHED";
     const isPublishingNow = !wasPublished && willBePublished;

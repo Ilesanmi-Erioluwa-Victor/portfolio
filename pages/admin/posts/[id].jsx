@@ -126,24 +126,29 @@ export default function AdminPostEdit({ post, tags, session }) {
     const uploadRes = await fetch("/api/admin/upload", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ kind, filename: "cover.webp", contentType: "image/webp", postSlug }),
+      body: JSON.stringify({ kind, filename: "upload.webp", contentType: "image/webp", postSlug }),
     });
     const presign = await uploadRes.json().catch(() => ({}));
     if (!uploadRes.ok) {
       throw new Error(presign.error || `Upload request failed (${uploadRes.status})`);
     }
-    const { uploadUrl, publicUrl } = presign;
-    if (!uploadUrl || !publicUrl) {
+    const { url, fields, publicUrl } = presign;
+    if (!url || !fields || !publicUrl) {
       throw new Error("Upload request returned no URL. Check S3 env vars.");
     }
-    let putRes;
+    const form = new FormData();
+    for (const [name, value] of Object.entries(fields)) {
+      form.append(name, value);
+    }
+    form.append("file", compressedFile);
+    let postRes;
     try {
-      putRes = await fetch(uploadUrl, { method: "PUT", headers: { "Content-Type": "image/webp" }, body: compressedFile });
+      postRes = await fetch(url, { method: "POST", body: form });
     } catch {
       throw new Error("Could not reach S3. Check bucket CORS for localhost:3000 and your network.");
     }
-    if (!putRes.ok) {
-      throw new Error(`S3 upload failed (${putRes.status}). Check bucket policy/CORS and key permissions.`);
+    if (!postRes.ok) {
+      throw new Error(`S3 upload failed (${postRes.status}). Check bucket policy/CORS and key permissions.`);
     }
     return publicUrl;
   };

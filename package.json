@@ -19,6 +19,7 @@
     "db:studio": "prisma studio",
     "db:sanitize": "node scripts/sanitize-posts.js",
     "test:xss": "node scripts/test-xss-payloads.js",
+    "test:upload": "node scripts/test-upload-validation.js",
     "postinstall": "prisma generate || true"
   },
   "prisma": {
@@ -27,6 +28,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1127.0",
     "@aws-sdk/client-ses": "^3.1127.0",
+    "@aws-sdk/s3-presigned-post": "^3.1128.0",
     "@aws-sdk/s3-request-presigner": "^3.1127.0",
     "@heroicons/react": "^2.2.0",
     "@next-auth/prisma-adapter": "^1.0.7",
