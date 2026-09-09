@@ -352,9 +352,9 @@ export default function AdminPostEdit({ post, tags, session }) {
         {imageActive && (
           <div className="editor-contextbar" style={{ display: "flex", flexWrap: "wrap", gap: "8px", alignItems: "center", padding: "10px 12px", background: "var(--overlay)", border: "1px solid var(--border)", borderRadius: "10px", marginBottom: "12px", fontSize: "13px" }}>
             <strong>Image:</strong>
-            <button type="button" className={`toolbar-btn${imageAttrs.align === "left" ? " active" : ""}`} onClick={() => editor.chain().focus().updateAttributes("image", { align: "left" }).run()} title="Align left">◧</button>
-            <button type="button" className={`toolbar-btn${(!imageAttrs.align || imageAttrs.align === "center") ? " active" : ""}`} onClick={() => editor.chain().focus().updateAttributes("image", { align: "center" }).run()} title="Center">⬒</button>
-            <button type="button" className={`toolbar-btn${imageAttrs.align === "right" ? " active" : ""}`} onClick={() => editor.chain().focus().updateAttributes("image", { align: "right" }).run()} title="Align right">◨</button>
+            <button type="button" className={`toolbar-btn${imageAttrs.align === "left" ? " active" : ""}`} onMouseDown={(e) => e.preventDefault()} onClick={() => editor.chain().updateAttributes("image", { align: "left" }).run()} title="Align left">◧</button>
+            <button type="button" className={`toolbar-btn${(!imageAttrs.align || imageAttrs.align === "center") ? " active" : ""}`} onMouseDown={(e) => e.preventDefault()} onClick={() => editor.chain().updateAttributes("image", { align: "center" }).run()} title="Center">⬒</button>
+            <button type="button" className={`toolbar-btn${imageAttrs.align === "right" ? " active" : ""}`} onMouseDown={(e) => e.preventDefault()} onClick={() => editor.chain().updateAttributes("image", { align: "right" }).run()} title="Align right">◨</button>
             <label style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
               Size
               <input
@@ -363,15 +363,15 @@ export default function AdminPostEdit({ post, tags, session }) {
                 max={1000}
                 step={10}
                 value={Math.min(1000, Math.max(120, imageWidth))}
-                onChange={(e) => editor.chain().focus().updateAttributes("image", { width: String(e.target.value) }).run()}
+                onChange={(e) => editor.chain().updateAttributes("image", { width: String(e.target.value) }).run()}
                 style={{ width: "140px" }}
               />
               <span style={{ minWidth: "52px", color: "var(--muted)" }}>{Math.min(1000, Math.max(120, imageWidth))}px</span>
             </label>
-            <button type="button" className="toolbar-btn" onClick={() => editor.chain().focus().updateAttributes("image", { width: "320" }).run()} title="Small">S</button>
-            <button type="button" className="toolbar-btn" onClick={() => editor.chain().focus().updateAttributes("image", { width: "640" }).run()} title="Medium">M</button>
-            <button type="button" className="toolbar-btn" onClick={() => editor.chain().focus().updateAttributes("image", { width: "100%" }).run()} title="Full width">Full</button>
-            <button type="button" className="toolbar-btn" onClick={() => editor.chain().focus().deleteSelection().run()} title="Remove image">✕ Remove</button>
+            <button type="button" className="toolbar-btn" onMouseDown={(e) => e.preventDefault()} onClick={() => editor.chain().updateAttributes("image", { width: "320" }).run()} title="Small">S</button>
+            <button type="button" className="toolbar-btn" onMouseDown={(e) => e.preventDefault()} onClick={() => editor.chain().updateAttributes("image", { width: "640" }).run()} title="Medium">M</button>
+            <button type="button" className="toolbar-btn" onMouseDown={(e) => e.preventDefault()} onClick={() => editor.chain().updateAttributes("image", { width: "100%" }).run()} title="Full width">Full</button>
+            <button type="button" className="toolbar-btn" onMouseDown={(e) => e.preventDefault()} onClick={() => editor.chain().deleteSelection().run()} title="Remove image">✕ Remove</button>
           </div>
         )}
         {inlineError && <p role="alert" style={{ color: "#ef4444", fontSize: "13px", margin: "0 0 8px" }}>{inlineError}</p>}
