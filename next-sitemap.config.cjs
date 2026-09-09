@@ -40,7 +40,7 @@ module.exports = {
 
   additionalPaths: async () => {
     const posts = await prisma.post.findMany({
-      where: { status: "PUBLISHED" },
+      where: { status: "PUBLISHED", publishedAt: { lte: new Date() } },
       select: { slug: true, updatedAt: true, publishedAt: true },
     });
     return posts.map((post) => ({

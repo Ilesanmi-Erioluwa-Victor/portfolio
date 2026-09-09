@@ -81,8 +81,9 @@ export default function BlogPost({ post }) {
 
 export async function getStaticPaths() {
   const { prisma } = await import("../../lib/db");
+  const now = new Date();
   const posts = await prisma.post.findMany({
-    where: { status: "PUBLISHED" },
+    where: { status: "PUBLISHED", publishedAt: { lte: now } },
     select: { slug: true },
   });
   return {
@@ -98,6 +99,7 @@ export async function getStaticProps({ params }) {
     include: { tags: { select: { slug: true, name: true } } },
   });
   if (!row || row.status !== "PUBLISHED") return { notFound: true };
+  if (row.publishedAt && new Date(row.publishedAt) > new Date()) return { notFound: true };
 
   const post = {
     slug: row.slug,

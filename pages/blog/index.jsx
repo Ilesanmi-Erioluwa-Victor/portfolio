@@ -46,8 +46,9 @@ export default function BlogListing({ posts }) {
 
 export async function getStaticProps() {
   const { prisma } = await import("../../lib/db");
+  const now = new Date();
   const rows = await prisma.post.findMany({
-    where: { status: "PUBLISHED" },
+    where: { status: "PUBLISHED", publishedAt: { lte: now } },
     orderBy: { publishedAt: "desc" },
     select: {
       slug: true,

@@ -38,6 +38,14 @@ const COMPRESSION_OPTIONS = {
   fileType: "image/webp",
 };
 
+function toLocalInput(value) {
+  if (!value) return "";
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return "";
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
 export default function AdminPostEdit({ post, tags, session }) {
   const router = useRouter();
   const { id } = router.query;
@@ -49,6 +57,13 @@ export default function AdminPostEdit({ post, tags, session }) {
   const [coverImage, setCoverImage] = useState(post?.coverImage || "");
   const [status, setStatus] = useState(post?.status || "DRAFT");
   const [selectedTags, setSelectedTags] = useState(post?.tags?.map((t) => t.id) || []);
+  const [allTags, setAllTags] = useState(tags || []);
+  const [newTagName, setNewTagName] = useState("");
+  const [creatingTag, setCreatingTag] = useState(false);
+  const [tagError, setTagError] = useState(null);
+  const [publishAt, setPublishAt] = useState(
+    post?.publishedAt ? toLocalInput(post.publishedAt) : ""
+  );
   const [saveStatus, setSaveStatus] = useState("saved");
   const [saveError, setSaveError] = useState(null);
   const [isPublishing, setIsPublishing] = useState(false);
@@ -177,6 +192,30 @@ export default function AdminPostEdit({ post, tags, session }) {
     }
   };
 
+  const handleCreateTag = async (e) => {
+    e?.preventDefault?.();
+    const name = newTagName.trim();
+    if (!name) return;
+    setCreatingTag(true);
+    setTagError(null);
+    try {
+      const res = await fetch("/api/admin/tags", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Failed to create tag");
+      setAllTags((prev) => (prev.some((t) => t.id === data.id) ? prev : [...prev, data].sort((a, b) => a.name.localeCompare(b.name))));
+      setSelectedTags((prev) => (prev.includes(data.id) ? prev : [...prev, data.id]));
+      setNewTagName("");
+    } catch (err) {
+      setTagError(err.message || "Failed to create tag");
+    } finally {
+      setCreatingTag(false);
+    }
+  };
+
   const handleSave = async (newStatus) => {
     if (!editor) return;
     setIsPublishing(true);
@@ -185,10 +224,12 @@ export default function AdminPostEdit({ post, tags, session }) {
       const finalCoverImage = await uploadCoverIfNeeded();
       const contentJson = editor.getJSON();
       const contentHtml = await renderContentToHtml(contentJson);
+      const scheduled = publishAt ? new Date(publishAt) : null;
+      const validSchedule = scheduled && !Number.isNaN(scheduled.getTime()) ? scheduled.toISOString() : null;
       const res = await fetch(`/api/admin/posts/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ contentJson, contentHtml, title, slug, excerpt, coverImage: finalCoverImage, status: newStatus, tags: selectedTags }),
+        body: JSON.stringify({ contentJson, contentHtml, title, slug, excerpt, coverImage: finalCoverImage, status: newStatus, tags: selectedTags, publishedAt: newStatus === "PUBLISHED" ? validSchedule : undefined }),
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
@@ -264,8 +305,13 @@ export default function AdminPostEdit({ post, tags, session }) {
       setCoverError(null);
       setStatus(post.status);
       setSelectedTags(post.tags?.map((t) => t.id) || []);
+      setPublishAt(post.publishedAt ? toLocalInput(post.publishedAt) : "");
     }
   }, [post]);
+
+  useEffect(() => {
+    setAllTags(tags || []);
+  }, [tags]);
 
   useEffect(() => () => {
     if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
@@ -448,12 +494,52 @@ export default function AdminPostEdit({ post, tags, session }) {
         <section className="sidebar-section">
           <h3 className="sidebar-section-title">Tags</h3>
           <div className="tag-select">
-            {tags.map((tag) => (
+            {allTags.map((tag) => (
               <label key={tag.id} className={`tag-option ${selectedTags.includes(tag.id) ? "selected" : ""}`}>
                 <input type="checkbox" value={tag.id} checked={selectedTags.includes(tag.id)} onChange={(e) => setSelectedTags(e.target.checked ? [...selectedTags, tag.id] : selectedTags.filter((id) => id !== tag.id))} />
                 {tag.name}
               </label>
             ))}
+          </div>
+          {!allTags.length && <p className="form-hint">No tags yet — create the first one below.</p>}
+          <form onSubmit={handleCreateTag} style={{ display: "flex", gap: "8px", marginTop: "12px" }}>
+            <input
+              type="text"
+              className="form-input"
+              value={newTagName}
+              onChange={(e) => setNewTagName(e.target.value)}
+              placeholder="New tag name…"
+              maxLength={40}
+              disabled={creatingTag}
+            />
+            <button type="submit" className="btn btn-secondary" style={{ height: "40px", flex: "0 0 auto" }} disabled={creatingTag || !newTagName.trim()}>
+              {creatingTag ? "…" : "Add"}
+            </button>
+          </form>
+          {tagError && <p role="alert" style={{ color: "#ef4444", fontSize: "13px" }}>{tagError}</p>}
+        </section>
+
+        <section className="sidebar-section">
+          <h3 className="sidebar-section-title">Schedule</h3>
+          <div className="form-group">
+            <label htmlFor="publishAt" className="form-label">Publish at</label>
+            <input
+              id="publishAt"
+              type="datetime-local"
+              className="form-input"
+              value={publishAt}
+              onChange={(e) => setPublishAt(e.target.value)}
+            />
+            <p className="form-hint">
+              {publishAt && new Date(publishAt) > new Date()
+                ? "Post stays hidden until this time, then appears automatically."
+                : "Empty = publish immediately."}
+            </p>
+            {publishAt && (
+              <button type="button" className="btn btn-ghost" style={{ height: "32px", marginTop: "8px" }} onClick={() => setPublishAt("")}>
+                Clear schedule
+              </button>
+            )}
           </div>
         </section>
 
