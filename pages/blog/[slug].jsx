@@ -64,7 +64,7 @@ export default function BlogPost({ post }) {
               <span className="blog-card-time" data-views>{post.views.toLocaleString()} views</span>
               <div className="blog-card-tags">
                 {post.tags.map((tag) => (
-                  <span key={tag.slug} className="blog-card-tag">{tag.name}</span>
+                  <Link key={tag.slug} href={`/blog/tag/${tag.slug}`} className="blog-card-tag">{tag.name}</Link>
                 ))}
               </div>
             </div>

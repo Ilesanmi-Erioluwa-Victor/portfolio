@@ -39,19 +39,30 @@ module.exports = {
   },
 
   additionalPaths: async () => {
-    const posts = await prisma.post.findMany({
-      where: { status: "PUBLISHED", publishedAt: { lte: new Date() } },
-      select: { slug: true, updatedAt: true, publishedAt: true },
-    });
-    return posts.map((post) => ({
-      loc: `/blog/${post.slug}`,
-      changefreq: "monthly",
-      priority: 0.6,
-      lastmod: post.updatedAt
-        ? new Date(post.updatedAt).toISOString()
-        : post.publishedAt
-          ? new Date(post.publishedAt).toISOString()
-          : new Date().toISOString(),
-    }));
+    const [posts, tags] = await Promise.all([
+      prisma.post.findMany({
+        where: { status: "PUBLISHED", publishedAt: { lte: new Date() } },
+        select: { slug: true, updatedAt: true, publishedAt: true },
+      }),
+      prisma.tag.findMany({ select: { slug: true } }),
+    ]);
+    return [
+      ...posts.map((post) => ({
+        loc: `/blog/${post.slug}`,
+        changefreq: "monthly",
+        priority: 0.6,
+        lastmod: post.updatedAt
+          ? new Date(post.updatedAt).toISOString()
+          : post.publishedAt
+            ? new Date(post.publishedAt).toISOString()
+            : new Date().toISOString(),
+      })),
+      ...tags.map((tag) => ({
+        loc: `/blog/tag/${tag.slug}`,
+        changefreq: "weekly",
+        priority: 0.5,
+        lastmod: new Date().toISOString(),
+      })),
+    ];
   },
 };

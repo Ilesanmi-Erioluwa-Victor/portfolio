@@ -61,6 +61,9 @@ export default function AdminPostEdit({ post, tags, session }) {
   const [newTagName, setNewTagName] = useState("");
   const [creatingTag, setCreatingTag] = useState(false);
   const [tagError, setTagError] = useState(null);
+  const [editingTagId, setEditingTagId] = useState(null);
+  const [editingName, setEditingName] = useState("");
+  const [busyTagId, setBusyTagId] = useState(null);
   const [publishAt, setPublishAt] = useState(
     post?.publishedAt ? toLocalInput(post.publishedAt) : ""
   );
@@ -213,6 +216,48 @@ export default function AdminPostEdit({ post, tags, session }) {
       setTagError(err.message || "Failed to create tag");
     } finally {
       setCreatingTag(false);
+    }
+  };
+
+  const handleRenameTag = async (tagId) => {
+    const name = editingName.trim();
+    if (!name) return;
+    setBusyTagId(tagId);
+    setTagError(null);
+    try {
+      const res = await fetch("/api/admin/tags", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: tagId, name }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Failed to rename tag");
+      setAllTags((prev) => prev.map((t) => (t.id === tagId ? data : t)).sort((a, b) => a.name.localeCompare(b.name)));
+      setEditingTagId(null);
+      setEditingName("");
+    } catch (err) {
+      setTagError(err.message || "Failed to rename tag");
+    } finally {
+      setBusyTagId(null);
+    }
+  };
+
+  const handleDeleteTag = async (tag) => {
+    if (!window.confirm(`Delete tag "${tag.name}"? Posts keep their content, just lose this tag.`)) return;
+    setBusyTagId(tag.id);
+    setTagError(null);
+    try {
+      const res = await fetch(`/api/admin/tags?id=${tag.id}`, { method: "DELETE" });
+      if (!res.ok && res.status !== 204) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to delete tag");
+      }
+      setAllTags((prev) => prev.filter((t) => t.id !== tag.id));
+      setSelectedTags((prev) => prev.filter((tagId) => tagId !== tag.id));
+    } catch (err) {
+      setTagError(err.message || "Failed to delete tag");
+    } finally {
+      setBusyTagId(null);
     }
   };
 
@@ -493,12 +538,37 @@ export default function AdminPostEdit({ post, tags, session }) {
 
         <section className="sidebar-section">
           <h3 className="sidebar-section-title">Tags</h3>
-          <div className="tag-select">
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             {allTags.map((tag) => (
-              <label key={tag.id} className={`tag-option ${selectedTags.includes(tag.id) ? "selected" : ""}`}>
-                <input type="checkbox" value={tag.id} checked={selectedTags.includes(tag.id)} onChange={(e) => setSelectedTags(e.target.checked ? [...selectedTags, tag.id] : selectedTags.filter((id) => id !== tag.id))} />
-                {tag.name}
-              </label>
+              <div key={tag.id} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <label className={`tag-option ${selectedTags.includes(tag.id) ? "selected" : ""}`} style={{ flex: 1 }}>
+                  <input type="checkbox" value={tag.id} checked={selectedTags.includes(tag.id)} onChange={(e) => setSelectedTags(e.target.checked ? [...selectedTags, tag.id] : selectedTags.filter((tagId) => tagId !== tag.id))} />
+                  {editingTagId === tag.id ? (
+                    <input
+                      type="text"
+                      value={editingName}
+                      autoFocus
+                      maxLength={40}
+                      onChange={(e) => setEditingName(e.target.value)}
+                      onClick={(e) => e.stopPropagation()}
+                      style={{ background: "transparent", border: 0, outline: "none", width: "110px", font: "inherit" }}
+                    />
+                  ) : (
+                    tag.name
+                  )}
+                </label>
+                {editingTagId === tag.id ? (
+                  <>
+                    <button type="button" className="btn btn-secondary" style={{ height: "28px", padding: "0 10px", fontSize: "12px" }} disabled={busyTagId === tag.id} onClick={() => handleRenameTag(tag.id)}>Save</button>
+                    <button type="button" className="btn btn-ghost" style={{ height: "28px", padding: "0 10px", fontSize: "12px" }} onClick={() => { setEditingTagId(null); setEditingName(""); }}>✕</button>
+                  </>
+                ) : (
+                  <>
+                    <button type="button" className="btn btn-ghost" style={{ height: "28px", padding: "0 10px", fontSize: "12px" }} title={`Rename ${tag.name}`} onClick={() => { setEditingTagId(tag.id); setEditingName(tag.name); }}>✎</button>
+                    <button type="button" className="btn btn-ghost" style={{ height: "28px", padding: "0 10px", fontSize: "12px", color: "#ef4444" }} title={`Delete ${tag.name}`} disabled={busyTagId === tag.id} onClick={() => handleDeleteTag(tag)}>🗑</button>
+                  </>
+                )}
+              </div>
             ))}
           </div>
           {!allTags.length && <p className="form-hint">No tags yet — create the first one below.</p>}
